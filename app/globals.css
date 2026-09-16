@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+:root {
+  --white: #ffffff;
+  --paper: #f4f4f4;
+  --ink: #111111;
+  --ink-muted: #6b6b6b;
+  --line: #e5e5e5;
+  --sold: #9a9a9a;
+}
+
+/* Dark mode = presné prevrátenie palety, stále čisto čierno-biele + odtiene
+   šedej z tokenov, žiadna chromatická farba nepribúda. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --white: #111111;
+    --paper: #1a1a1a;
+    --ink: #f4f4f4;
+    --ink-muted: #9a9a9a;
+    --line: #2a2a2a;
+    --sold: #7a7a7a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --white: #111111;
+  --paper: #1a1a1a;
+  --ink: #f4f4f4;
+  --ink-muted: #9a9a9a;
+  --line: #2a2a2a;
+  --sold: #7a7a7a;
+}
+
+@theme inline {
+  --color-white: var(--white);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-sold: var(--sold);
+
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --text-11: 11px;
+  --text-11--line-height: 1.4;
+  --text-13: 13px;
+  --text-13--line-height: 1.4;
+  --text-15: 15px;
+  --text-15--line-height: 1.5;
+  --text-18: 18px;
+  --text-18--line-height: 1.4;
+  --text-24: 24px;
+  --text-24--line-height: 1.25;
+  --text-32: 32px;
+  --text-32--line-height: 1.15;
+  --text-48: 48px;
+  --text-48--line-height: 1.05;
+
+  --spacing-section: 64px;
+  --spacing-section-lg: 96px;
+}
+
+/* Zámerné globálne poistky proti dizajnovým prvkom, ktoré špecifikácia
+   výslovne zakazuje (radius, tieň) — nech ich nezavedie ani závislosť,
+   ktorá by si ich priniesla vlastnú predvolenú hodnotu. */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* V Tailwind v4 majú nevrstvené (unlayered) pravidlá prednosť pred @layer
+   utilities bez ohľadu na špecifickosť — bez @layer base by tieto pravidlá
+   prebili napr. text-white na tlačidlách. */
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+
+  ::selection {
+    background: var(--ink);
+    color: var(--white);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  /* Focus musí byť viditeľný pre klávesovú navigáciu (galéria, lightbox, menu) */
+  :focus-visible {
+    outline: 1px solid var(--ink);
+    outline-offset: 2px;
+  }
+}
