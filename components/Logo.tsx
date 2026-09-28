@@ -9,7 +9,7 @@ export function Logo({ className = "" }: { className?: string }) {
   return (
     <span className={["relative inline-block", className].join(" ")}>
       <span className="block font-serif uppercase tracking-[0.22em] leading-none font-bold [-webkit-text-stroke:0.5px_currentColor]">
-        :unpolished
+        unpolished
       </span>
       {/* Škrabance — tenké biele rezy naprieč nápisom, na bielom pozadí Nav */}
       <span aria-hidden className="pointer-events-none absolute inset-0 block">
