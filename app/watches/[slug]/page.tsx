@@ -7,7 +7,6 @@ import { Gallery } from "@/components/Gallery";
 import { WatchCTA } from "@/components/WatchCTA";
 import { WatchSpecs } from "@/components/WatchSpecs";
 import { WatchStatusFlags } from "@/components/WatchStatusFlags";
-import { WatchAccordions } from "@/components/WatchAccordions";
 import { Prose } from "@/components/Prose";
 import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
@@ -143,11 +142,6 @@ export default async function WatchDetailPage({
           {/* 6. Popis */}
           <section>
             <Prose content={watch.content} />
-          </section>
-
-          {/* 7. Accordiony */}
-          <section>
-            <WatchAccordions locale={locale} />
           </section>
         </div>
       </div>
