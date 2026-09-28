@@ -7,16 +7,16 @@ const SCRATCHES = [
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={["relative inline-block", className].join(" ")}>
-      <span className="block font-serif uppercase tracking-[0.22em] leading-none font-bold [-webkit-text-stroke:0.5px_currentColor]">
+    <span className={["relative inline-block bg-ink px-2 py-1", className].join(" ")}>
+      <span className="block font-serif uppercase tracking-[-0.02em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]">
         unpolished
       </span>
-      {/* Škrabance — tenké biele rezy naprieč nápisom, na bielom pozadí Nav */}
+      {/* Škrabance — tenké rezy naprieč nápisom, farbou pozadia (aby vyzerali ako výrez) */}
       <span aria-hidden className="pointer-events-none absolute inset-0 block">
         {SCRATCHES.map((s, i) => (
           <span
             key={i}
-            className="absolute h-[1.5px] bg-white"
+            className="absolute h-[1.5px] bg-ink"
             style={{
               top: s.top,
               left: s.left,
