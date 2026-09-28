@@ -61,12 +61,12 @@ export function WatchStatusFlags({ watch, locale }: { watch: Watch; locale: Loca
       <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-4">
         {dict.watchDetail.statusFlagsTitle}
       </h2>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 sm:flex sm:gap-0 sm:divide-x sm:divide-line">
         {items.map(({ key, Icon, enabled, label }) => (
           <div
             key={key}
             className={[
-              "flex flex-col items-start gap-2 border border-line p-3",
+              "flex flex-col items-start gap-2 sm:flex-1 sm:px-4 sm:first:pl-0",
               enabled ? "text-ink" : "text-line",
             ].join(" ")}
             aria-label={`${label}: ${enabled ? "áno" : "nie"}`}
