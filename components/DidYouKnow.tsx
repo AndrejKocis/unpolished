@@ -11,7 +11,7 @@ async function InlineLogo({ src }: { src: string }) {
 
   return (
     <div
-      className="w-10 h-10 mb-3 text-ink [&>svg]:h-full [&>svg]:w-full"
+      className="w-24 h-16 mb-3 text-ink [&>svg]:h-full [&>svg]:w-full"
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   );
