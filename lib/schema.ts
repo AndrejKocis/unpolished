@@ -22,6 +22,13 @@ export const watchFrontmatterSchema = z.object({
   currency: z.string(),
   status: watchStatusSchema,
   images: z.array(z.string()).min(1),
+  // Voliteľné krátke slučkové video (napr. pre hover na karte v katalógu).
+  video: z.string().optional(),
+  // Rýchle stavové indikátory zobrazené v detaile ako zapnuté/vypnuté ikony.
+  serviced: z.boolean().default(false),
+  polished: z.boolean().default(false),
+  keepsTime: z.boolean().default(false),
+  missingParts: z.boolean().default(false),
 });
 
 export type WatchFrontmatter = z.infer<typeof watchFrontmatterSchema>;

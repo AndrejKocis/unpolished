@@ -6,6 +6,7 @@ import { imageAspect } from "@/lib/gallery";
 import { Gallery } from "@/components/Gallery";
 import { WatchCTA } from "@/components/WatchCTA";
 import { WatchSpecs } from "@/components/WatchSpecs";
+import { WatchStatusFlags } from "@/components/WatchStatusFlags";
 import { WatchAccordions } from "@/components/WatchAccordions";
 import { Prose } from "@/components/Prose";
 import { WatchGrid } from "@/components/WatchGrid";
@@ -126,6 +127,8 @@ export default async function WatchDetailPage({
           </div>
 
           <WatchCTA watch={watch} />
+
+          <WatchStatusFlags watch={watch} locale={locale} />
 
           <SectionDivider />
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getAvailableWatches, getBrands, getWatchBySlug } from "@/lib/watches";
+import { getAvailableWatches, getWatchBySlug } from "@/lib/watches";
 import { Button } from "@/components/ui/Button";
 import { SectionDivider } from "@/components/SectionDivider";
 import { WatchGrid } from "@/components/WatchGrid";
@@ -13,10 +13,9 @@ export default async function Home() {
   const dict = dictionaries[locale];
 
   const available = getAvailableWatches().slice(0, 6);
-  const brands = getBrands();
-  const heroWatch = getWatchBySlug("omega-seamaster-2846-black-dial-unpolished");
+  const heroWatch = getWatchBySlug("tudor-oyster-royal-7984-unpolished");
   const lugsMacro = heroWatch
-    ? `/watches/${heroWatch.reference}/04-lugs-macro.jpg`
+    ? `/watches/${heroWatch.reference}/${heroWatch.images[heroWatch.images.length - 1]}`
     : undefined;
 
   return (
@@ -31,22 +30,6 @@ export default async function Home() {
           <Button href="/watches" fullWidthOnMobile className="mt-2">
             {dict.home.heroCta}
           </Button>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* Trust strip */}
-      <section className="overflow-x-auto">
-        <div className="flex sm:justify-center divide-x divide-line min-w-max sm:min-w-0 px-4 sm:px-0">
-          {dict.home.trust.map((item) => (
-            <p
-              key={item}
-              className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted px-4 sm:px-8 py-4 whitespace-nowrap"
-            >
-              {item}
-            </p>
-          ))}
         </div>
       </section>
 
@@ -104,67 +87,6 @@ export default async function Home() {
               <p className="text-15 text-ink-muted">{step.body}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* Prehľad podľa */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-3 gap-10">
-          <div>
-            <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-4">
-              {dict.home.browseByDecade}
-            </h2>
-            <ul className="flex flex-col gap-2">
-              {dict.home.decades.map((d) => (
-                <li key={d.value}>
-                  <Link
-                    href={`/watches?decade=${d.value}`}
-                    className="text-15 underline underline-offset-[3px]"
-                  >
-                    {d.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-4">
-              {dict.home.browseByBrand}
-            </h2>
-            <ul className="flex flex-col gap-2">
-              {brands.map((b) => (
-                <li key={b}>
-                  <Link
-                    href={`/watches?brand=${encodeURIComponent(b)}`}
-                    className="text-15 underline underline-offset-[3px]"
-                  >
-                    {b}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-4">
-              {dict.home.browseByPrice}
-            </h2>
-            <ul className="flex flex-col gap-2">
-              {dict.home.priceLinks.map((p) => (
-                <li key={p.value}>
-                  <Link
-                    href={`/watches?price=${p.value}`}
-                    className="text-15 underline underline-offset-[3px]"
-                  >
-                    {p.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </section>
 

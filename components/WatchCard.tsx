@@ -4,6 +4,7 @@ import type { Watch } from "@/lib/schema";
 import { formatPrice, statusBadgeLabel } from "@/lib/format";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
+import { CardVideo } from "@/components/CardVideo";
 
 export function WatchCard({
   watch,
@@ -23,15 +24,22 @@ export function WatchCard({
       href={`/watches/${watch.slug}`}
       className="group block bg-white hover:border-ink border border-transparent transition-[border-color] duration-150"
     >
-      <div className="relative aspect-[4/5] bg-paper">
-        <Image
-          src={`/watches/${watch.reference}/${watch.images[0]}`}
-          alt={`${watch.brand} ${watch.model} ref. ${watch.reference}`}
-          fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-          className="object-cover"
-          priority={priority}
-        />
+      <div className="relative aspect-[4/5] bg-paper overflow-hidden">
+        {watch.video ? (
+          <CardVideo
+            src={`/watches/${watch.reference}/${watch.video}`}
+            ariaLabel={`${watch.brand} ${watch.model} ref. ${watch.reference}`}
+          />
+        ) : (
+          <Image
+            src={`/watches/${watch.reference}/${watch.images[0]}`}
+            alt={`${watch.brand} ${watch.model} ref. ${watch.reference}`}
+            fill
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+            className="object-cover"
+            priority={priority}
+          />
+        )}
       </div>
       <div className="p-4">
         <p className="font-serif text-15">

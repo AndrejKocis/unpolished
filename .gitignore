@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# inbox — surové nahrávky pred spracovaním (fotky/video), nekomituje sa
+/content/inbox/*
+!/content/inbox/README.md
+!/content/inbox/_template/
