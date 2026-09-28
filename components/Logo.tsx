@@ -7,7 +7,7 @@ export function Logo({ className = "" }: { className?: string }) {
         className="h-[1.4em] w-auto text-ink shrink-0 -mr-px"
         aria-hidden="true"
       >
-        <line x1="2" y1="1" x2="2" y2="19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M2 0 L2.8 2.5 L2.8 17.5 L2 20 L1.2 17.5 L1.2 2.5 Z" fill="currentColor" />
       </svg>
       <span className="bg-ink px-3 py-1 !rounded-r-md">
         <span className="block font-serif uppercase tracking-[-0.02em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]">
