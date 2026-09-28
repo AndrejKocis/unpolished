@@ -1,10 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 
 const FADE_MS = 150;
 
-export function CardVideo({ src, ariaLabel }: { src: string; ariaLabel: string }) {
+export function CardVideo({
+  src,
+  ariaLabel,
+  posterSrc,
+}: {
+  src: string;
+  ariaLabel: string;
+  posterSrc?: string;
+}) {
   const liveRef = useRef<HTMLVideoElement>(null);
   const resetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [hovering, setHovering] = useState(false);
@@ -32,20 +41,25 @@ export function CardVideo({ src, ariaLabel }: { src: string; ariaLabel: string }
 
   return (
     <div className="absolute inset-0" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-      {/* Statický základ — vždy na prvej snímke, slúži ako "fotka" mimo hoveru */}
-      <video
-        src={src}
-        muted
-        loop
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+      {/* Statický základ — mimo hoveru buď zvolená fotka, alebo prvá snímka videa */}
+      {posterSrc ? (
+        <Image src={posterSrc} alt={ariaLabel} fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw" className="object-cover" />
+      ) : (
+        <video
+          src={src}
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      )}
       {/* Živé video — prehráva sa na hover, mimo neho sa jemne odfaduje */}
       <video
         ref={liveRef}
         src={src}
+        poster={posterSrc}
         muted
         loop
         playsInline

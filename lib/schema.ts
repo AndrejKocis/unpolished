@@ -24,6 +24,9 @@ export const watchFrontmatterSchema = z.object({
   images: z.array(z.string()).min(1),
   // Voliteľné krátke slučkové video (napr. pre hover na karte v katalógu).
   video: z.string().optional(),
+  // Voliteľná statická fotka zobrazená na karte mimo hoveru (namiesto prvej
+  // snímky videa) — použi, keď žiadna snímka slučky nie je dosť dobrá fotka.
+  videoPoster: z.string().optional(),
   // Rýchle stavové indikátory zobrazené v detaile ako zapnuté/vypnuté ikony.
   serviced: z.boolean().default(false),
   polished: z.boolean().default(false),

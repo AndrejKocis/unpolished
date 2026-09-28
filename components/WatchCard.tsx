@@ -29,6 +29,7 @@ export function WatchCard({
           <CardVideo
             src={`/watches/${watch.reference}/${watch.video}`}
             ariaLabel={`${watch.brand} ${watch.model} ref. ${watch.reference}`}
+            posterSrc={watch.videoPoster ? `/watches/${watch.reference}/${watch.videoPoster}` : undefined}
           />
         ) : (
           <Image
