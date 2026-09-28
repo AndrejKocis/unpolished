@@ -3,19 +3,22 @@
 # HDR -> SDR (macOS avconvert), stredový 4:5 orez, kompresia, jemný
 # crossfade loop (koniec sa prelína so začiatkom, žiadny tvrdý strih).
 #
-# Použitie: scripts/process-video.sh <vstupne-video> <referencia> [fade-sekundy]
+# Použitie: scripts/process-video.sh <vstupne-video> <referencia> [fade-sekundy] [start-offset-sekundy]
+# start-offset odreže začiatok videa (napr. ak kamera najprv panuje cez zápästie
+# predtým, než sa dostane na ciferník) — slučka potom začína až odtiaľto.
 # Výstup:   public/watches/<referencia>/loop.mp4
 
 set -euo pipefail
 
 if [ $# -lt 2 ]; then
-  echo "Použitie: $0 <vstupne-video> <referencia> [fade-sekundy]" >&2
+  echo "Použitie: $0 <vstupne-video> <referencia> [fade-sekundy] [start-offset-sekundy]" >&2
   exit 1
 fi
 
 INPUT="$1"
 REF="$2"
 FADE="${3:-0.6}"
+START="${4:-0}"
 
 if [ ! -f "$INPUT" ]; then
   echo "Vstupný súbor neexistuje: $INPUT" >&2
@@ -44,7 +47,13 @@ avconvert -s "$INPUT" -o "$TMP_SDR" -p Preset1920x1080 --replace >/dev/null
 
 WIDTH=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=nokey=1:noprint_wrappers=1 "$TMP_SDR")
 HEIGHT=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of default=nokey=1:noprint_wrappers=1 "$TMP_SDR")
-DURATION=$(ffprobe -v error -show_entries format=duration -of default=nokey=1:noprint_wrappers=1 "$TMP_SDR")
+FULL_DURATION=$(ffprobe -v error -show_entries format=duration -of default=nokey=1:noprint_wrappers=1 "$TMP_SDR")
+DURATION=$(python3 -c "print(round($FULL_DURATION - $START, 3))")
+
+if (( $(python3 -c "print(1 if $DURATION <= 0 else 0)") )); then
+  echo "start-offset $START je dlhší než video (dĺžka ${FULL_DURATION}s)." >&2
+  exit 1
+fi
 
 # Stredový orez na pomer 4:5 (rovnaký pomer ako karty a galéria fotiek).
 CROP_H=$(python3 -c "print(int($WIDTH*5/4))")
@@ -66,7 +75,7 @@ if (( $(python3 -c "print(1 if $MAIN_DUR <= 0 else 0)") )); then
 fi
 
 echo "2/2 Orez, kompresia a crossfade loop…"
-ffmpeg -y -loglevel error -i "$TMP_SDR" -filter_complex "
+ffmpeg -y -loglevel error -ss "$START" -i "$TMP_SDR" -filter_complex "
 [0:v]$CROP,scale=640:800,format=yuv420p,split=3[s1][s2][s3];
 [s1]trim=0:$MAIN_DUR,setpts=PTS-STARTPTS[main];
 [s2]trim=$MAIN_DUR:$DURATION,setpts=PTS-STARTPTS[tail];
