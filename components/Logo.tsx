@@ -4,7 +4,7 @@ export function Logo({ className = "" }: { className?: string }) {
       {/* Stežejka (pružinová tyčka) — dekoratívny prvok naľavo od nápisu, s presahom nad a pod badge */}
       <svg
         viewBox="0 0 4 20"
-        className="h-[1.4em] w-auto text-ink shrink-0 -mr-0.5"
+        className="h-[1.4em] w-auto text-ink shrink-0 -mr-px"
         aria-hidden="true"
       >
         <line x1="2" y1="1" x2="2" y2="19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
