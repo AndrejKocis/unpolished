@@ -8,6 +8,10 @@ const SQUARE_SHOTS_BY_REFERENCE = new Set([
   "26-Rubis/01-dial",
   // Tudor 05-dial-angle.jpg je odfotená na šírku (1600×1265).
   "7984/05-dial-angle",
+  // TAG Heuer 01-dial.jpg (1600×1525) a 03-profile.jpg (1600×1581) sú
+  // takmer štvorcové.
+  "159.306-1/01-dial",
+  "159.306-1/03-profile",
 ]);
 
 export function imageAspect(filename: string, reference: string): "square" | "portrait" {
