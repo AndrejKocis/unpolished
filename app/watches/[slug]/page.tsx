@@ -68,7 +68,7 @@ export default async function WatchDetailPage({
       .replace(/\.[a-z0-9]+$/i, "")
       .replace(/^\d+-/, "")
       .replaceAll("-", " ")}`,
-    aspect: imageAspect(img),
+    aspect: imageAspect(img, watch.reference),
   }));
 
   const related = getRelatedWatches(watch);
