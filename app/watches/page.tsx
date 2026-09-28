@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
-import {
-  decadeOf,
-  getAllWatches,
-  getBrands,
-  getDecades,
-  matchesPriceBand,
-} from "@/lib/watches";
-import { WatchFilters } from "@/components/WatchFilters";
+import { decadeOf, getAllWatches, matchesPriceBand } from "@/lib/watches";
 import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
 import { getLocale } from "@/lib/i18n/server";
@@ -67,18 +60,7 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
       <SectionDivider />
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 py-6">
-        <WatchFilters
-          brands={getBrands()}
-          decades={getDecades()}
-          current={{
-            brand: sp.brand,
-            decade: sp.decade,
-            price: sp.price,
-            sort: sp.sort,
-            sold: showSold,
-          }}
-        />
-        <p className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mt-6">
+        <p className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted">
           {watches.length} {watches.length === 1 ? dict.watches.resultsOne : dict.watches.resultsMany}
         </p>
       </div>
