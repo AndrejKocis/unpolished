@@ -1,0 +1,27 @@
+# Skopíruj tento súbor do content/inbox/<nazov-priecinka>/info.yaml
+# a vyplň. Priečinok premenuj podľa hodinky, napr. tudor-submariner-94010.
+#
+# Cena sa vypĺňa AŽ NAKONIEC (pozri checklist.md) — Claude ju nevymýšľa
+# ani nepreberá z internetu, keďže ide o tvoje obchodné rozhodnutie.
+
+brand: ""
+model: ""
+reference: ""
+year:
+currency: EUR
+status: available # available | reserved | sold
+caseSize:
+caseMaterial: Ocel
+caliber: ""
+dial: ""
+set: Iba hodinky
+serialPrefix: "" # vždy iba čiastočné, nikdy celé číslo
+serviced: true
+polished: false
+keepsTime: true
+missingParts: false
+notes: |
+  Voľné poznámky pre Claude — chyby, história, čo zdôrazniť v popise.
+
+# Vyplní sa až na konci, po potvrdení checklistu:
+# price:
