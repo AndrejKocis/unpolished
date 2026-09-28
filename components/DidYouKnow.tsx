@@ -11,7 +11,7 @@ async function InlineLogo({ src }: { src: string }) {
 
   return (
     <div
-      className="w-10 h-10 shrink-0 mt-1 text-ink [&>svg]:h-full [&>svg]:w-full"
+      className="w-10 h-10 mb-3 text-ink [&>svg]:h-full [&>svg]:w-full"
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   );
@@ -19,12 +19,10 @@ async function InlineLogo({ src }: { src: string }) {
 
 export function DidYouKnow({ logo, children }: { logo?: string; children: ReactNode }) {
   return (
-    <div className="border-t border-line pt-6 mt-2 flex gap-4 items-start">
+    <div className="border-t border-line pt-6 mt-2">
       {logo && <InlineLogo src={logo} />}
-      <div>
-        <h3 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-2">Vedeli ste?</h3>
-        <p className="text-15 leading-relaxed">{children}</p>
-      </div>
+      <h3 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-2">Vedeli ste?</h3>
+      <p className="text-15 leading-relaxed">{children}</p>
     </div>
   );
 }
