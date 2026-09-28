@@ -6,6 +6,8 @@ const SQUARE_SHOTS_BY_REFERENCE = new Set([
   // GUB 01-dial.jpg je takmer na šírku (1600×1414) — v 4:5 portrétovom
   // rámiku by sa orezalo ~30 % šírky, v štvorcovom len ~12 %.
   "26-Rubis/01-dial",
+  // Tudor 05-dial-angle.jpg je odfotená na šírku (1600×1265).
+  "7984/05-dial-angle",
 ]);
 
 export function imageAspect(filename: string, reference: string): "square" | "portrait" {
