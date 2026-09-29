@@ -1,6 +1,6 @@
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={["relative inline-block h-[23px] sm:h-[26px]", className].join(" ")}>
+    <span className={["relative inline-block h-[30px] sm:h-[34px]", className].join(" ")}>
       {/* Celý tvar (ikona + odznak) vektorizovaný z jedného referenčného obrázka —
           dve samostatné podcesty v jednej <path>, spojené tenkou medzerou. */}
       <svg

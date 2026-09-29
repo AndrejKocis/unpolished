@@ -19,7 +19,7 @@ export function Nav({ locale }: { locale: Locale }) {
     <header className="sticky top-0 z-30 h-14 bg-white border-b border-line">
       <div className="mx-auto flex h-full max-w-[1280px] items-center justify-between px-4 sm:px-6">
         <Link href="/" aria-label={dict.nav.home}>
-          <Logo className="text-15 sm:text-18" />
+          <Logo className="text-13 sm:text-15" />
         </Link>
 
         <nav className="hidden sm:flex items-center gap-8">
