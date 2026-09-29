@@ -111,7 +111,8 @@
 }
 
 /* Logo v hlavičke — pri načítaní sa čierny rámik "odkryje" zľava doprava
-   a text sa mierne prisunie s krátkym oneskorením. */
+   a text sa mierne prisunie s krátkym oneskorením. Po 3 s sa rámik rozvlní
+   ako vlajka pripevnená k ikone (stožiaru) naľavo. */
 @keyframes logo-badge-reveal {
   from {
     clip-path: inset(0 100% 0 0);
@@ -132,12 +133,31 @@
   }
 }
 
+@keyframes logo-flag-wave {
+  0%,
+  100% {
+    transform: skewY(0deg) scaleY(1);
+  }
+  25% {
+    transform: skewY(2deg) scaleY(0.985);
+  }
+  50% {
+    transform: skewY(0deg) scaleY(1);
+  }
+  75% {
+    transform: skewY(-2deg) scaleY(0.985);
+  }
+}
+
 .logo-badge {
-  animation: logo-badge-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: left center;
+  animation:
+    logo-badge-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both,
+    logo-flag-wave 2.4s ease-in-out 3s infinite;
 }
 
 .logo-badge-text {
-  animation: logo-text-slide-in 0.4s ease-out 0.25s both;
+  animation: logo-text-slide-in 0.8s ease-out 0.6s both;
 }
 
 @media (prefers-reduced-motion: reduce) {
