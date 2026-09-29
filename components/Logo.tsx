@@ -1,10 +1,10 @@
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={["relative inline-flex items-stretch -space-x-px h-[23px] sm:h-[26px]", className].join(" ")}>
-      {/* Endlink — koncový článok remienka, presne na výšku čierneho rámčeka, priamo nalepený na badge */}
+    <span className={["relative inline-flex items-center -space-x-px", className].join(" ")}>
+      {/* Endlink — koncový článok remienka, o niečo väčší než badge, priamo nalepený naň */}
       <svg
         viewBox="0 0 69 124"
-        className="h-full w-auto text-ink shrink-0"
+        className="h-[34px] sm:h-[38px] w-auto text-ink shrink-0"
         fill="none"
         aria-hidden="true"
       >
