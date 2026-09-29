@@ -115,7 +115,7 @@
 @keyframes logo-slide-in-from-right {
   from {
     opacity: 0;
-    transform: translateX(28px);
+    transform: translateX(120px);
   }
   to {
     opacity: 1;
@@ -133,11 +133,11 @@
 }
 
 .logo-slide-in {
-  animation: logo-slide-in-from-right 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: logo-slide-in-from-right 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .logo-badge-text {
-  animation: logo-text-fade-in 0.3s ease-out 0.5s both;
+  animation: logo-text-fade-in 0.4s ease-out 1.4s both;
 }
 
 @media (prefers-reduced-motion: reduce) {
