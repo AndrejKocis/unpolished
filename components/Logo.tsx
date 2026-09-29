@@ -16,6 +16,8 @@ export function Logo({ className = "" }: { className?: string }) {
           unpolished
         </span>
       </span>
+      {/* Bodka za "D", vertikálne v strede */}
+      <span aria-hidden className="self-center w-[6px] h-[6px] bg-ink !rounded-full" />
     </span>
   );
 }
