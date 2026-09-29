@@ -110,32 +110,15 @@
   }
 }
 
-/* Logo v hlavičke — najprv je viditeľný iba polmesiac (prvá cesta SVG),
-   spojovacia tyčka (druhá cesta) a čierny badge sa k nemu "prichytia"
-   zľava ako klik — krátky nájazd s miernym odrazom (spring/overshoot),
-   nie plynulé odkrytie. Text sa potom mierne prisunie. Po 3 s sa pozadie
-   rozvlní ako látka: je rozrezané na tenké zvislé pásiky (.logo-strip),
-   každý sa nakláňa okolo VLASTNEJ ľavej hrany a s vlastným oneskorením —
-   vďaka fázovému posunu medzi susednými pásikmi vzniká dojem plynulej
-   vlny naprieč plochou, nie tuhá rovina otáčajúca sa ako dvere. Zaoblený
-   roh a tvar badge zabezpečuje vonkajší overflow-hidden kontajner. */
-@keyframes logo-click-in {
-  0% {
-    opacity: 0;
-    transform: translateX(14px);
+/* Logo v hlavičke — pri načítaní sa čierny rámik "odkryje" zľava doprava
+   a text sa mierne prisunie s krátkym oneskorením. Po 3 s sa rámik rozvlní
+   ako vlajka pripevnená k ikone (stožiaru) naľavo. */
+@keyframes logo-badge-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
   }
-  55% {
-    opacity: 1;
-    transform: translateX(-3px);
-  }
-  75% {
-    transform: translateX(1.5px);
-  }
-  90% {
-    transform: translateX(-0.5px);
-  }
-  100% {
-    transform: translateX(0);
+  to {
+    clip-path: inset(0 0 0 0);
   }
 }
 
@@ -150,30 +133,25 @@
   }
 }
 
-@keyframes logo-strip-wave {
+@keyframes logo-flag-wave {
   0%,
   100% {
-    transform: perspective(120px) rotateY(0deg);
+    transform: skewY(0deg) scaleY(1);
   }
   25% {
-    transform: perspective(120px) rotateY(16deg);
+    transform: skewY(2deg) scaleY(0.985);
   }
   50% {
-    transform: perspective(120px) rotateY(0deg);
+    transform: skewY(0deg) scaleY(1);
   }
   75% {
-    transform: perspective(120px) rotateY(-16deg);
+    transform: skewY(-2deg) scaleY(0.985);
   }
 }
 
-.logo-click-in {
-  animation: logo-click-in 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) 0.2s both;
-}
-
-.logo-strip {
+.logo-badge {
   transform-origin: left center;
-  animation: logo-strip-wave 1.6s ease-in-out infinite;
-  animation-fill-mode: both;
+  animation: logo-badge-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .logo-badge-text {
@@ -181,8 +159,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-click-in,
-  .logo-strip,
+  .logo-badge,
   .logo-badge-text {
     animation: none;
   }
