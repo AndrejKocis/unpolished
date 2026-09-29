@@ -111,9 +111,12 @@
 }
 
 /* Logo v hlavičke — pri načítaní sa čierny rámik "odkryje" zľava doprava
-   a text sa mierne prisunie s krátkym oneskorením. Po 3 s sa rámik jemne,
-   neperiodicky kolíše (inšpirované vlajkou, no bez deformácie okrajov —
-   len prirodzený, mierne nepravidelný náklon celého objektu). */
+   a text sa mierne prisunie s krátkym oneskorením. Po 3 s sa pozadie
+   rozvlní ako látka: je rozrezané na tenké zvislé pásiky (.logo-strip),
+   každý sa nakláňa okolo VLASTNEJ ľavej hrany a s vlastným oneskorením —
+   vďaka fázovému posunu medzi susednými pásikmi vzniká dojem plynulej
+   vlny naprieč plochou, nie tuhá rovina otáčajúca sa ako dvere. Zaoblený
+   roh a tvar badge zabezpečuje vonkajší overflow-hidden kontajner. */
 @keyframes logo-badge-reveal {
   from {
     clip-path: inset(0 100% 0 0);
@@ -134,36 +137,30 @@
   }
 }
 
-@keyframes logo-flag-wave {
+@keyframes logo-strip-wave {
   0%,
   100% {
-    transform: perspective(300px) rotateY(0deg) skewY(0deg);
+    transform: perspective(120px) rotateY(0deg);
   }
-  14% {
-    transform: perspective(300px) rotateY(-7deg) skewY(2.5deg);
+  25% {
+    transform: perspective(120px) rotateY(16deg);
   }
-  29% {
-    transform: perspective(300px) rotateY(3deg) skewY(-1.5deg);
+  50% {
+    transform: perspective(120px) rotateY(0deg);
   }
-  41% {
-    transform: perspective(300px) rotateY(-5deg) skewY(2deg);
-  }
-  58% {
-    transform: perspective(300px) rotateY(6deg) skewY(-3deg);
-  }
-  73% {
-    transform: perspective(300px) rotateY(-2deg) skewY(1deg);
-  }
-  86% {
-    transform: perspective(300px) rotateY(4deg) skewY(-2deg);
+  75% {
+    transform: perspective(120px) rotateY(-16deg);
   }
 }
 
 .logo-badge {
+  animation: logo-badge-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.logo-strip {
   transform-origin: left center;
-  animation:
-    logo-badge-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both,
-    logo-flag-wave 3.2s ease-in-out 3s infinite;
+  animation: logo-strip-wave 1.6s ease-in-out infinite;
+  animation-fill-mode: both;
 }
 
 .logo-badge-text {
@@ -172,6 +169,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .logo-badge,
+  .logo-strip,
   .logo-badge-text {
     animation: none;
   }
