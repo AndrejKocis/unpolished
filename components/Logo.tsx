@@ -3,22 +3,13 @@ export function Logo({ className = "" }: { className?: string }) {
     <span className={["relative inline-flex items-stretch -space-x-px h-[23px] sm:h-[26px]", className].join(" ")}>
       {/* Endlink — koncový článok remienka, presne na výšku čierneho rámčeka, priamo nalepený na badge */}
       <svg
-        viewBox="0 0 908 1576"
+        viewBox="0 0 69 124"
         className="h-full w-auto text-ink shrink-0"
+        fill="none"
         aria-hidden="true"
       >
-        <g transform="translate(0,1576) scale(0.1,-0.1)" fill="currentColor" stroke="none">
-          <path d="M820 14001 l0 -988 63 -38 c215 -132 481 -324 688 -495 165 -138 568
--542 702 -705 751 -914 1175 -1937 1289 -3115 17 -180 17 -820 0 -1000 -115
--1186 -559 -2245 -1320 -3150 -136 -162 -502 -527 -661 -659 -214 -178 -466
--360 -683 -495 l-78 -48 0 -989 0 -988 73 30 c366 154 896 450 1266 708 112
-77 157 103 195 111 28 5 850 158 1826 340 976 182 1796 335 1821 341 115 26
-192 164 155 277 l-7 22 -775 0 -774 0 0 65 0 65 -530 0 c-291 0 -530 3 -530 8
-0 4 46 61 101 127 328 391 626 841 892 1346 l67 127 0 3262 0 3263 -67 126
-c-254 483 -515 883 -820 1258 -46 57 -83 105 -83 108 0 3 579 5 1286 5 1161 0
-1289 2 1320 16 156 74 167 309 19 391 -29 16 -563 128 -1989 418 l-1950 396
--80 58 c-411 294 -1026 640 -1393 782 l-23 9 0 -989z" />
-        </g>
+        <path d="M0 0C4.83737 2.03928 9.38562 4.62896 13.5654 7.69238L48.5303 14.8037C50.8936 15.2844 50.5435 18.7637 48.1318 18.7637H25.3779C35.1278 30.3997 41 45.395 41 61.7637C41 78.6055 34.7831 93.993 24.5225 105.764H46.3604C48.7918 105.764 49.1175 109.284 46.7275 109.729L13.4248 115.938C9.28355 118.956 4.78331 121.512 0 123.528V105.646C14.9673 96.7583 25 80.4333 25 61.7637C25 43.0937 14.9676 26.7671 0 17.8799V0Z" fill="currentColor" />
+        <path d="M69 101.123H38C38 101.123 48 82.623 48 62.123C48 41.623 38 23.123 38 23.123H69V101.123Z" fill="currentColor" />
       </svg>
       <span className="bg-ink px-3 py-1 !rounded-r-md flex items-center">
         <span className="block font-serif uppercase tracking-[-0.02em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]">
