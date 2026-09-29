@@ -12,6 +12,10 @@ const SQUARE_SHOTS_BY_REFERENCE = new Set([
   // takmer štvorcové.
   "159.306-1/01-dial",
   "159.306-1/03-profile",
+  // Racing Regatta: 02-dial-angle.jpg (1600×1609) a 03-profile.jpg
+  // (1600×1469, na šírku) sú takmer/úplne štvorcové.
+  "racing-regatta/02-dial-angle",
+  "racing-regatta/03-profile",
 ]);
 
 export function imageAspect(filename: string, reference: string): "square" | "portrait" {
