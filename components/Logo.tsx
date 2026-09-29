@@ -27,7 +27,7 @@ export function Logo({ className = "" }: { className?: string }) {
               "repeating-linear-gradient(90deg, currentColor 0px, currentColor 1px, transparent 1px, transparent 3px)",
           }}
         />
-        <span className="relative block font-serif uppercase tracking-[0.1em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]">
+        <span className="relative bg-ink px-1 -mx-1 block font-serif uppercase tracking-[0.1em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]">
           unpolished
         </span>
       </span>
