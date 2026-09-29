@@ -9,7 +9,7 @@ export function Logo({ className = "" }: { className?: string }) {
         aria-hidden="true"
       >
         <defs>
-          <pattern id="logoStripes" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(65)">
+          <pattern id="logoStripes" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(-25)">
             <rect width="6" height="6" fill="var(--ink)" />
             <rect width="2" height="6" fill="var(--white)" opacity="0.9" />
           </pattern>
