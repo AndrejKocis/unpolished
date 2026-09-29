@@ -27,7 +27,7 @@ export function Logo({ className = "" }: { className?: string }) {
         </g>
       </svg>
       <span className="absolute inset-y-0 flex items-center" style={{ left: "12.1%", right: "1.5%" }}>
-        <span className="logo-badge-text block font-serif uppercase tracking-[-0.08em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]">
+        <span className="logo-badge-text block font-serif uppercase tracking-[0.08em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]">
           unpolished
         </span>
       </span>
