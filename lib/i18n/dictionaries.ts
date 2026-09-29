@@ -104,6 +104,10 @@ const sk = {
     filter: "Filtrovať",
     resultsOne: "KUS",
     resultsMany: "KUSOV",
+    gender: "Pre koho",
+    genderAll: "Všetky",
+    genderWomen: "Dámske",
+    genderMen: "Pánske",
     priceBands: [
       { value: "under-500", label: "Do 500 €" },
       { value: "500-1500", label: "500–1500 €" },
@@ -350,6 +354,10 @@ const en: Dictionary = {
     filter: "Filter",
     resultsOne: "PIECE",
     resultsMany: "PIECES",
+    gender: "For",
+    genderAll: "All",
+    genderWomen: "Women's",
+    genderMen: "Men's",
     priceBands: [
       { value: "under-500", label: "Under €500" },
       { value: "500-1500", label: "€500–1500" },

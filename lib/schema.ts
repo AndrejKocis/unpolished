@@ -3,11 +3,15 @@ import { z } from "zod";
 export const watchStatusSchema = z.enum(["available", "reserved", "sold"]);
 export type WatchStatus = z.infer<typeof watchStatusSchema>;
 
+export const watchGenderSchema = z.enum(["women", "men", "unisex"]);
+export type WatchGender = z.infer<typeof watchGenderSchema>;
+
 export const watchFrontmatterSchema = z.object({
   slug: z.string(),
   brand: z.string(),
   model: z.string(),
   reference: z.string(),
+  gender: watchGenderSchema,
   year: z.number().int(),
   serialPrefix: z.string(),
   caliber: z.string(),

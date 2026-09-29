@@ -7,6 +7,7 @@
 brand: ""
 model: ""
 reference: ""
+gender: "" # women | men | unisex
 year:
 currency: EUR
 status: available # available | reserved | sold
