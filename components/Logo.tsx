@@ -3,13 +3,13 @@ export function Logo({ className = "" }: { className?: string }) {
     <span className={["relative inline-flex items-center -space-x-px", className].join(" ")}>
       {/* Endlink — koncový článok remienka, o niečo väčší než badge, priamo nalepený naň */}
       <svg
-        viewBox="0 0 69 124"
+        viewBox="0 0 63 78"
         className="h-[37px] sm:h-[41px] w-auto text-ink shrink-0"
         fill="none"
         aria-hidden="true"
       >
-        <path d="M0 0C4.83737 2.03928 9.38562 4.62896 13.5654 7.69238L48.5303 14.8037C50.8936 15.2844 50.5435 18.7637 48.1318 18.7637H25.3779C35.1278 30.3997 41 45.395 41 61.7637C41 78.6055 34.7831 93.993 24.5225 105.764H46.3604C48.7918 105.764 49.1175 109.284 46.7275 109.729L13.4248 115.938C9.28355 118.956 4.78331 121.512 0 123.528V105.646C14.9673 96.7583 25 80.4333 25 61.7637C25 43.0937 14.9676 26.7671 0 17.8799V0Z" fill="currentColor" />
-        <path d="M69 101.123H38C38 101.123 48 82.623 48 62.123C48 41.623 38 23.123 38 23.123H69V101.123Z" fill="currentColor" />
+        <path d="M22.0703 0C29.8467 10.9415 34.4209 24.3176 34.4209 38.7637C34.4209 53.4186 29.7132 66.9721 21.7305 78H0C11.2545 68.6454 18.4209 54.5422 18.4209 38.7637C18.4209 23.2494 11.4928 9.35387 0.5625 0H22.0703Z" fill="currentColor" />
+        <path d="M62.4209 78H31.4844C32.3426 76.3687 41.4209 58.654 41.4209 39.123C41.4209 18.623 31.4209 0.123047 31.4209 0.123047H62.4209V78Z" fill="currentColor" />
       </svg>
       <span className="bg-ink px-3 py-1 !rounded-r-md flex items-center">
         <span className="block font-serif uppercase tracking-[-0.02em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]">
