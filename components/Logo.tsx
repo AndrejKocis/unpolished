@@ -4,7 +4,7 @@ export function Logo({ className = "" }: { className?: string }) {
       {/* Endlink — koncový článok remienka, o niečo väčší než badge, priamo nalepený naň */}
       <svg
         viewBox="0 0 69 124"
-        className="h-[38px] sm:h-[42px] w-auto text-ink shrink-0"
+        className="h-[37px] sm:h-[41px] w-auto text-ink shrink-0"
         fill="none"
         aria-hidden="true"
       >
