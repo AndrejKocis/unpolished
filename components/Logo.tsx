@@ -15,7 +15,7 @@ export function Logo({ className = "" }: { className?: string }) {
         {/* Textúra pripomínajúca brúsený kov remienka — farbou textu, aby fungovala v oboch režimoch */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 text-white opacity-25"
+          className="pointer-events-none absolute inset-0 text-white opacity-90"
           style={{
             backgroundImage:
               "repeating-linear-gradient(115deg, currentColor 0px, currentColor 1px, transparent 1px, transparent 3px)",
