@@ -8,7 +8,7 @@ export function Logo({ className = "" }: { className?: string }) {
         aria-hidden="true"
       >
         <path
-          d="M42 0 C15 35, 0 75, 0 110 C0 145, 15 185, 42 220 L100 220 L100 0 Z"
+          d="M22 0 C8 50, 0 90, 0 125 C0 160, 10 200, 24 220 L100 220 L100 0 Z"
           fill="currentColor"
         />
       </svg>
