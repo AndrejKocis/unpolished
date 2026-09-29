@@ -1,8 +1,8 @@
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={["relative inline-flex items-stretch h-[26px] sm:h-[31px]", className].join(" ")}>
+    <span className={["relative inline-flex items-stretch h-[24px] sm:h-[29px]", className].join(" ")}>
       {/* logo3.svg — samostatná ikona pred hlavným odznakom, rovnaká výška */}
-      <svg viewBox="0 0 35 78" className="h-[24px] sm:h-[29px] self-center w-auto text-ink shrink-0 -mr-[4px]" fill="none" aria-hidden="true">
+      <svg viewBox="0 0 35 78" className="h-[22px] sm:h-[27px] self-center w-auto text-ink shrink-0 -mr-[4px]" fill="none" aria-hidden="true">
         <path
           d="M22.0703 0C29.8467 10.9415 34.4209 24.3176 34.4209 38.7637C34.4209 53.4186 29.7132 66.9721 21.7305 78H0C11.2545 68.6454 18.4209 54.5422 18.4209 38.7637C18.4209 23.2494 11.4928 9.35387 0.5625 0H22.0703Z"
           fill="currentColor"
@@ -14,6 +14,7 @@ export function Logo({ className = "" }: { className?: string }) {
         <svg
           viewBox="0 0 1726 460"
           className="h-full w-auto text-ink block"
+          style={{ transform: "scaleX(1.05)", transformOrigin: "left" }}
           aria-hidden="true"
         >
           <g transform="translate(0,460) scale(0.1,-0.1)" fill="currentColor" stroke="none">
