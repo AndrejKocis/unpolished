@@ -109,3 +109,40 @@
     outline-offset: 2px;
   }
 }
+
+/* Logo v hlavičke — pri načítaní sa čierny rámik "odkryje" zľava doprava
+   a text sa mierne prisunie s krátkym oneskorením. */
+@keyframes logo-badge-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes logo-text-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.logo-badge {
+  animation: logo-badge-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.logo-badge-text {
+  animation: logo-text-slide-in 0.4s ease-out 0.25s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-badge,
+  .logo-badge-text {
+    animation: none;
+  }
+}
