@@ -1,15 +1,25 @@
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={["relative inline-block h-[30px] sm:h-[34px]", className].join(" ")}>
-      {/* Celý tvar (ikona + odznak) vektorizovaný z jedného referenčného obrázka —
-          dve samostatné podcesty v jednej <path>, spojené tenkou medzerou. */}
+    <span className={["inline-flex items-stretch", className].join(" ")}>
+      {/* Samostatná ikona pred logom */}
       <svg
-        viewBox="0 0 1726 460"
-        className="h-full w-auto text-ink block"
+        viewBox="0 0 35 78"
+        className="h-[30px] sm:h-[34px] w-auto text-ink shrink-0"
+        fill="none"
         aria-hidden="true"
       >
-        <g transform="translate(0,460) scale(0.1,-0.1)" fill="currentColor" stroke="none">
-          <path d="M371 4048 c185 -365 354 -917 413 -1345 94 -679 -32 -1407 -375
+        <path d="M22.0703 0C29.8467 10.9415 34.4209 24.3176 34.4209 38.7637C34.4209 53.4186 29.7132 66.9721 21.7305 78H0C11.2545 68.6454 18.4209 54.5422 18.4209 38.7637C18.4209 23.2494 11.4928 9.35387 0.5625 0H22.0703Z" fill="currentColor" />
+      </svg>
+      <span className="relative inline-block h-[30px] sm:h-[34px]">
+        {/* Celý tvar (ikona + odznak) vektorizovaný z jedného referenčného obrázka —
+            dve samostatné podcesty v jednej <path>, spojené tenkou medzerou. */}
+        <svg
+          viewBox="0 0 1726 460"
+          className="h-full w-auto text-ink block"
+          aria-hidden="true"
+        >
+          <g transform="translate(0,460) scale(0.1,-0.1)" fill="currentColor" stroke="none">
+            <path d="M371 4048 c185 -365 354 -917 413 -1345 94 -679 -32 -1407 -375
 -2168 -33 -71 -59 -131 -59 -132 0 -2 331 -3 735 -3 l735 0 -2 1853 -3 1852
 -738 3 -737 2 31 -62z M2080 2255 l0 -1855 7105 0 c4730 0 7105 3 7105 10 0 6
 21 10 46 10 27 0 51 6 60 15 9 8 26 15 40 15 13 0 24 5 24 10 0 6 11 10 25 10
@@ -24,14 +34,15 @@ export function Logo({ className = "" }: { className?: string }) {
 -11 0 -20 5 -20 10 0 6 -11 10 -25 10 -14 0 -25 4 -25 10 0 5 -16 12 -35 16
 -19 3 -35 10 -35 15 0 5 -22 9 -50 9 -27 0 -50 5 -50 10 0 7 -2375 10 -7105
 10 l-7105 0 0 -1855z" />
-        </g>
-      </svg>
-      <span className="absolute inset-y-0 flex items-center" style={{ left: "12.1%", right: "1.5%" }}>
-        <span
-          className="logo-badge-text block font-serif uppercase tracking-[0.08em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]"
-          style={{ marginLeft: "10px" }}
-        >
-          unpolished
+          </g>
+        </svg>
+        <span className="absolute inset-y-0 flex items-center" style={{ left: "12.1%", right: "1.5%" }}>
+          <span
+            className="logo-badge-text block font-serif uppercase tracking-[0.08em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]"
+            style={{ marginLeft: "10px" }}
+          >
+            unpolished
+          </span>
         </span>
       </span>
     </span>
