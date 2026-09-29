@@ -46,9 +46,6 @@ export function WatchCard({
         <p className="font-serif text-15">
           {watch.brand} {watch.model}
         </p>
-        <p className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mt-1">
-          Ref. {watch.reference} · {watch.year}
-        </p>
         <p
           className={[
             "font-mono text-13 mt-2",
