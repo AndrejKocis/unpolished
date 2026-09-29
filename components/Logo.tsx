@@ -8,7 +8,7 @@ export function Logo({ className = "" }: { className?: string }) {
           fill="currentColor"
         />
       </svg>
-      <span className="relative h-full">
+      <span className="logo-slide-in relative h-full">
         {/* Celý tvar (ikona + odznak) vektorizovaný z jedného referenčného obrázka —
             dve samostatné podcesty v jednej <path>, spojené tenkou medzerou. */}
         <svg
