@@ -110,23 +110,16 @@
   }
 }
 
-/* Logo v hlavičke — pri načítaní sa čierny pás "odkryje" zľava doprava
-   a text sa mierne prisunie s krátkym oneskorením. Po 3 s sa pás rozvlní
-   ako vlajka — horný aj dolný okraj sa vlnia (nie len naklonenie celku).
-   Element .logo-badge je vyšší než viditeľný pás (bleed), aby animovaný
-   clip-path mal kam vlniť bez orezania o vlastné hranice. */
+/* Logo v hlavičke — pri načítaní sa čierny rámik "odkryje" zľava doprava
+   a text sa mierne prisunie s krátkym oneskorením. Po 3 s sa rámik jemne,
+   neperiodicky kolíše (inšpirované vlajkou, no bez deformácie okrajov —
+   len prirodzený, mierne nepravidelný náklon celého objektu). */
 @keyframes logo-badge-reveal {
   from {
-    clip-path: polygon(
-      0% 11.8%, 0% 11.8%, 0% 11.8%, 0% 11.8%, 0% 11.8%,
-      0% 88.2%, 0% 88.2%, 0% 88.2%, 0% 88.2%, 0% 88.2%
-    );
+    clip-path: inset(0 100% 0 0);
   }
   to {
-    clip-path: polygon(
-      0% 11.8%, 25% 11.8%, 50% 11.8%, 75% 11.8%, 100% 11.8%,
-      100% 88.2%, 75% 88.2%, 50% 88.2%, 25% 88.2%, 0% 88.2%
-    );
+    clip-path: inset(0 0 0 0);
   }
 }
 
@@ -144,65 +137,33 @@
 @keyframes logo-flag-wave {
   0%,
   100% {
-    clip-path: polygon(
-      0% 11.8%, 25% 11.8%, 50% 11.8%, 75% 11.8%, 100% 11.8%,
-      100% 88.2%, 75% 88.2%, 50% 88.2%, 25% 88.2%, 0% 88.2%
-    );
+    transform: perspective(300px) rotateY(0deg) skewY(0deg);
   }
-  11.11% {
-    clip-path: polygon(
-      0% 11.8%, 25% 23.5%, 50% 11.8%, 75% 0%, 100% 11.8%,
-      100% 88.2%, 75% 76.5%, 50% 88.2%, 25% 100%, 0% 88.2%
-    );
+  14% {
+    transform: perspective(300px) rotateY(-7deg) skewY(2.5deg);
   }
-  22.22% {
-    clip-path: polygon(
-      0% 3.4%, 25% 20.1%, 50% 20.1%, 75% 3.4%, 100% 3.4%,
-      100% 79.9%, 75% 96.6%, 50% 96.6%, 25% 79.9%, 0% 79.9%
-    );
+  29% {
+    transform: perspective(300px) rotateY(3deg) skewY(-1.5deg);
   }
-  33.33% {
-    clip-path: polygon(
-      0% 0%, 25% 11.8%, 50% 23.5%, 75% 11.8%, 100% 0%,
-      100% 76.5%, 75% 88.2%, 50% 100%, 25% 88.2%, 0% 76.5%
-    );
+  41% {
+    transform: perspective(300px) rotateY(-5deg) skewY(2deg);
   }
-  44.44% {
-    clip-path: polygon(
-      0% 3.4%, 25% 3.4%, 50% 20.1%, 75% 20.1%, 100% 3.4%,
-      100% 79.9%, 75% 96.6%, 50% 96.6%, 25% 79.9%, 0% 79.9%
-    );
+  58% {
+    transform: perspective(300px) rotateY(6deg) skewY(-3deg);
   }
-  55.56% {
-    clip-path: polygon(
-      0% 11.8%, 25% 0%, 50% 11.8%, 75% 23.5%, 100% 11.8%,
-      100% 88.2%, 75% 100%, 50% 88.2%, 25% 76.5%, 0% 88.2%
-    );
+  73% {
+    transform: perspective(300px) rotateY(-2deg) skewY(1deg);
   }
-  66.67% {
-    clip-path: polygon(
-      0% 20.1%, 25% 3.4%, 50% 3.4%, 75% 20.1%, 100% 20.1%,
-      100% 96.6%, 75% 79.9%, 50% 79.9%, 25% 96.6%, 0% 96.6%
-    );
-  }
-  77.78% {
-    clip-path: polygon(
-      0% 23.5%, 25% 11.8%, 50% 0%, 75% 11.8%, 100% 23.5%,
-      100% 100%, 75% 88.2%, 50% 76.5%, 25% 88.2%, 0% 100%
-    );
-  }
-  88.89% {
-    clip-path: polygon(
-      0% 20.1%, 25% 20.1%, 50% 3.4%, 75% 3.4%, 100% 20.1%,
-      100% 96.6%, 75% 79.9%, 50% 79.9%, 25% 96.6%, 0% 96.6%
-    );
+  86% {
+    transform: perspective(300px) rotateY(4deg) skewY(-2deg);
   }
 }
 
 .logo-badge {
+  transform-origin: left center;
   animation:
     logo-badge-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both,
-    logo-flag-wave 2s ease-in-out 3s infinite;
+    logo-flag-wave 3.2s ease-in-out 3s infinite;
 }
 
 .logo-badge-text {
