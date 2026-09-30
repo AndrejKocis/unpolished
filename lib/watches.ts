@@ -9,9 +9,7 @@ export type { PriceBand } from "@/lib/filters";
 
 const WATCHES_DIR = path.join(process.cwd(), "content", "watches");
 
-let cache: Watch[] | null = null;
-
-function readAllWatches(): Watch[] {
+export function getAllWatches(): Watch[] {
   const files = fs.readdirSync(WATCHES_DIR).filter((f) => f.endsWith(".mdx"));
 
   const watches = files.map((file) => {
@@ -22,11 +20,6 @@ function readAllWatches(): Watch[] {
   });
 
   return watches.sort((a, b) => b.year - a.year);
-}
-
-export function getAllWatches(): Watch[] {
-  if (!cache) cache = readAllWatches();
-  return cache;
 }
 
 export function getWatchBySlug(slug: string): Watch | undefined {

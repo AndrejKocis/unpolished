@@ -5,9 +5,7 @@ import { articleFrontmatterSchema, type Article } from "@/lib/schema";
 
 const JOURNAL_DIR = path.join(process.cwd(), "content", "journal");
 
-let cache: Article[] | null = null;
-
-function readAllArticles(): Article[] {
+export function getAllArticles(): Article[] {
   const files = fs.readdirSync(JOURNAL_DIR).filter((f) => f.endsWith(".mdx"));
 
   const articles = files.map((file) => {
@@ -18,11 +16,6 @@ function readAllArticles(): Article[] {
   });
 
   return articles.sort((a, b) => (a.date < b.date ? 1 : -1));
-}
-
-export function getAllArticles(): Article[] {
-  if (!cache) cache = readAllArticles();
-  return cache;
 }
 
 export function getArticleBySlug(slug: string): Article | undefined {
