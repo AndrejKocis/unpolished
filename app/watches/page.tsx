@@ -3,7 +3,6 @@ import Link from "next/link";
 import { decadeOf, getAllWatches, getBrands, matchesPriceBand } from "@/lib/watches";
 import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
-import { BrandFilterSelect } from "@/components/BrandFilterSelect";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 
@@ -57,14 +56,16 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
     watches = [...watches].sort((a, b) => b.price - a.price);
   }
 
-  const genderHref = (value?: string) => {
+  const hrefWith = (overrides: { brand?: string; gender?: string }) => {
     const params = new URLSearchParams();
-    if (sp.brand) params.set("brand", sp.brand);
+    const brand = "brand" in overrides ? overrides.brand : sp.brand;
+    const gender = "gender" in overrides ? overrides.gender : sp.gender;
+    if (brand) params.set("brand", brand);
     if (sp.decade) params.set("decade", sp.decade);
     if (sp.price) params.set("price", sp.price);
     if (sp.sort) params.set("sort", sp.sort);
     if (sp.sold) params.set("sold", sp.sold);
-    if (value) params.set("gender", value);
+    if (gender) params.set("gender", gender);
     const qs = params.toString();
     return qs ? `/watches?${qs}` : "/watches";
   };
@@ -90,14 +91,14 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
           {watches.length} {watches.length === 1 ? dict.watches.resultsOne : dict.watches.resultsMany}
         </p>
 
-        <div className="flex flex-wrap items-center gap-6">
+        <div className="flex flex-col items-end gap-3">
           <nav className="flex items-center gap-4">
             {genderTabs.map((tab) => {
               const isActive = (sp.gender ?? undefined) === tab.value;
               return (
                 <Link
                   key={tab.label}
-                  href={genderHref(tab.value)}
+                  href={hrefWith({ gender: tab.value })}
                   className={[
                     "font-mono text-11 uppercase tracking-[0.06em] pb-1 border-b",
                     isActive ? "text-ink border-ink" : "text-ink-muted border-transparent hover:text-ink",
@@ -109,19 +110,32 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
             })}
           </nav>
 
-          <BrandFilterSelect
-            brands={brands}
-            current={sp.brand}
-            hidden={{
-              decade: sp.decade,
-              price: sp.price,
-              sort: sp.sort,
-              sold: sp.sold,
-              gender: sp.gender,
-            }}
-            label={dict.watches.brand}
-            allLabel={dict.watches.all}
-          />
+          <nav className="flex flex-wrap items-center justify-end gap-2">
+            <Link
+              href={hrefWith({ brand: undefined })}
+              className={[
+                "font-mono text-11 uppercase tracking-[0.06em] border px-2 py-1",
+                !sp.brand ? "bg-ink text-white border-ink" : "text-ink-muted border-line hover:border-ink hover:text-ink",
+              ].join(" ")}
+            >
+              {dict.watches.all}
+            </Link>
+            {brands.map((b) => {
+              const isActive = sp.brand === b;
+              return (
+                <Link
+                  key={b}
+                  href={hrefWith({ brand: b })}
+                  className={[
+                    "font-mono text-11 uppercase tracking-[0.06em] border px-2 py-1",
+                    isActive ? "bg-ink text-white border-ink" : "text-ink-muted border-line hover:border-ink hover:text-ink",
+                  ].join(" ")}
+                >
+                  {b}
+                </Link>
+              );
+            })}
+          </nav>
         </div>
       </div>
 
