@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { decadeOf, getAllWatches, matchesPriceBand } from "@/lib/watches";
+import { decadeOf, getAllWatches, getBrands, matchesPriceBand } from "@/lib/watches";
 import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
+import { BrandFilterSelect } from "@/components/BrandFilterSelect";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 
@@ -74,6 +75,8 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
     { value: "men", label: dict.watches.genderMen },
   ] as const;
 
+  const brands = getBrands();
+
   return (
     <div>
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 py-8 sm:py-12">
@@ -87,23 +90,39 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
           {watches.length} {watches.length === 1 ? dict.watches.resultsOne : dict.watches.resultsMany}
         </p>
 
-        <nav className="flex items-center gap-4">
-          {genderTabs.map((tab) => {
-            const isActive = (sp.gender ?? undefined) === tab.value;
-            return (
-              <Link
-                key={tab.label}
-                href={genderHref(tab.value)}
-                className={[
-                  "font-mono text-11 uppercase tracking-[0.06em] pb-1 border-b",
-                  isActive ? "text-ink border-ink" : "text-ink-muted border-transparent hover:text-ink",
-                ].join(" ")}
-              >
-                {tab.label}
-              </Link>
-            );
-          })}
-        </nav>
+        <div className="flex flex-wrap items-center gap-6">
+          <nav className="flex items-center gap-4">
+            {genderTabs.map((tab) => {
+              const isActive = (sp.gender ?? undefined) === tab.value;
+              return (
+                <Link
+                  key={tab.label}
+                  href={genderHref(tab.value)}
+                  className={[
+                    "font-mono text-11 uppercase tracking-[0.06em] pb-1 border-b",
+                    isActive ? "text-ink border-ink" : "text-ink-muted border-transparent hover:text-ink",
+                  ].join(" ")}
+                >
+                  {tab.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <BrandFilterSelect
+            brands={brands}
+            current={sp.brand}
+            hidden={{
+              decade: sp.decade,
+              price: sp.price,
+              sort: sp.sort,
+              sold: sp.sold,
+              gender: sp.gender,
+            }}
+            label={dict.watches.brand}
+            allLabel={dict.watches.all}
+          />
+        </div>
       </div>
 
       <WatchGrid watches={watches} locale={locale} priorityCount={3} />
