@@ -41,6 +41,43 @@ function IconMissingPart({ className = "" }: { className?: string }) {
   );
 }
 
+function IconFullSet({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
+      <rect x="3" y="9" width="18" height="11" strokeLinejoin="round" />
+      <path d="M3 9 12 4l9 5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9 20v-5h6v5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function IconOnlyBox({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
+      <rect x="3" y="9" width="18" height="11" strokeLinejoin="round" />
+      <path d="M3 9 12 4l9 5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function IconOriginalBracelet({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
+      <circle cx="12" cy="12" r="5" />
+      <path d="M2 9h4M2 15h4M18 9h4M18 15h4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function IconOriginalStrap({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
+      <rect x="7" y="9" width="10" height="6" rx="1" />
+      <path d="M9 9V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5M9 15v5a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function WatchStatusFlags({ watch, locale }: { watch: Watch; locale: Locale }) {
   const dict = dictionaries[locale];
 
@@ -54,6 +91,20 @@ export function WatchStatusFlags({ watch, locale }: { watch: Watch; locale: Loca
       enabled: watch.missingParts,
       label: dict.watchDetail.statusFlags.missingParts,
     },
+    { key: "fullSet", Icon: IconFullSet, enabled: watch.fullSet, label: dict.watchDetail.statusFlags.fullSet },
+    { key: "onlyBox", Icon: IconOnlyBox, enabled: watch.onlyBox, label: dict.watchDetail.statusFlags.onlyBox },
+    {
+      key: "originalBracelet",
+      Icon: IconOriginalBracelet,
+      enabled: watch.originalBracelet,
+      label: dict.watchDetail.statusFlags.originalBracelet,
+    },
+    {
+      key: "originalStrap",
+      Icon: IconOriginalStrap,
+      enabled: watch.originalStrap,
+      label: dict.watchDetail.statusFlags.originalStrap,
+    },
   ];
 
   return (
@@ -61,12 +112,12 @@ export function WatchStatusFlags({ watch, locale }: { watch: Watch; locale: Loca
       <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-4">
         {dict.watchDetail.statusFlagsTitle}
       </h2>
-      <div className="grid grid-cols-2 gap-4 sm:flex sm:gap-0 sm:divide-x sm:divide-line">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:flex lg:gap-0 lg:divide-x lg:divide-line">
         {items.map(({ key, Icon, enabled, label }) => (
           <div
             key={key}
             className={[
-              "flex flex-col items-start gap-2 sm:flex-1 sm:px-4 sm:first:pl-0",
+              "flex flex-col items-start gap-2 lg:flex-1 lg:px-4 lg:first:pl-0",
               enabled ? "text-ink" : "text-line",
             ].join(" ")}
             aria-label={`${label}: ${enabled ? "áno" : "nie"}`}

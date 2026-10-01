@@ -36,6 +36,10 @@ export const watchFrontmatterSchema = z.object({
   polished: z.boolean().default(false),
   keepsTime: z.boolean().default(false),
   missingParts: z.boolean().default(false),
+  fullSet: z.boolean().default(false),
+  onlyBox: z.boolean().default(false),
+  originalBracelet: z.boolean().default(false),
+  originalStrap: z.boolean().default(false),
 });
 
 export type WatchFrontmatter = z.infer<typeof watchFrontmatterSchema>;

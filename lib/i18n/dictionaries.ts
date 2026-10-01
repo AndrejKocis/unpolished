@@ -131,6 +131,10 @@ const sk = {
       polished: "Leštené",
       keepsTime: "Drží čas",
       missingParts: "Chýba diel",
+      fullSet: "Plný set",
+      onlyBox: "Iba box",
+      originalBracelet: "Pôvodný náramok",
+      originalStrap: "Pôvodný remienok",
     },
     specLabels: {
       reference: "Referencia",
@@ -381,6 +385,10 @@ const en: Dictionary = {
       polished: "Polished",
       keepsTime: "Keeps time",
       missingParts: "Missing part",
+      fullSet: "Full set",
+      onlyBox: "Box only",
+      originalBracelet: "Original bracelet",
+      originalStrap: "Original strap",
     },
     specLabels: {
       reference: "Reference",
