@@ -31,7 +31,7 @@ export default async function Home() {
               {dict.home.heroCta}
             </Button>
           </div>
-          <div className="relative aspect-square bg-paper order-1 lg:order-2">
+          <div className="relative aspect-square bg-white order-1 lg:order-2">
             <Image
               src="/hero/watch-light.webp"
               alt="Unpolished watch"
