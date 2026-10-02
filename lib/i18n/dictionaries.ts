@@ -46,8 +46,8 @@ const sk = {
     genericError: "Niečo sa pokazilo. Skúste to prosím znova alebo napíšte na",
   },
   home: {
-    heroTitle: "Hodinky s históriou.",
-    heroSubtitle: "Nepolírované, neprerobené, overené. Každý kus je jediný.",
+    heroTitle: "Unpolished.",
+    heroSubtitle: "Vnútri servisované, zvonka nedotknuté. Puzdro, číselník aj patina ostávajú také, aké ich spravil čas.",
     heroCta: "Prezrieť kolekciu",
     trust: [
       "Overené odborníkom",
@@ -303,8 +303,8 @@ const en: Dictionary = {
     genericError: "Something went wrong. Please try again or email",
   },
   home: {
-    heroTitle: "Watches with history.",
-    heroSubtitle: "Unpolished, unaltered, verified. Every piece is one of one.",
+    heroTitle: "Unpolished.",
+    heroSubtitle: "Serviced inside, untouched outside. Case, dial and patina stay as time made them.",
     heroCta: "Browse the collection",
     trust: [
       "Vetted by an expert",
