@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { SectionDivider } from "@/components/SectionDivider";
 import { WatchGrid } from "@/components/WatchGrid";
 import { ViewAllWatchesCard } from "@/components/ViewAllWatchesCard";
+import { HeroVideo } from "@/components/HeroVideo";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
@@ -48,6 +49,17 @@ export default async function Home() {
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="theme-img-dark object-cover"
             />
+            {/* Video so sekundovou ručičkou — prvá snímka je zhodná s fotkou pod ním */}
+            <div className="absolute inset-0 motion-reduce:hidden">
+              <HeroVideo
+                src="/hero/watch-light.mp4"
+                className="theme-img-light absolute inset-0 h-full w-full object-cover"
+              />
+              <HeroVideo
+                src="/hero/watch-dark.mp4"
+                className="theme-img-dark absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
