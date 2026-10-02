@@ -3,6 +3,7 @@ import Link from "next/link";
 import { decadeOf, getAllWatches, getBrands, matchesPriceBand } from "@/lib/watches";
 import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
+import { BrandFilterPanel } from "@/components/BrandFilterPanel";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 
@@ -37,8 +38,9 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
     ? getAllWatches()
     : getAllWatches().filter((w) => w.status !== "sold");
 
-  if (sp.brand) {
-    watches = watches.filter((w) => w.brand === sp.brand);
+  const selectedBrands = sp.brand ? sp.brand.split(",").filter(Boolean) : [];
+  if (selectedBrands.length > 0) {
+    watches = watches.filter((w) => selectedBrands.includes(w.brand));
   }
   if (sp.decade) {
     watches = watches.filter((w) => decadeOf(w.year) === sp.decade);
@@ -56,11 +58,10 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
     watches = [...watches].sort((a, b) => b.price - a.price);
   }
 
-  const hrefWith = (overrides: { brand?: string; gender?: string }) => {
+  const hrefWith = (overrides: { gender?: string }) => {
     const params = new URLSearchParams();
-    const brand = "brand" in overrides ? overrides.brand : sp.brand;
     const gender = "gender" in overrides ? overrides.gender : sp.gender;
-    if (brand) params.set("brand", brand);
+    if (sp.brand) params.set("brand", sp.brand);
     if (sp.decade) params.set("decade", sp.decade);
     if (sp.price) params.set("price", sp.price);
     if (sp.sort) params.set("sort", sp.sort);
@@ -110,32 +111,7 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
             })}
           </nav>
 
-          <nav className="flex flex-wrap items-center justify-end gap-2">
-            <Link
-              href={hrefWith({ brand: undefined })}
-              className={[
-                "font-mono text-11 uppercase tracking-[0.06em] border px-2 py-1",
-                !sp.brand ? "bg-ink text-white border-ink" : "text-ink-muted border-line hover:border-ink hover:text-ink",
-              ].join(" ")}
-            >
-              {dict.watches.all}
-            </Link>
-            {brands.map((b) => {
-              const isActive = sp.brand === b;
-              return (
-                <Link
-                  key={b}
-                  href={hrefWith({ brand: b })}
-                  className={[
-                    "font-mono text-11 uppercase tracking-[0.06em] border px-2 py-1",
-                    isActive ? "bg-ink text-white border-ink" : "text-ink-muted border-line hover:border-ink hover:text-ink",
-                  ].join(" ")}
-                >
-                  {b}
-                </Link>
-              );
-            })}
-          </nav>
+          <BrandFilterPanel brands={brands} />
         </div>
       </div>
 
