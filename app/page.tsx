@@ -19,16 +19,36 @@ export default async function Home() {
 
   return (
     <div>
-      {/* Hero (bez fotky — priamo text a CTA) */}
+      {/* Hero */}
       <section>
-        <div className="px-4 sm:px-6 py-8 sm:py-12 max-w-[640px] mx-auto text-center flex flex-col items-center gap-4">
-          <h1 className="font-serif text-32 lg:text-48 leading-tight">
-            {dict.home.heroTitle}
-          </h1>
-          <p className="text-15">{dict.home.heroSubtitle}</p>
-          <Button href="/watches" fullWidthOnMobile className="mt-2">
-            {dict.home.heroCta}
-          </Button>
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          <div className="flex flex-col items-start gap-4 text-left order-2 lg:order-1">
+            <h1 className="font-serif text-32 lg:text-48 leading-tight">
+              {dict.home.heroTitle}
+            </h1>
+            <p className="text-15">{dict.home.heroSubtitle}</p>
+            <Button href="/watches" fullWidthOnMobile className="mt-2">
+              {dict.home.heroCta}
+            </Button>
+          </div>
+          <div className="relative aspect-square bg-paper order-1 lg:order-2">
+            <Image
+              src="/hero/watch-light.webp"
+              alt="Unpolished watch"
+              fill
+              priority
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="theme-img-light object-cover"
+            />
+            <Image
+              src="/hero/watch-dark.webp"
+              alt="Unpolished watch"
+              fill
+              priority
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="theme-img-dark object-cover"
+            />
+          </div>
         </div>
       </section>
 

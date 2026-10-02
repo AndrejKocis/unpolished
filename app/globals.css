@@ -31,6 +31,25 @@
   --sold: #7a7a7a;
 }
 
+/* Obrázky, ktoré majú samostatnú verziu pre svetlý a tmavý režim. */
+.theme-img-dark {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-img-light {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .theme-img-dark {
+    display: block;
+  }
+}
+:root[data-theme="dark"] .theme-img-light {
+  display: none;
+}
+:root[data-theme="dark"] .theme-img-dark {
+  display: block;
+}
+
 @theme inline {
   --color-white: var(--white);
   --color-paper: var(--paper);
