@@ -10,6 +10,11 @@ import { NewsletterForm } from "@/components/NewsletterForm";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 
+// Zvýš pri každom novom renderi hero média, aby prehliadače nenačítali starú verziu z cache.
+const HERO_MEDIA = "/hero/watch";
+const HERO_VERSION = "v2";
+const heroSrc = (theme: "light" | "dark", ext: "webp" | "mp4") => `${HERO_MEDIA}-${theme}.${HERO_VERSION}.${ext}`;
+
 export default async function Home() {
   const locale = await getLocale();
   const dict = dictionaries[locale];
@@ -34,7 +39,7 @@ export default async function Home() {
           </div>
           <div className="relative aspect-square bg-white order-1 lg:order-2">
             <Image
-              src="/hero/watch-light.webp"
+              src={heroSrc("light", "webp")}
               alt="Unpolished watch"
               fill
               priority
@@ -42,7 +47,7 @@ export default async function Home() {
               className="theme-img-light object-cover"
             />
             <Image
-              src="/hero/watch-dark.webp"
+              src={heroSrc("dark", "webp")}
               alt="Unpolished watch"
               fill
               priority
@@ -52,11 +57,11 @@ export default async function Home() {
             {/* Video so sekundovou ručičkou — prvá snímka je zhodná s fotkou pod ním */}
             <div className="absolute inset-0 motion-reduce:hidden">
               <HeroVideo
-                src="/hero/watch-light.mp4"
+                src={heroSrc("light", "mp4")}
                 className="theme-img-light absolute inset-0 h-full w-full object-cover"
               />
               <HeroVideo
-                src="/hero/watch-dark.mp4"
+                src={heroSrc("dark", "mp4")}
                 className="theme-img-dark absolute inset-0 h-full w-full object-cover"
               />
             </div>
