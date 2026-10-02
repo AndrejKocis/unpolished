@@ -13,7 +13,7 @@
    šedej z tokenov, žiadna chromatická farba nepribúda. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --white: #111111;
+    --white: #151515;
     --paper: #1a1a1a;
     --ink: #f4f4f4;
     --ink-muted: #9a9a9a;
@@ -23,7 +23,7 @@
 }
 
 :root[data-theme="dark"] {
-  --white: #111111;
+  --white: #151515;
   --paper: #1a1a1a;
   --ink: #f4f4f4;
   --ink-muted: #9a9a9a;
