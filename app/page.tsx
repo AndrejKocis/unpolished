@@ -15,7 +15,7 @@ export default async function Home() {
 
   const available = getAvailableWatches().slice(0, 6);
   const heroWatch = getWatchBySlug("longines-ultra-chron-night-sky-unpolished");
-  const lugsMacro = heroWatch ? `/watches/${heroWatch.reference}/poster.jpg` : undefined;
+  const lugsMacro = heroWatch ? `/watches/${heroWatch.reference}/hero-wide.jpg` : undefined;
 
   return (
     <div>
