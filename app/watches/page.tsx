@@ -88,31 +88,30 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
       <SectionDivider />
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 py-6 flex flex-wrap items-center justify-between gap-4">
-        <p className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted">
-          {watches.length} {watches.length === 1 ? dict.watches.resultsOne : dict.watches.resultsMany}
-        </p>
-
-        <div className="flex flex-col items-end gap-3">
-          <nav className="flex items-center gap-4">
-            {genderTabs.map((tab) => {
-              const isActive = (sp.gender ?? undefined) === tab.value;
-              return (
-                <Link
-                  key={tab.label}
-                  href={hrefWith({ gender: tab.value })}
-                  className={[
-                    "font-mono text-11 uppercase tracking-[0.06em] pb-1 border-b",
-                    isActive ? "text-ink border-ink" : "text-ink-muted border-transparent hover:text-ink",
-                  ].join(" ")}
-                >
-                  {tab.label}
-                </Link>
-              );
-            })}
-          </nav>
-
+        <div className="flex items-center gap-4">
           <BrandFilterPanel brands={brands} />
+          <p className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted">
+            {watches.length} {watches.length === 1 ? dict.watches.resultsOne : dict.watches.resultsMany}
+          </p>
         </div>
+
+        <nav className="flex items-center gap-4">
+          {genderTabs.map((tab) => {
+            const isActive = (sp.gender ?? undefined) === tab.value;
+            return (
+              <Link
+                key={tab.label}
+                href={hrefWith({ gender: tab.value })}
+                className={[
+                  "font-mono text-11 uppercase tracking-[0.06em] pb-1 border-b",
+                  isActive ? "text-ink border-ink" : "text-ink-muted border-transparent hover:text-ink",
+                ].join(" ")}
+              >
+                {tab.label}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
 
       <WatchGrid watches={watches} locale={locale} priorityCount={3} />
