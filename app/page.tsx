@@ -14,10 +14,8 @@ export default async function Home() {
   const dict = dictionaries[locale];
 
   const available = getAvailableWatches().slice(0, 6);
-  const heroWatch = getWatchBySlug("tudor-oyster-royal-7984-unpolished");
-  const lugsMacro = heroWatch
-    ? `/watches/${heroWatch.reference}/${heroWatch.images[heroWatch.images.length - 1]}`
-    : undefined;
+  const heroWatch = getWatchBySlug("longines-ultra-chron-night-sky-unpolished");
+  const lugsMacro = heroWatch ? `/watches/${heroWatch.reference}/03-profile.jpg` : undefined;
 
   return (
     <div>
