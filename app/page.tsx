@@ -4,6 +4,7 @@ import { getAvailableWatches, getWatchBySlug } from "@/lib/watches";
 import { Button } from "@/components/ui/Button";
 import { SectionDivider } from "@/components/SectionDivider";
 import { WatchGrid } from "@/components/WatchGrid";
+import { ViewAllWatchesCard } from "@/components/ViewAllWatchesCard";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
@@ -41,12 +42,12 @@ export default async function Home() {
           <h2 className="font-serif text-24">{dict.home.currentTitle}</h2>
           <p className="text-15 text-ink-muted mt-2">{dict.home.currentSubtitle}</p>
         </div>
-        <WatchGrid watches={available} locale={locale} priorityCount={3} />
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 mt-8">
-          <Link href="/watches" className="text-15 underline underline-offset-[3px]">
-            {dict.home.allWatches}
-          </Link>
-        </div>
+        <WatchGrid
+          watches={available}
+          locale={locale}
+          priorityCount={3}
+          trailing={<ViewAllWatchesCard label={dict.home.allWatches} />}
+        />
       </section>
 
       <SectionDivider />

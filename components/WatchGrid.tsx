@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Watch } from "@/lib/schema";
 import { WatchCard } from "@/components/WatchCard";
 import { dictionaries } from "@/lib/i18n/dictionaries";
@@ -7,10 +8,12 @@ export function WatchGrid({
   watches,
   locale,
   priorityCount = 0,
+  trailing,
 }: {
   watches: Watch[];
   locale: Locale;
   priorityCount?: number;
+  trailing?: ReactNode;
 }) {
   const dict = dictionaries[locale];
 
@@ -30,6 +33,7 @@ export function WatchGrid({
           priority={i < priorityCount}
         />
       ))}
+      {trailing}
     </div>
   );
 }
