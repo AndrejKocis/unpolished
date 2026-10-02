@@ -12,7 +12,7 @@ import { dictionaries } from "@/lib/i18n/dictionaries";
 
 // Zvýš pri každom novom renderi hero média, aby prehliadače nenačítali starú verziu z cache.
 const HERO_MEDIA = "/hero/watch";
-const HERO_VERSION = "v2";
+const HERO_VERSION = "v3";
 const heroSrc = (theme: "light" | "dark", ext: "webp" | "mp4") => `${HERO_MEDIA}-${theme}.${HERO_VERSION}.${ext}`;
 
 export default async function Home() {
