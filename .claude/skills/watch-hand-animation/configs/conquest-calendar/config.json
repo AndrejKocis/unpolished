@@ -1,0 +1,390 @@
+{
+  "name": "Longines Conquest Calendar (hero)",
+  "_units": "squares/hub in source-photo px; everything else in rect4x px (dial rectified to a circle, 2400x2400, dial centre 1200,1200)",
+  "variants": {
+    "dark": {
+      "source": "orig_dark.webp",
+      "hub": [
+        833.5,
+        730.5
+      ],
+      "squares": [
+        {
+          "xy": [
+            824.5,
+            571.5
+          ],
+          "angle": 0
+        },
+        {
+          "xy": [
+            735.5,
+            605.75
+          ],
+          "angle": 330
+        },
+        {
+          "xy": [
+            992.1,
+            635.6
+          ],
+          "angle": 60
+        },
+        {
+          "xy": [
+            1024.7,
+            717.1
+          ],
+          "angle": 90
+        },
+        {
+          "xy": [
+            652.9,
+            761.25
+          ],
+          "angle": 270
+        },
+        {
+          "xy": [
+            680.9,
+            842.4
+          ],
+          "angle": 240
+        },
+        {
+          "xy": [
+            847.5,
+            913.3
+          ],
+          "angle": 180
+        },
+        {
+          "xy": [
+            939.6,
+            879.2
+          ],
+          "angle": 150
+        }
+      ]
+    },
+    "light": {
+      "source": "orig_light.webp",
+      "hub": [
+        832.74,
+        729.71
+      ],
+      "squares": [
+        {
+          "xy": [
+            823.74,
+            571.15
+          ],
+          "angle": 0
+        },
+        {
+          "xy": [
+            735.15,
+            605.49
+          ],
+          "angle": 330
+        },
+        {
+          "xy": [
+            991.28,
+            635.08
+          ],
+          "angle": 60
+        },
+        {
+          "xy": [
+            1023.68,
+            716.35
+          ],
+          "angle": 90
+        },
+        {
+          "xy": [
+            652.65,
+            760.38
+          ],
+          "angle": 270
+        },
+        {
+          "xy": [
+            680.56,
+            841.34
+          ],
+          "angle": 240
+        },
+        {
+          "xy": [
+            846.73,
+            912.21
+          ],
+          "angle": 180
+        },
+        {
+          "xy": [
+            938.68,
+            878.14
+          ],
+          "angle": 150
+        }
+      ]
+    }
+  },
+  "rect": {
+    "square_radius": 188.0,
+    "scale": 4
+  },
+  "hands": {
+    "hub_radius": 48,
+    "needle_tip": [
+      390.0,
+      835.0
+    ],
+    "static": {
+      "hour": [
+        [
+          920,
+          632
+        ],
+        [
+          1232,
+          1108
+        ],
+        [
+          1205,
+          1150
+        ],
+        [
+          1160,
+          1150
+        ],
+        [
+          1080,
+          1086
+        ]
+      ],
+      "hour_tail": [
+        [
+          1134,
+          1224
+        ],
+        [
+          1251,
+          1306
+        ],
+        [
+          1266,
+          1303
+        ],
+        [
+          1264,
+          1246
+        ],
+        [
+          1233,
+          1234
+        ]
+      ],
+      "minute": [
+        [
+          2062,
+          1019
+        ],
+        [
+          1340,
+          1201
+        ],
+        [
+          1250,
+          1222
+        ],
+        [
+          1215,
+          1180
+        ],
+        [
+          1240,
+          1112
+        ]
+      ],
+      "minute_tail": [
+        [
+          1150,
+          1150
+        ],
+        [
+          1068,
+          1182
+        ],
+        [
+          1134,
+          1221
+        ],
+        [
+          1150,
+          1215
+        ]
+      ]
+    },
+    "static_fill": {
+      "hour": {
+        "edge": [
+          4,
+          0
+        ],
+        "shift": 45
+      },
+      "minute": {
+        "edge": [
+          1,
+          0
+        ],
+        "shift": 70
+      }
+    },
+    "counterweight_photo": [
+      [
+        1215,
+        1168
+      ],
+      [
+        1239,
+        1176
+      ],
+      [
+        1427,
+        1230
+      ],
+      [
+        1414,
+        1275
+      ],
+      [
+        1250,
+        1222
+      ],
+      [
+        1215,
+        1205
+      ]
+    ],
+    "counterweight": {
+      "half_width": 11.5,
+      "length": 248.0
+    },
+    "needle_measure_t": [
+      200,
+      640
+    ],
+    "needle_tip_taper": 70.0,
+    "edge_fraction": 0.22,
+    "stack_core": {
+      "offset": [
+        0,
+        8
+      ],
+      "radius": 72
+    },
+    "needle_width_clip": [
+      150,
+      700
+    ],
+    "needle_face_t": [
+      260,
+      600
+    ]
+  },
+  "needle_shadow": {
+    "up": 18,
+    "up_tip_narrow": 9,
+    "up_tip_t": 820,
+    "down": 20,
+    "down_extra": 140,
+    "down_t0": 170,
+    "down_ramp": 80,
+    "down_t1": 790,
+    "down_end_ramp": 40
+  },
+  "counterweight_shadow_reach": 70,
+  "protect": {
+    "text_boxes": [
+      [
+        1100,
+        560,
+        1720,
+        1090
+      ],
+      [
+        650,
+        1290,
+        1200,
+        1560
+      ],
+      [
+        850,
+        1500,
+        1340,
+        1800
+      ]
+    ],
+    "keep_boxes": [
+      [
+        1470,
+        1270,
+        1800,
+        1480
+      ]
+    ],
+    "marker_min_area": 2500
+  },
+  "radii": {
+    "dial_field_max": 700,
+    "track": [
+      700,
+      910
+    ],
+    "tick_zone": [
+      690,
+      930
+    ],
+    "ticks": [
+      650,
+      950
+    ],
+    "markers": [
+      640,
+      1000
+    ],
+    "corridor_min": 120,
+    "corridor_rotated_from": 220
+  },
+  "render": {
+    "fps": 30,
+    "seconds": 60,
+    "beats_per_second": 5.5,
+    "size": 1080,
+    "crf": 20,
+    "light_dir": [
+      -0.6,
+      -0.8
+    ],
+    "shadow_dir": [
+      0.15,
+      1.0
+    ],
+    "hand_shadow": [
+      28,
+      8,
+      0.14
+    ],
+    "sweep_margin": 60
+  },
+  "output": {
+    "dir": "public/hero",
+    "basename": "watch",
+    "version_const": "HERO_VERSION in app/page.tsx"
+  }
+}

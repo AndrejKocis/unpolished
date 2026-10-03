@@ -44,3 +44,6 @@ next-env.d.ts
 /content/inbox/*
 !/content/inbox/README.md
 !/content/inbox/_template/
+
+# watch-hand-animation skill: work files and venv
+/tmp/hand-anim/
