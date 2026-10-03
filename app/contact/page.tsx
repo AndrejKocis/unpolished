@@ -4,6 +4,8 @@ import { ContactForm } from "@/components/ContactForm";
 import { SectionDivider } from "@/components/SectionDivider";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
+import type { Locale } from "@/lib/i18n/locale";
+import { Localized } from "@/components/Localized";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -17,8 +19,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function ContactPage() {
-  const locale = await getLocale();
+export default function ContactPage() {
+  return <Localized>{(locale) => <ContactPageContent locale={locale} />}</Localized>;
+}
+
+function ContactPageContent({ locale }: { locale: Locale }) {
   const dict = dictionaries[locale];
 
   return (

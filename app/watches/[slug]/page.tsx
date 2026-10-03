@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { getAllWatches, getRelatedWatches, getWatchBySlug } from "@/lib/watches";
 import { formatPrice, statusBadgeLabel } from "@/lib/format";
 import { imageAspect } from "@/lib/gallery";
-import { Gallery } from "@/components/Gallery";
+import { Gallery, type GalleryImage } from "@/components/Gallery";
 import { WatchCTA } from "@/components/WatchCTA";
 import { WatchSpecs } from "@/components/WatchSpecs";
 import { WatchStatusFlags } from "@/components/WatchStatusFlags";
@@ -11,8 +12,10 @@ import { Prose } from "@/components/Prose";
 import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
 import { SITE_URL } from "@/lib/constants";
-import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
+import type { Locale } from "@/lib/i18n/locale";
+import type { Watch } from "@/lib/schema";
+import { Localized } from "@/components/Localized";
 
 export async function generateStaticParams() {
   return getAllWatches().map((w) => ({ slug: w.slug }));
@@ -58,9 +61,6 @@ export default async function WatchDetailPage({
   const watch = getWatchBySlug(slug);
   if (!watch) notFound();
 
-  const locale = await getLocale();
-  const dict = dictionaries[locale];
-
   const images = watch.images.map((img) => ({
     src: `/watches/${watch.reference}/${img}`,
     alt: `${watch.brand} ${watch.model} ref. ${watch.reference} — ${img
@@ -97,6 +97,45 @@ export default async function WatchDetailPage({
       itemCondition: "https://schema.org/UsedCondition",
     },
   };
+
+  // Popis nezávisí od jazyka — vyrenderuj MDX raz a zdieľaj ho medzi jazykovými verziami.
+  const description = <Prose content={watch.content} />;
+
+  return (
+    <Localized>
+      {(locale) => (
+        <WatchDetailContent
+          locale={locale}
+          watch={watch}
+          images={images}
+          related={related}
+          title={title}
+          jsonLd={jsonLd}
+          description={description}
+        />
+      )}
+    </Localized>
+  );
+}
+
+function WatchDetailContent({
+  locale,
+  watch,
+  images,
+  related,
+  title,
+  jsonLd,
+  description,
+}: {
+  locale: Locale;
+  watch: Watch;
+  images: GalleryImage[];
+  related: Watch[];
+  title: string;
+  jsonLd: object;
+  description: ReactNode;
+}) {
+  const dict = dictionaries[locale];
 
   return (
     <div className="pb-20 lg:pb-0">
@@ -141,7 +180,7 @@ export default async function WatchDetailPage({
 
           {/* 6. Popis */}
           <section>
-            <Prose content={watch.content} />
+            {description}
           </section>
         </div>
       </div>

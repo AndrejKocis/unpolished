@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { CONTACT_EMAIL } from "@/lib/constants";
+import { composeInquiryEmail, type InquiryBody } from "@/lib/inquiry";
 
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS_PER_WINDOW = 5;
@@ -13,14 +14,6 @@ function isRateLimited(ip: string): boolean {
   requestLog.set(ip, timestamps);
   return timestamps.length > MAX_REQUESTS_PER_WINDOW;
 }
-
-type InquiryBody = {
-  type?: "inquiry" | "newsletter";
-  name?: string;
-  email?: string;
-  message?: string;
-  company?: string; // honeypot — musí ostať prázdne
-};
 
 export async function POST(request: NextRequest) {
   const ip = request.headers.get("x-forwarded-for") ?? "unknown";
@@ -38,6 +31,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
+  const email = composeInquiryEmail(body);
+  if ("error" in email) {
+    return NextResponse.json({ error: email.error }, { status: 400 });
+  }
+
   if (!process.env.RESEND_API_KEY) {
     console.error("RESEND_API_KEY nie je nastavený.");
     return NextResponse.json({ error: "Formulár je dočasne nedostupný." }, { status: 500 });
@@ -46,31 +44,11 @@ export async function POST(request: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
-    if (body.type === "newsletter") {
-      if (!body.email) {
-        return NextResponse.json({ error: "Chýba e-mail." }, { status: 400 });
-      }
-      await resend.emails.send({
-        from: "unpolished <noreply@unpolished.com>",
-        to: CONTACT_EMAIL,
-        subject: "Nový odber noviniek",
-        text: `Nová registrácia na newsletter: ${body.email}`,
-      });
-      return NextResponse.json({ ok: true });
-    }
-
-    if (!body.name || !body.email || !body.message) {
-      return NextResponse.json({ error: "Vyplňte prosím všetky polia." }, { status: 400 });
-    }
-
     await resend.emails.send({
       from: "unpolished <noreply@unpolished.com>",
       to: CONTACT_EMAIL,
-      replyTo: body.email,
-      subject: `Dopyt od ${body.name}`,
-      text: `${body.message}\n\nOd: ${body.name} <${body.email}>`,
+      ...email,
     });
-
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("Odoslanie e-mailu zlyhalo:", error);

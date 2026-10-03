@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { useLocale } from "@/components/LocaleProvider";
+import { sendInquiry } from "@/lib/inquiry";
 
 export function NewsletterForm() {
   const { dict } = useLocale();
@@ -13,15 +14,10 @@ export function NewsletterForm() {
     e.preventDefault();
     setStatus("sending");
     const form = e.currentTarget;
-    const email = new FormData(form).get("email");
+    const email = String(new FormData(form).get("email") ?? "");
 
     try {
-      const res = await fetch("/api/inquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "newsletter", email }),
-      });
-      if (!res.ok) throw new Error("failed");
+      await sendInquiry({ type: "newsletter", email });
       setStatus("sent");
       form.reset();
     } catch {

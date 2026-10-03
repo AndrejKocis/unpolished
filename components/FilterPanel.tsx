@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useLocale } from "@/components/LocaleProvider";
 
-export function FilterPanel({ brands }: { brands: string[] }) {
+export function FilterPanel({ brands, searchParams }: { brands: string[]; searchParams: URLSearchParams }) {
   const { dict } = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
 
   const list = (key: string) => (searchParams.get(key) ?? "").split(",").filter(Boolean);

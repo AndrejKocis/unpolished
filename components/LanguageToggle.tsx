@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useLocale } from "@/components/LocaleProvider";
+import { IS_STATIC_EXPORT } from "@/lib/constants";
 
 export function LanguageToggle({ className = "" }: { className?: string }) {
   const { locale, setLocale, dict } = useLocale();
@@ -9,7 +10,8 @@ export function LanguageToggle({ className = "" }: { className?: string }) {
 
   function toggle() {
     setLocale(locale === "sk" ? "en" : "sk");
-    router.refresh();
+    // Server prerenderuje stránku v novom jazyku; statický export má obe verzie už v prehliadači.
+    if (!IS_STATIC_EXPORT) router.refresh();
   }
 
   return (

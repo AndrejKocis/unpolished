@@ -4,6 +4,9 @@ import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
+import type { Watch } from "@/lib/schema";
+import type { Locale } from "@/lib/i18n/locale";
+import { Localized } from "@/components/Localized";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -15,10 +18,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function ArchivePage() {
-  const locale = await getLocale();
-  const dict = dictionaries[locale];
+export default function ArchivePage() {
   const sold = getSoldWatches();
+  return <Localized>{(locale) => <ArchiveContent locale={locale} sold={sold} />}</Localized>;
+}
+
+function ArchiveContent({ locale, sold }: { locale: Locale; sold: Watch[] }) {
+  const dict = dictionaries[locale];
 
   return (
     <div>

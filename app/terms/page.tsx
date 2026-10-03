@@ -3,14 +3,19 @@ import { CONTACT_EMAIL, VAT_INFO } from "@/lib/constants";
 import { SectionDivider } from "@/components/SectionDivider";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
+import type { Locale } from "@/lib/i18n/locale";
+import { Localized } from "@/components/Localized";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   return { title: dictionaries[locale].terms.title };
 }
 
-export default async function TermsPage() {
-  const locale = await getLocale();
+export default function TermsPage() {
+  return <Localized>{(locale) => <TermsPageContent locale={locale} />}</Localized>;
+}
+
+function TermsPageContent({ locale }: { locale: Locale }) {
   const dict = dictionaries[locale];
 
   return (

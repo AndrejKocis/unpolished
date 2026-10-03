@@ -1,6 +1,9 @@
 export const SITE_NAME = "unpolished";
 export const SITE_URL = "https://unpolished.com";
 
+// Statický export (`npm run build:static`) beží bez servera — bez cookies na serveri a bez /api.
+export const IS_STATIC_EXPORT = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
+
 export const CONTACT_EMAIL = "info@unpolished.com";
 export const WHATSAPP_NUMBER = "421900000000";
 

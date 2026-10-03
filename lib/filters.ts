@@ -1,3 +1,5 @@
+import type { Watch } from "@/lib/schema";
+
 export const PRICE_BANDS = [
   { value: "under-500", label: "Do 500 €" },
   { value: "500-1500", label: "500–1500 €" },
@@ -19,4 +21,36 @@ export function decadeOf(year: number): string {
 
 export function decadeLabel(decade: string): string {
   return decade.replace("19", "").replace("20", "");
+}
+
+// Filtrovanie a triedenie katalógu podľa URL parametrov (/watches?brand=…&sort=…).
+export function filterWatches(all: Watch[], sp: URLSearchParams): Watch[] {
+  let watches = sp.get("sold") === "1" ? all : all.filter((w) => w.status !== "sold");
+
+  const selectedBrands = (sp.get("brand") ?? "").split(",").filter(Boolean);
+  if (selectedBrands.length > 0) {
+    watches = watches.filter((w) => selectedBrands.includes(w.brand));
+  }
+  const decade = sp.get("decade");
+  if (decade) {
+    watches = watches.filter((w) => decadeOf(w.year) === decade);
+  }
+  const price = sp.get("price");
+  if (price) {
+    watches = watches.filter((w) => matchesPriceBand(w.price, price));
+  }
+  const gender = sp.get("gender");
+  if (gender === "women" || gender === "men") {
+    watches = watches.filter((w) => w.gender === gender || w.gender === "unisex");
+  }
+
+  const sort = sp.get("sort");
+  if (sort === "price-asc") {
+    watches = [...watches].sort((a, b) => a.price - b.price);
+  } else if (sort === "price-desc") {
+    watches = [...watches].sort((a, b) => b.price - a.price);
+  } else if (sort === "oldest") {
+    watches = [...watches].sort((a, b) => a.year - b.year);
+  }
+  return watches;
 }

@@ -184,3 +184,8 @@
     animation: none;
   }
 }
+
+/* Statický export: anglická verzia sa prepne až po hydratácii (pozri LOCALE_INIT_SCRIPT v layout.tsx). */
+html[data-locale-pending] body {
+  visibility: hidden;
+}

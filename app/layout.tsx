@@ -5,9 +5,10 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { LocaleProvider } from "@/components/LocaleProvider";
+import { Localized } from "@/components/Localized";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
-import { SITE_URL } from "@/lib/constants";
+import { IS_STATIC_EXPORT, SITE_URL } from "@/lib/constants";
 
 const instrumentSerif = Instrument_Serif({
   weight: "400",
@@ -41,6 +42,20 @@ const THEME_INIT_SCRIPT = `
 })();
 `;
 
+// Statický export je predrenderovaný po slovensky; pri anglickej cookie skry stránku,
+// kým LocaleProvider po hydratácii neprepne jazyk (poistka 3 s, ak by JS zlyhal).
+const LOCALE_INIT_SCRIPT = `
+(function () {
+  try {
+    if (/(?:^|;\\s*)locale=en(?:;|$)/.test(document.cookie)) {
+      var root = document.documentElement;
+      root.setAttribute('data-locale-pending', '');
+      setTimeout(function () { root.removeAttribute('data-locale-pending'); }, 3000);
+    }
+  } catch (e) {}
+})();
+`;
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const dict = dictionaries[locale];
@@ -65,12 +80,13 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        {IS_STATIC_EXPORT && <script dangerouslySetInnerHTML={{ __html: LOCALE_INIT_SCRIPT }} />}
       </head>
       <body className="min-h-full flex flex-col font-sans">
         <LocaleProvider locale={locale}>
-          <Nav locale={locale} />
+          <Localized>{(l) => <Nav locale={l} />}</Localized>
           <main className="flex-1">{children}</main>
-          <Footer locale={locale} />
+          <Localized>{(l) => <Footer locale={l} />}</Localized>
         </LocaleProvider>
       </body>
     </html>

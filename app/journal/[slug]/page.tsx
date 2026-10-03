@@ -4,7 +4,7 @@ import { getAllArticles, getArticleBySlug } from "@/lib/journal";
 import { formatDate } from "@/lib/format";
 import { Prose } from "@/components/Prose";
 import { SectionDivider } from "@/components/SectionDivider";
-import { getLocale } from "@/lib/i18n/server";
+import { Localized } from "@/components/Localized";
 
 export async function generateStaticParams() {
   return getAllArticles().map((a) => ({ slug: a.slug }));
@@ -29,13 +29,12 @@ export default async function ArticlePage({
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) notFound();
-  const locale = await getLocale();
 
   return (
     <article>
       <div className="max-w-[720px] mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <p className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-4">
-          {formatDate(article.date, locale)}
+          <Localized>{(locale) => formatDate(article.date, locale)}</Localized>
         </p>
         <h1 className="font-serif text-24 sm:text-32">{article.title}</h1>
       </div>

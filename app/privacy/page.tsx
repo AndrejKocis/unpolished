@@ -3,14 +3,19 @@ import { CONTACT_EMAIL } from "@/lib/constants";
 import { SectionDivider } from "@/components/SectionDivider";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
+import type { Locale } from "@/lib/i18n/locale";
+import { Localized } from "@/components/Localized";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   return { title: dictionaries[locale].privacy.title };
 }
 
-export default async function PrivacyPage() {
-  const locale = await getLocale();
+export default function PrivacyPage() {
+  return <Localized>{(locale) => <PrivacyPageContent locale={locale} />}</Localized>;
+}
+
+function PrivacyPageContent({ locale }: { locale: Locale }) {
   const dict = dictionaries[locale];
 
   return (

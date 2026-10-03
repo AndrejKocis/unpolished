@@ -7,21 +7,38 @@ import { WatchGrid } from "@/components/WatchGrid";
 import { ViewAllWatchesCard } from "@/components/ViewAllWatchesCard";
 import { HeroVideo } from "@/components/HeroVideo";
 import { NewsletterForm } from "@/components/NewsletterForm";
-import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
+import type { Watch } from "@/lib/schema";
+import type { Locale } from "@/lib/i18n/locale";
+import { Localized } from "@/components/Localized";
 
 // Zvýš pri každom novom renderi hero média, aby prehliadače nenačítali starú verziu z cache.
 const HERO_MEDIA = "/hero/watch";
 const HERO_VERSION = "v4";
 const heroSrc = (theme: "light" | "dark", ext: "webp" | "mp4" | "png" | "shadow.png") => `${HERO_MEDIA}-${theme}.${HERO_VERSION}.${ext}`;
 
-export default async function Home() {
-  const locale = await getLocale();
-  const dict = dictionaries[locale];
-
+export default function Home() {
   const available = getAvailableWatches().slice(0, 6);
   const heroWatch = getWatchBySlug("longines-ultra-chron-night-sky-unpolished");
   const lugsMacro = heroWatch ? `/watches/${heroWatch.reference}/hero-wide.jpg` : undefined;
+
+  return (
+    <Localized>
+      {(locale) => <HomeContent locale={locale} available={available} lugsMacro={lugsMacro} />}
+    </Localized>
+  );
+}
+
+function HomeContent({
+  locale,
+  available,
+  lugsMacro,
+}: {
+  locale: Locale;
+  available: Watch[];
+  lugsMacro: string | undefined;
+}) {
+  const dict = dictionaries[locale];
 
   return (
     <div>

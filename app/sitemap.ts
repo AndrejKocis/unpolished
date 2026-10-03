@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+
+export const dynamic = "force-static";
 import { getAllWatches } from "@/lib/watches";
 import { getAllArticles } from "@/lib/journal";
 import { SITE_URL } from "@/lib/constants";

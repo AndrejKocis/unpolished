@@ -5,6 +5,7 @@ import { Input, Textarea } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { CONTACT_EMAIL } from "@/lib/constants";
 import { useLocale } from "@/components/LocaleProvider";
+import { sendInquiry, type InquiryBody } from "@/lib/inquiry";
 
 export function ContactForm({ defaultMessage = "" }: { defaultMessage?: string }) {
   const { dict } = useLocale();
@@ -14,15 +15,10 @@ export function ContactForm({ defaultMessage = "" }: { defaultMessage?: string }
     e.preventDefault();
     setStatus("sending");
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
+    const data = Object.fromEntries(new FormData(form).entries()) as InquiryBody;
 
     try {
-      const res = await fetch("/api/inquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, type: "inquiry" }),
-      });
-      if (!res.ok) throw new Error("request failed");
+      await sendInquiry({ ...data, type: "inquiry" });
       setStatus("sent");
       form.reset();
     } catch {

@@ -5,6 +5,9 @@ import { formatDate } from "@/lib/format";
 import { SectionDivider } from "@/components/SectionDivider";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
+import type { Article } from "@/lib/schema";
+import type { Locale } from "@/lib/i18n/locale";
+import { Localized } from "@/components/Localized";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -17,10 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function JournalPage() {
-  const locale = await getLocale();
-  const dict = dictionaries[locale];
+export default function JournalPage() {
   const articles = getAllArticles();
+  return <Localized>{(locale) => <JournalContent locale={locale} articles={articles} />}</Localized>;
+}
+
+function JournalContent({ locale, articles }: { locale: Locale; articles: Article[] }) {
+  const dict = dictionaries[locale];
 
   return (
     <div>
