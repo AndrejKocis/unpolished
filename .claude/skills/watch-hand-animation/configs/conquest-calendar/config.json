@@ -386,5 +386,12 @@
     "dir": "public/hero",
     "basename": "watch",
     "version_const": "HERO_VERSION in app/page.tsx"
+  },
+  "mask": {
+    "diff_range": [
+      1.5,
+      7.0
+    ],
+    "feather": 1.2
   }
 }

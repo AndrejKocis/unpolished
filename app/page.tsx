@@ -13,7 +13,7 @@ import { dictionaries } from "@/lib/i18n/dictionaries";
 // Zvýš pri každom novom renderi hero média, aby prehliadače nenačítali starú verziu z cache.
 const HERO_MEDIA = "/hero/watch";
 const HERO_VERSION = "v3";
-const heroSrc = (theme: "light" | "dark", ext: "webp" | "mp4") => `${HERO_MEDIA}-${theme}.${HERO_VERSION}.${ext}`;
+const heroSrc = (theme: "light" | "dark", ext: "webp" | "mp4" | "png") => `${HERO_MEDIA}-${theme}.${HERO_VERSION}.${ext}`;
 
 export default async function Home() {
   const locale = await getLocale();
@@ -37,7 +37,15 @@ export default async function Home() {
               {dict.home.heroCta}
             </Button>
           </div>
-          <div className="relative aspect-square bg-white order-1 lg:order-2">
+          <div
+            className="hero-masked relative aspect-square order-1 lg:order-2"
+            style={
+              {
+                "--hero-mask-light": `url(${heroSrc("light", "png")})`,
+                "--hero-mask-dark": `url(${heroSrc("dark", "png")})`,
+              } as React.CSSProperties
+            }
+          >
             <Image
               src={heroSrc("light", "webp")}
               alt="Unpolished watch"

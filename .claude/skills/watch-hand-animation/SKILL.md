@@ -17,6 +17,7 @@ $S/run.sh build $CFG          # clean dial + layers + vector seconds hand
 $S/run.sh check $CFG          # numeric acceptance checks - must print ALL CHECKS PASSED
 $S/run.sh render $CFG preview # contact sheet: photo + 5 hand positions
 $S/run.sh render $CFG video v4   # 60 s loop + poster for every variant -> public/hero/watch-<v>.v4.*
+$S/run.sh render $CFG mask v4    # static alpha mask (watch + shadow) -> public/hero/watch-<v>.v4.png
 $S/run.sh measure $CFG grid|squares|overlay ...   # measuring helpers (see below)
 ```
 
@@ -52,6 +53,9 @@ $S/run.sh measure $CFG grid|squares|overlay ...   # measuring helpers (see below
 ## Deploying (hero)
 - `render video <version>` writes `public/hero/watch-<variant>.<version>.mp4/.webp`, but only after verifying
   the encoded frame count (half-written files never land in `public/`).
+- Also render the masks (`render mask <version>`): the hero container uses them as CSS `mask-image`
+  (`.hero-masked` in `app/globals.css`), so only the watch and its shadow show and the page background is
+  visible around it. This hides the H.264 colour shift of the dark background (it came out greenish).
 - Bump `HERO_VERSION` in `app/page.tsx` to the same version and delete the previous version's files
   (`git mv` the old names or `git rm` them). Versioned names = browsers never show a cached old render.
 - Check in the browser pane that both themes load the new files (`data-theme` toggle, `readyState` 4, no

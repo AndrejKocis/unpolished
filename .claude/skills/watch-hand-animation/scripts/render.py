@@ -2,6 +2,7 @@
 
 usage: render.py <config.json> preview|video <version> [dark|light|all]
   preview          contact sheet (photo + 5 hand positions) -> tmp/hand-anim/<slug>/preview_<v>.jpg
+  mask <version>   static alpha mask PNG (watch + shadow) -> <output.dir>/<basename>-<v>.<version>.png
   video <version>  60 s loop + poster (first frame, full photo size) rendered to the work dir, then moved to
                    <output.dir>/<basename>-<v>.<version>.mp4 / .webp  (all variants run in parallel)
 """
@@ -162,6 +163,33 @@ def video(cfg, v, version):
     print("wrote", dst + ".mp4", "and .webp")
 
 
+def mask(cfg, v, version):
+    """Static alpha mask (watch + its shadow) for CSS mask-image: the page background shows through elsewhere,
+    which also hides any colour shift of the encoded video background. Only the hand moves, inside the dial,
+    so one mask fits every frame."""
+    src = cv2.imread(cfg.source(v))
+    H, W = src.shape[:2]
+    S = min(H, W)
+    ox, oy = (W - S) // 2, (H - S) // 2
+    sq = cv2.resize(src[oy:oy + S, ox:ox + S], (1080, 1080), interpolation=cv2.INTER_AREA)
+    lab = cv2.cvtColor(sq, cv2.COLOR_BGR2LAB).astype(np.float32)
+    b = 40
+    border = np.concatenate([lab[:b].reshape(-1, 3), lab[-b:].reshape(-1, 3), lab[:, :b].reshape(-1, 3),
+                             lab[:, -b:].reshape(-1, 3)])
+    d = np.linalg.norm(cv2.GaussianBlur(lab, (0, 0), 2) - np.median(border, 0), axis=2)
+    lo, hi = cfg["mask"]["diff_range"]
+    a = np.clip((d - lo) / (hi - lo), 0, 1)
+    a = a * a * (3 - 2 * a)                                     # smoothstep
+    a = cv2.GaussianBlur(a, (0, 0), cfg["mask"]["feather"])
+    a = cv2.resize(a, (540, 540), interpolation=cv2.INTER_AREA)
+    rgba = np.zeros((540, 540, 4), np.uint8)
+    rgba[..., 3] = np.clip(a * 255, 0, 255).astype(np.uint8)
+    o = cfg["output"]
+    dst = os.path.join(cfg.root, o["dir"], "%s-%s.%s.png" % (o["basename"], v, version))
+    cv2.imwrite(dst, rgba, [cv2.IMWRITE_PNG_COMPRESSION, 9])
+    print("wrote", dst)
+
+
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         sys.exit(__doc__)
@@ -169,6 +197,11 @@ if __name__ == "__main__":
     if mode == "preview":
         for v in cfg.variants(sys.argv[3] if len(sys.argv) > 3 else None):
             preview(cfg, v)
+    elif mode == "mask":
+        if len(sys.argv) < 4:
+            sys.exit("mask needs a version, e.g. v3")
+        for v in cfg.variants(sys.argv[4] if len(sys.argv) > 4 else None):
+            mask(cfg, v, sys.argv[3])
     elif mode == "video":
         if len(sys.argv) < 4:
             sys.exit("video needs a version, e.g. v4")

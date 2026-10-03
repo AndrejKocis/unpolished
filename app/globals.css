@@ -31,6 +31,25 @@
   --sold: #7a7a7a;
 }
 
+/* Hero hodinky: statická maska (hodinky + tieň) – okolo nich presvitá pozadie stránky. */
+.hero-masked {
+  --hero-mask: var(--hero-mask-light);
+  -webkit-mask-image: var(--hero-mask);
+  mask-image: var(--hero-mask);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero-masked {
+    --hero-mask: var(--hero-mask-dark);
+  }
+}
+:root[data-theme="dark"] .hero-masked {
+  --hero-mask: var(--hero-mask-dark);
+}
+
 /* Obrázky, ktoré majú samostatnú verziu pre svetlý a tmavý režim. */
 .theme-img-dark {
   display: none;
