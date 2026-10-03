@@ -17,10 +17,24 @@ export function Logo({ className = "" }: { className?: string }) {
           style={{ transform: "scaleX(1.05)", transformOrigin: "left" }}
           aria-hidden="true"
         >
+          <defs>
+            {/* Obrys odznaku (len hlavný odznak, bez ľavej hrany): linka vo farbe pozadia (--white) vnútri tvaru, kúsok od okraja.
+                Ťahy idú po kópii tvaru s ľavou hranou posunutou von (x 1500), takže ľavá strana sa odreže.
+                Dielik vľavo má len hornú a dolnú linku (obdĺžnik s bokmi mimo dielika, orezaný na jeho tvar).
+                Oba ťahy sú orezané na tvar; hrubší ťah dá linku, tenší ťah vo farbe odznaku medzeru od okraja.
+                Jednotky sú v priestore cesty: 1 px loga ≈ 126 jednotiek. */}
+            <clipPath id="logo-clip">
+              <use href="#logo-badge" />
+            </clipPath>
+            <clipPath id="logo-clip-piece">
+              <use href="#logo-piece" />
+            </clipPath>
+          </defs>
           <g transform="translate(0,460) scale(0.1,-0.1)" fill="currentColor" stroke="none">
-            <path d="M371 4048 c185 -365 354 -917 413 -1345 94 -679 -32 -1407 -375
+            <path id="logo-piece" d="M371 4048 c185 -365 354 -917 413 -1345 94 -679 -32 -1407 -375
 -2168 -33 -71 -59 -131 -59 -132 0 -2 331 -3 735 -3 l735 0 -2 1853 -3 1852
--738 3 -737 2 31 -62z M2080 2255 l0 -1855 7105 0 c4730 0 7105 3 7105 10 0 6
+-738 3 -737 2 31 -62z" />
+            <path id="logo-badge" d="M2080 2255 l0 -1855 7105 0 c4730 0 7105 3 7105 10 0 6
 21 10 46 10 27 0 51 6 60 15 9 8 26 15 40 15 13 0 24 5 24 10 0 6 11 10 25 10
 14 0 25 5 25 10 0 6 7 10 15 10 15 0 64 27 75 41 3 3 15 9 28 13 12 4 22 12
 22 17 0 5 5 9 11 9 11 0 179 164 179 175 0 4 6 13 13 20 31 36 37 46 37 65 0
@@ -33,12 +47,44 @@ export function Logo({ className = "" }: { className?: string }) {
 -11 0 -20 5 -20 10 0 6 -11 10 -25 10 -14 0 -25 4 -25 10 0 5 -16 12 -35 16
 -19 3 -35 10 -35 15 0 5 -22 9 -50 9 -27 0 -50 5 -50 10 0 7 -2375 10 -7105
 10 l-7105 0 0 -1855z" />
+            <g clipPath="url(#logo-clip)" fill="none">
+              <path d="M1500 2255 l0 -1855 7685 0 c4730 0 7105 3 7105 10 0 6
+21 10 46 10 27 0 51 6 60 15 9 8 26 15 40 15 13 0 24 5 24 10 0 6 11 10 25 10
+14 0 25 5 25 10 0 6 7 10 15 10 15 0 64 27 75 41 3 3 15 9 28 13 12 4 22 12
+22 17 0 5 5 9 11 9 11 0 179 164 179 175 0 4 6 13 13 20 31 36 37 46 37 65 0
+11 5 20 10 20 6 0 10 6 10 14 0 7 7 19 15 26 8 7 15 23 15 36 0 13 5 24 10 24
+6 0 10 13 10 29 0 17 4 32 9 36 6 3 13 27 17 53 3 26 10 52 15 58 16 20 5
+2249 -11 2317 -7 31 -17 57 -22 57 -4 0 -8 16 -8 35 0 19 -4 35 -10 35 -5 0
+-10 6 -10 14 0 18 -32 76 -42 76 -5 0 -8 9 -8 21 0 11 -6 27 -12 34 -28 31
+-38 44 -38 50 0 4 -20 26 -45 51 -25 24 -45 46 -45 49 0 8 -27 35 -35 35 -4 0
+-22 16 -41 35 -18 19 -41 35 -50 35 -8 0 -22 6 -29 13 -36 31 -46 37 -65 37
+-11 0 -20 5 -20 10 0 6 -11 10 -25 10 -14 0 -25 4 -25 10 0 5 -16 12 -35 16
+-19 3 -35 10 -35 15 0 5 -22 9 -50 9 -27 0 -50 5 -50 10 0 7 -2375 10 -7105
+10 l-7685 0 0 -1855z" strokeWidth="560" style={{ stroke: "var(--white)" }} />
+              <path d="M1500 2255 l0 -1855 7685 0 c4730 0 7105 3 7105 10 0 6
+21 10 46 10 27 0 51 6 60 15 9 8 26 15 40 15 13 0 24 5 24 10 0 6 11 10 25 10
+14 0 25 5 25 10 0 6 7 10 15 10 15 0 64 27 75 41 3 3 15 9 28 13 12 4 22 12
+22 17 0 5 5 9 11 9 11 0 179 164 179 175 0 4 6 13 13 20 31 36 37 46 37 65 0
+11 5 20 10 20 6 0 10 6 10 14 0 7 7 19 15 26 8 7 15 23 15 36 0 13 5 24 10 24
+6 0 10 13 10 29 0 17 4 32 9 36 6 3 13 27 17 53 3 26 10 52 15 58 16 20 5
+2249 -11 2317 -7 31 -17 57 -22 57 -4 0 -8 16 -8 35 0 19 -4 35 -10 35 -5 0
+-10 6 -10 14 0 18 -32 76 -42 76 -5 0 -8 9 -8 21 0 11 -6 27 -12 34 -28 31
+-38 44 -38 50 0 4 -20 26 -45 51 -25 24 -45 46 -45 49 0 8 -27 35 -35 35 -4 0
+-22 16 -41 35 -18 19 -41 35 -50 35 -8 0 -22 6 -29 13 -36 31 -46 37 -65 37
+-11 0 -20 5 -20 10 0 6 -11 10 -25 10 -14 0 -25 4 -25 10 0 5 -16 12 -35 16
+-19 3 -35 10 -35 15 0 5 -22 9 -50 9 -27 0 -50 5 -50 10 0 7 -2375 10 -7105
+10 l-7685 0 0 -1855z" strokeWidth="300" stroke="currentColor" />
+            </g>
+            <g clipPath="url(#logo-clip-piece)" fill="none">
+              <path d="M-500 400 H2600 V4110 H-500 Z" strokeWidth="560" style={{ stroke: "var(--white)" }} />
+              <path d="M-500 400 H2600 V4110 H-500 Z" strokeWidth="300" stroke="currentColor" />
+            </g>
           </g>
         </svg>
         <span className="absolute inset-y-0 flex items-center" style={{ left: "12.1%", right: "1.5%" }}>
           <span
-            className="logo-badge-text block font-serif uppercase tracking-[0.08em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]"
-            style={{ marginLeft: "10px" }}
+            className="logo-badge-text relative top-[0.046em] block font-serif uppercase tracking-[0.08em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]"
+            style={{ marginLeft: "6px" }}
           >
             unpolished
           </span>
