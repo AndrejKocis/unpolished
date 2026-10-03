@@ -3,7 +3,8 @@ import Link from "next/link";
 import { decadeOf, getAllWatches, getBrands, matchesPriceBand } from "@/lib/watches";
 import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
-import { BrandFilterPanel } from "@/components/BrandFilterPanel";
+import { FilterPanel } from "@/components/FilterPanel";
+import { SortSelect } from "@/components/SortSelect";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 
@@ -14,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: dict.watches.title,
     description:
       locale === "sk"
-        ? "Katalóg nepolírovaných vintage hodiniek."
+        ? "Katalóg neleštených vintage hodiniek."
         : "Catalogue of unpolished vintage watches.",
   };
 }
@@ -56,6 +57,8 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
     watches = [...watches].sort((a, b) => a.price - b.price);
   } else if (sp.sort === "price-desc") {
     watches = [...watches].sort((a, b) => b.price - a.price);
+  } else if (sp.sort === "oldest") {
+    watches = [...watches].sort((a, b) => a.year - b.year);
   }
 
   const hrefWith = (overrides: { gender?: string }) => {
@@ -89,12 +92,14 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 py-6 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <BrandFilterPanel brands={brands} />
+          <FilterPanel brands={brands} />
           <p className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted">
             {watches.length} {watches.length === 1 ? dict.watches.resultsOne : dict.watches.resultsMany}
           </p>
         </div>
 
+        <div className="flex flex-wrap items-center gap-6">
+        <SortSelect />
         <nav className="flex items-center gap-4">
           {genderTabs.map((tab) => {
             const isActive = (sp.gender ?? undefined) === tab.value;
@@ -112,6 +117,7 @@ export default async function WatchesPage({ searchParams }: { searchParams: Sear
             );
           })}
         </nav>
+        </div>
       </div>
 
       <WatchGrid watches={watches} locale={locale} priorityCount={3} />
