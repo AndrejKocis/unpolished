@@ -12,13 +12,10 @@
     },
     {
       "name": "unpolished-static",
-      "runtimeExecutable": "python3",
+      "runtimeExecutable": "sh",
       "runtimeArgs": [
-        "-m",
-        "http.server",
-        "4173",
-        "--directory",
-        "static"
+        "-c",
+        "mkdir -p /tmp/unpolished-pages && ln -sfn \"$PWD/docs\" /tmp/unpolished-pages/unpolished && python3 -m http.server 4173 --directory /tmp/unpolished-pages"
       ],
       "port": 4173
     }

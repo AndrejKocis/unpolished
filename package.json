@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:static": "rm -rf out static && NEXT_PUBLIC_STATIC_EXPORT=1 next build && mv out static",
+    "build:static": "rm -rf out docs && NEXT_PUBLIC_STATIC_EXPORT=1 next build && mv out docs && touch docs/.nojekyll",
     "start": "next start",
     "lint": "eslint"
   },

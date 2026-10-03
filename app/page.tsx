@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getAvailableWatches, getWatchBySlug } from "@/lib/watches";
+import { assetPath } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
 import { SectionDivider } from "@/components/SectionDivider";
 import { WatchGrid } from "@/components/WatchGrid";
@@ -13,14 +14,14 @@ import type { Locale } from "@/lib/i18n/locale";
 import { Localized } from "@/components/Localized";
 
 // Zvýš pri každom novom renderi hero média, aby prehliadače nenačítali starú verziu z cache.
-const HERO_MEDIA = "/hero/watch";
+const HERO_MEDIA = assetPath("/hero/watch");
 const HERO_VERSION = "v4";
 const heroSrc = (theme: "light" | "dark", ext: "webp" | "mp4" | "png" | "shadow.png") => `${HERO_MEDIA}-${theme}.${HERO_VERSION}.${ext}`;
 
 export default function Home() {
   const available = getAvailableWatches().slice(0, 6);
   const heroWatch = getWatchBySlug("longines-ultra-chron-night-sky-unpolished");
-  const lugsMacro = heroWatch ? `/watches/${heroWatch.reference}/hero-wide.jpg` : undefined;
+  const lugsMacro = heroWatch ? assetPath(`/watches/${heroWatch.reference}/hero-wide.jpg`) : undefined;
 
   return (
     <Localized>

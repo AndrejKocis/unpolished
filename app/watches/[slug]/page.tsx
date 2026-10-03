@@ -11,7 +11,7 @@ import { WatchStatusFlags } from "@/components/WatchStatusFlags";
 import { Prose } from "@/components/Prose";
 import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, assetPath } from "@/lib/constants";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
 import type { Watch } from "@/lib/schema";
@@ -47,7 +47,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      images: [`/watches/${watch.reference}/${watch.images[0]}`],
+      images: [assetPath(`/watches/${watch.reference}/${watch.images[0]}`)],
     },
   };
 }
@@ -62,7 +62,7 @@ export default async function WatchDetailPage({
   if (!watch) notFound();
 
   const images = watch.images.map((img) => ({
-    src: `/watches/${watch.reference}/${img}`,
+    src: assetPath(`/watches/${watch.reference}/${img}`),
     alt: `${watch.brand} ${watch.model} ref. ${watch.reference} — ${img
       .replace(/\.[a-z0-9]+$/i, "")
       .replace(/^\d+-/, "")
@@ -87,7 +87,7 @@ export default async function WatchDetailPage({
     sku: watch.reference,
     brand: { "@type": "Brand", name: watch.brand },
     description: `${watch.brand} ${watch.model} ref. ${watch.reference} z roku ${watch.year}. Neleštené puzdro.`,
-    image: images.map((img) => `${SITE_URL}${img.src}`),
+    image: images.map((img) => new URL(img.src, SITE_URL).href),
     offers: {
       "@type": "Offer",
       url: `${SITE_URL}/watches/${watch.slug}`,
