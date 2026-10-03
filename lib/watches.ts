@@ -22,9 +22,9 @@ export function getAllWatches(): Watch[] {
   return watches.sort((a, b) => Number(isGoldCase(a)) - Number(isGoldCase(b)) || b.year - a.year);
 }
 
-// Zlaté = zlatené, pozlátené alebo gold filled puzdro; oceľové puzdro s pozlátenými detailmi zostáva medzi striebornými.
+// Zlaté = zlatené, pozlátené alebo gold filled puzdro, aj oceľ s pozlátenými detailmi (napr. luneta).
 export function isGoldCase(watch: Watch): boolean {
-  return !/^oce[lľ]/i.test(watch.caseMaterial.trim());
+  return /zlat|zlát|gold/i.test(watch.caseMaterial);
 }
 
 export function getWatchBySlug(slug: string): Watch | undefined {
