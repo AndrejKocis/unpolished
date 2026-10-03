@@ -36,7 +36,7 @@ export async function generateMetadata({
   if (!watch) return {};
 
   const title = buildTitle(watch);
-  const description = `${watch.brand} ${watch.model} ref. ${watch.reference} z roku ${watch.year}. ${watch.dial}. Nepolírované puzdro, ostré hrany, plné lugy.`;
+  const description = `${watch.brand} ${watch.model} ref. ${watch.reference} z roku ${watch.year}. ${watch.dial}. Neleštené puzdro, ostré hrany, plné lugy.`;
 
   return {
     title,
@@ -86,7 +86,7 @@ export default async function WatchDetailPage({
     name: `${watch.brand} ${watch.model} ${watch.reference}`,
     sku: watch.reference,
     brand: { "@type": "Brand", name: watch.brand },
-    description: `${watch.brand} ${watch.model} ref. ${watch.reference} z roku ${watch.year}. Nepolírované puzdro.`,
+    description: `${watch.brand} ${watch.model} ref. ${watch.reference} z roku ${watch.year}. Neleštené puzdro.`,
     image: images.map((img) => `${SITE_URL}${img.src}`),
     offers: {
       "@type": "Offer",

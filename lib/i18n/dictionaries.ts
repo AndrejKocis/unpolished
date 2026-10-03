@@ -1,8 +1,8 @@
 const sk = {
   meta: {
-    siteTitle: "unpolished — nepolírované vintage hodinky",
+    siteTitle: "unpolished — neleštené vintage hodinky",
     siteDescription:
-      "Kurátorovaný predaj vintage hodiniek s originálnym, neprepolírovaným puzdrom.",
+      "Kurátorovaný predaj vintage hodiniek s originálnym, neprelešteným puzdrom.",
   },
   nav: {
     watches: "Hodinky",
@@ -25,16 +25,11 @@ const sk = {
   footer: {
     shop: "Obchod",
     info: "Informácie",
-    journal: "Journal",
-    legal: "Právne",
     watches: "Hodinky",
     archive: "Archív",
     about: "O nás",
     faq: "FAQ",
     contact: "Kontakt",
-    allArticles: "Všetky články",
-    terms: "Obchodné podmienky",
-    privacy: "Ochrana údajov",
   },
   common: {
     close: "Zavrieť",
@@ -58,27 +53,10 @@ const sk = {
     currentTitle: "Aktuálne kusy",
     currentSubtitle: "Každý kus je jediný. Keď zmizne, zmizne.",
     allWatches: "Všetky hodinky",
-    whyTitle: "Prečo nepolírované",
+    whyTitle: "Prečo neleštené",
     whyText:
-      "Leštenie odstraňuje vrchnú vrstvu kovu z povrchu puzdra. Tento úbytok je nezvratný — nedá sa vrátiť späť ani doplniť. Spolu s kovom miznú aj pôvodné fazety na lugoch, ktoré výrobca vybrúsil pri výrobe a ktoré určujú tvar celého puzdra. Výsledkom opakovaného leštenia je zaoblené, tenšie puzdro, ktoré nezodpovedá pôvodnej výrobnej špecifikácii, a teda nezvratne nižšia hodnota kusu.",
+      "Neleštené pre mňa znamená pôvodné. Hodinky ponúkam v stave, v akom ku mne prišli — či už nosené, alebo takmer nedotknuté — s fazetami a tvarmi puzdra, ako ich navrhol výrobca. Ak túžite po lesku, citlivé, minimálne preleštenie ho vie vrátiť bez toho, aby hodinky stratili charakter. Rozhodnutie však nechávam na vás.",
     whyLink: "Naša filozofia",
-    processSteps: [
-      {
-        number: "01",
-        title: "Zdroj",
-        body: "Kusy vyberáme priamo od majiteľov a overených predajcov, nie z anonymných aukcií.",
-      },
-      {
-        number: "02",
-        title: "Kontrola a servis",
-        body: "Puzdro, ciferník a strojček prejdú kontrolou. Servis rieši vlastný hodinár, nikdy neleštíme.",
-      },
-      {
-        number: "03",
-        title: "Foto a listing",
-        body: "Deväť fotiek za rovnakých podmienok, poctivý popis vrátane chýb, potom zverejnenie.",
-      },
-    ],
     newsletterTitle: "Nové kusy oznamujeme e-mailom prvý.",
     newsletterSubtitle: "Väčšina kusov sa predá do 48 hodín od zverejnenia.",
     newsletterSent: "Ďakujeme, ste na zozname.",
@@ -98,8 +76,9 @@ const sk = {
     sort: "Radenie",
     all: "Všetky",
     newest: "Najnovšie",
-    priceAsc: "Cena rastúco",
-    priceDesc: "Cena klesajúco",
+    oldest: "Najstaršie",
+    priceAsc: "Od najlacnejších",
+    priceDesc: "Od najdrahších",
     showSold: "Zobraziť predané",
     filter: "Filtrovať",
     showFilters: "Zobraziť filtre",
@@ -162,7 +141,7 @@ const sk = {
       },
       {
         title: "Prečo kúpiť u nás",
-        body: "Každý kus si osobne overujeme, fotíme rovnakým spôsobom a popisujeme bez skrášľovania. Nepredávame prepolírované puzdrá a v popise uvádzame aj chyby.",
+        body: "Každý kus si osobne overujeme, fotíme rovnakým spôsobom a popisujeme bez skrášľovania. Nepredávame preleštené puzdrá a v popise uvádzame aj chyby.",
       },
     ],
     inquiryPrefix: "Mám záujem o",
@@ -185,7 +164,7 @@ const sk = {
       {
         heading: "Prečo unpolished",
         paragraphs: [
-          "Vintage hodinky sa dajú vylepšiť tak, aby vyzerali novšie. My to nerobíme. Puzdro, ktoré prešlo leštičkou, stráca pôvodné fazety a hrany, ktoré do neho vybrúsil výrobca — a táto strata je nezvratná. Predávame iba kusy, ktorých puzdro je v pôvodnom, neprepolírovanom stave, aj keď to znamená viditeľné škrabance alebo patinu.",
+          "Vintage hodinky sa dajú vylepšiť tak, aby vyzerali novšie. My to nerobíme. Puzdro, ktoré prešlo leštičkou, stráca pôvodné fazety a hrany, ktoré do neho vybrúsil výrobca — a táto strata je nezvratná. Predávame iba kusy, ktorých puzdro je v pôvodnom, nepreleštenom stave, aj keď to znamená viditeľné škrabance alebo patinu.",
           "Nie je to estetická preferencia. Je to jediný spôsob, ako zachovať hodnotu a autenticitu kusu, ktorý má za sebou desaťročia.",
         ],
       },
@@ -211,7 +190,7 @@ const sk = {
         a: "Napíšte nám cez formulár na detaile hodinky, e-mailom alebo cez WhatsApp. Dohodneme si detaily platby a doručenia priamo s vami.",
       },
       {
-        q: "Prečo nepredávate prepolírované hodinky?",
+        q: "Prečo nepredávate preleštené hodinky?",
         a: "Leštenie nezvratne odstraňuje pôvodný kov puzdra a s ním aj fazety a hrany, ktoré určujú tvar kusu. Znižuje to zberateľskú aj trhovú hodnotu.",
       },
       {
@@ -282,16 +261,11 @@ const en: Dictionary = {
   footer: {
     shop: "Shop",
     info: "Information",
-    journal: "Journal",
-    legal: "Legal",
     watches: "Watches",
     archive: "Archive",
     about: "About",
     faq: "FAQ",
     contact: "Contact",
-    allArticles: "All articles",
-    terms: "Terms of service",
-    privacy: "Privacy policy",
   },
   common: {
     close: "Close",
@@ -317,25 +291,8 @@ const en: Dictionary = {
     allWatches: "All watches",
     whyTitle: "Why unpolished",
     whyText:
-      "Polishing removes the top layer of metal from the case surface. That loss is irreversible — it cannot be undone or replaced. Along with the metal go the original lug facets the maker cut at the factory, the facets that define the case's shape. The result of repeated polishing is a rounded, thinner case that no longer matches the original factory specification — and therefore an irreversibly lower value.",
+      "Unpolished means original to me. I offer each watch as it came to me — worn or nearly untouched — with the case lines and facets the maker intended. If you'd like the shine back, a careful, minimal polish can restore it without taking away the watch's character. That choice stays with you.",
     whyLink: "Our philosophy",
-    processSteps: [
-      {
-        number: "01",
-        title: "Sourcing",
-        body: "We source pieces directly from owners and vetted dealers, never from anonymous auctions.",
-      },
-      {
-        number: "02",
-        title: "Inspection & service",
-        body: "Case, dial and movement are inspected. Servicing is handled by our own watchmaker — we never polish.",
-      },
-      {
-        number: "03",
-        title: "Photos & listing",
-        body: "Nine photos under the same conditions, an honest description including flaws, then it goes live.",
-      },
-    ],
     newsletterTitle: "We email new pieces first.",
     newsletterSubtitle: "Most pieces sell within 48 hours of listing.",
     newsletterSent: "Thanks, you're on the list.",
@@ -355,8 +312,9 @@ const en: Dictionary = {
     sort: "Sort",
     all: "All",
     newest: "Newest",
-    priceAsc: "Price ascending",
-    priceDesc: "Price descending",
+    oldest: "Oldest",
+    priceAsc: "Price: low to high",
+    priceDesc: "Price: high to low",
     showSold: "Show sold",
     filter: "Filter",
     showFilters: "Show filters",
