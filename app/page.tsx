@@ -12,8 +12,8 @@ import { dictionaries } from "@/lib/i18n/dictionaries";
 
 // Zvýš pri každom novom renderi hero média, aby prehliadače nenačítali starú verziu z cache.
 const HERO_MEDIA = "/hero/watch";
-const HERO_VERSION = "v3";
-const heroSrc = (theme: "light" | "dark", ext: "webp" | "mp4" | "png") => `${HERO_MEDIA}-${theme}.${HERO_VERSION}.${ext}`;
+const HERO_VERSION = "v4";
+const heroSrc = (theme: "light" | "dark", ext: "webp" | "mp4" | "png" | "shadow.png") => `${HERO_MEDIA}-${theme}.${HERO_VERSION}.${ext}`;
 
 export default async function Home() {
   const locale = await getLocale();
@@ -37,8 +37,16 @@ export default async function Home() {
               {dict.home.heroCta}
             </Button>
           </div>
+          <div className="relative aspect-square order-1 lg:order-2">
+          {/* Tmavá fotka má tieň len o pár úrovní pod pozadím a video ho rozbije na schodíky,
+              preto je v tmavom režime tieň samostatná hladká vrstva pod maskovanými hodinkami. */}
           <div
-            className="hero-masked relative aspect-square order-1 lg:order-2"
+            aria-hidden="true"
+            className="theme-img-dark absolute inset-0 bg-no-repeat bg-[length:100%_100%]"
+            style={{ backgroundImage: `url(${heroSrc("dark", "shadow.png")})` }}
+          />
+          <div
+            className="hero-masked absolute inset-0"
             style={
               {
                 "--hero-mask-light": `url(${heroSrc("light", "png")})`,
@@ -73,6 +81,7 @@ export default async function Home() {
                 className="theme-img-dark absolute inset-0 h-full w-full object-cover"
               />
             </div>
+          </div>
           </div>
         </div>
       </section>

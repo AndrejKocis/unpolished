@@ -392,6 +392,15 @@
       1.5,
       7.0
     ],
-    "feather": 1.2
+    "feather": 1.2,
+    "shadow_layer": [
+      "dark"
+    ],
+    "watch_range": [
+      3.0,
+      10.0
+    ],
+    "shadow_blur": 10,
+    "shadow_strength": 1.0
   }
 }

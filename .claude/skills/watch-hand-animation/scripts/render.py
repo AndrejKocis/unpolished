@@ -163,10 +163,26 @@ def video(cfg, v, version):
     print("wrote", dst + ".mp4", "and .webp")
 
 
+def _smooth(x, lo, hi):
+    a = np.clip((x - lo) / (hi - lo), 0, 1)
+    return a * a * (3 - 2 * a)
+
+
+def _save_alpha(cfg, a, name):
+    a = cv2.resize(a, (540, 540), interpolation=cv2.INTER_AREA)
+    rgba = np.zeros((540, 540, 4), np.uint8)
+    rgba[..., 3] = np.clip(a * 255, 0, 255).astype(np.uint8)
+    dst = os.path.join(cfg.root, cfg["output"]["dir"], name)
+    cv2.imwrite(dst, rgba, [cv2.IMWRITE_PNG_COMPRESSION, 9])
+    print("wrote", dst)
+
+
 def mask(cfg, v, version):
-    """Static alpha mask (watch + its shadow) for CSS mask-image: the page background shows through elsewhere,
-    which also hides any colour shift of the encoded video background. Only the hand moves, inside the dial,
-    so one mask fits every frame."""
+    """Static alpha mask for CSS mask-image: the page background shows around the watch, which also hides any
+    colour shift of the encoded video background. Only the hand moves, inside the dial, so one mask fits all
+    frames. Variants listed in mask.shadow_layer (dark photos: the shadow is only a few levels below the
+    background and H.264 bands it into steps) get a watch-only mask plus a separate smooth shadow PNG
+    (<name>.shadow.png, black + alpha) drawn underneath."""
     src = cv2.imread(cfg.source(v))
     H, W = src.shape[:2]
     S = min(H, W)
@@ -176,18 +192,34 @@ def mask(cfg, v, version):
     b = 40
     border = np.concatenate([lab[:b].reshape(-1, 3), lab[-b:].reshape(-1, 3), lab[:, :b].reshape(-1, 3),
                              lab[:, -b:].reshape(-1, 3)])
-    d = np.linalg.norm(cv2.GaussianBlur(lab, (0, 0), 2) - np.median(border, 0), axis=2)
-    lo, hi = cfg["mask"]["diff_range"]
-    a = np.clip((d - lo) / (hi - lo), 0, 1)
-    a = a * a * (3 - 2 * a)                                     # smoothstep
-    a = cv2.GaussianBlur(a, (0, 0), cfg["mask"]["feather"])
-    a = cv2.resize(a, (540, 540), interpolation=cv2.INTER_AREA)
-    rgba = np.zeros((540, 540, 4), np.uint8)
-    rgba[..., 3] = np.clip(a * 255, 0, 255).astype(np.uint8)
+    bg = np.median(border, 0)
+    labb = cv2.GaussianBlur(lab, (0, 0), 2)
+    mc = cfg["mask"]
     o = cfg["output"]
-    dst = os.path.join(cfg.root, o["dir"], "%s-%s.%s.png" % (o["basename"], v, version))
-    cv2.imwrite(dst, rgba, [cv2.IMWRITE_PNG_COMPRESSION, 9])
-    print("wrote", dst)
+    base = "%s-%s.%s" % (o["basename"], v, version)
+    if v not in mc.get("shadow_layer", []):
+        d = np.linalg.norm(labb - bg, axis=2)
+        a = cv2.GaussianBlur(_smooth(d, *mc["diff_range"]), (0, 0), mc["feather"])
+        _save_alpha(cfg, a, base + ".png")
+        return
+    # watch only: brighter or more coloured than the background (the shadow is darker, so it is excluded)
+    lift = labb[..., 0] - bg[0]
+    chroma = np.hypot(labb[..., 1] - bg[1], labb[..., 2] - bg[2])
+    lo, hi = mc["watch_range"]
+    watch = np.maximum(_smooth(lift, lo, hi), _smooth(chroma, lo, hi))
+    watch = cv2.morphologyEx(watch, cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8))
+    watch = cv2.GaussianBlur(watch, (0, 0), mc["feather"])
+    _save_alpha(cfg, watch, base + ".png")
+    # shadow: how much darker than the background, as black overlay alpha; filled under the watch, then smoothed
+    gray = cv2.cvtColor(sq, cv2.COLOR_BGR2GRAY).astype(np.float32)
+    gbg = float(np.median(np.concatenate([gray[:b].ravel(), gray[-b:].ravel(), gray[:, :b].ravel(),
+                                          gray[:, -b:].ravel()])))
+    sh = np.clip(1 - cv2.GaussianBlur(gray, (0, 0), 3) / max(gbg, 1), 0, 1)
+    w = (1 - watch).astype(np.float32)
+    sig = mc["shadow_blur"]
+    sh = cv2.GaussianBlur(sh * w, (0, 0), sig) / np.maximum(cv2.GaussianBlur(w, (0, 0), sig), 1e-3)
+    sh = np.clip(sh * mc.get("shadow_strength", 1.0), 0, 0.85)
+    _save_alpha(cfg, sh, base + ".shadow.png")
 
 
 if __name__ == "__main__":

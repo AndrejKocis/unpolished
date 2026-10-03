@@ -56,6 +56,9 @@ $S/run.sh measure $CFG grid|squares|overlay ...   # measuring helpers (see below
 - Also render the masks (`render mask <version>`): the hero container uses them as CSS `mask-image`
   (`.hero-masked` in `app/globals.css`), so only the watch and its shadow show and the page background is
   visible around it. This hides the H.264 colour shift of the dark background (it came out greenish).
+- Dark photos: the shadow is only a few levels below the background and H.264 bands it into visible steps.
+  List such variants in `mask.shadow_layer`: they get a watch-only mask plus a smooth `<name>.shadow.png`
+  (black + alpha) that the page draws underneath (dark theme only).
 - Bump `HERO_VERSION` in `app/page.tsx` to the same version and delete the previous version's files
   (`git mv` the old names or `git rm` them). Versioned names = browsers never show a cached old render.
 - Check in the browser pane that both themes load the new files (`data-theme` toggle, `readyState` 4, no
