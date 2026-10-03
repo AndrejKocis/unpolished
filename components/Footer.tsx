@@ -23,17 +23,6 @@ export function Footer({ locale }: { locale: Locale }) {
         { href: "/contact", label: dict.footer.contact },
       ],
     },
-    {
-      heading: dict.footer.journal,
-      links: [{ href: "/journal", label: dict.footer.allArticles }],
-    },
-    {
-      heading: dict.footer.legal,
-      links: [
-        { href: "/terms", label: dict.footer.terms },
-        { href: "/privacy", label: dict.footer.privacy },
-      ],
-    },
   ];
 
   return (

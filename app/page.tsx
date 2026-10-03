@@ -87,7 +87,7 @@ export default async function Home() {
 
       <SectionDivider />
 
-      {/* Prečo nepolírované */}
+      {/* Prečo neleštené */}
       <section className="py-16 lg:py-24">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="relative aspect-square bg-paper">
@@ -108,21 +108,6 @@ export default async function Home() {
               {dict.home.whyLink}
             </Link>
           </div>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* Proces overenia */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-8">
-          {dict.home.processSteps.map((step) => (
-            <div key={step.number} className="flex flex-col gap-3">
-              <p className="font-mono text-11 text-ink-muted">{step.number}</p>
-              <h3 className="font-serif text-18">{step.title}</h3>
-              <p className="text-15 text-ink-muted">{step.body}</p>
-            </div>
-          ))}
         </div>
       </section>
 
