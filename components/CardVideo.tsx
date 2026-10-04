@@ -43,7 +43,7 @@ export function CardVideo({
     <div className="absolute inset-0" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       {/* Statický základ — mimo hoveru buď zvolená fotka, alebo prvá snímka videa */}
       {posterSrc ? (
-        <Image src={posterSrc} alt={ariaLabel} fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw" className="object-cover" />
+        <Image src={posterSrc} alt={ariaLabel} fill sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
       ) : (
         <video
           src={src}

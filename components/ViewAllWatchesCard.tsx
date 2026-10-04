@@ -1,10 +1,11 @@
 import Link from "next/link";
 
+// Na mobile (jeden stĺpec) tlačidlo pod kartami, od sm vyššie karta v mriežke.
 export function ViewAllWatchesCard({ label }: { label: string }) {
   return (
     <Link
       href="/watches"
-      className="group flex flex-col items-center justify-center gap-3 bg-paper hover:border-ink border border-transparent transition-[border-color] duration-150 aspect-[4/5] sm:aspect-auto sm:h-full min-h-[200px]"
+      className="group flex items-center justify-center gap-3 border transition-[border-color] duration-150 py-4 border-ink sm:flex-col sm:py-0 sm:bg-paper sm:border-transparent sm:hover:border-ink sm:h-full sm:min-h-[200px]"
     >
       <span className="font-serif text-18 text-ink">{label}</span>
       <svg

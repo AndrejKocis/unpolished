@@ -36,7 +36,7 @@ export function WatchCard({
             src={`/watches/${watch.media}/${watch.images[0]}`}
             alt={watchLabel(watch)}
             fill
-            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+            sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover"
             priority={priority}
           />
