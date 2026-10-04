@@ -111,15 +111,15 @@ export function WatchStatusFlags({ watch, locale }: { watch: Watch; locale: Loca
   const { statusYes, statusNo } = dict.watchDetail;
 
   return (
-    <section>
-      <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-4">
+    <section className="border border-line px-4 py-4 sm:px-5">
+      <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink mb-4">
         {dict.watchDetail.statusFlagsTitle}
       </h2>
-      <div className="flex items-center justify-between max-w-md">
+      <div className="flex items-center justify-between gap-1">
         {items.map(({ key, Icon, enabled, label }, i) => (
           <StatusFlag
             key={key}
-            icon={<Icon className="h-6 w-6" />}
+            icon={<Icon className="h-5 w-5" />}
             text={`${label}: ${enabled ? statusYes : statusNo}`}
             enabled={enabled}
             align={i === 0 ? "start" : i === items.length - 1 ? "end" : "center"}

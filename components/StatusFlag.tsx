@@ -48,11 +48,15 @@ export function StatusFlag({
       aria-label={text}
       onClick={() => setOpen((v) => !v)}
       className={[
-        "group relative flex h-9 w-9 items-center justify-center",
-        enabled ? "text-ink" : "text-line",
+        "group relative flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center border transition-colors",
+        // Aktívny stav: plný tmavý štvorec. Neaktívny: obrys a prečiarknutie, aby bol jasne „nie“.
+        enabled ? "bg-ink border-ink text-white" : "border-line text-ink-muted/60 hover:border-ink-muted",
       ].join(" ")}
     >
       {icon}
+      {!enabled && (
+        <span aria-hidden="true" className="pointer-events-none absolute h-px w-[70%] rotate-45 bg-current" />
+      )}
       <span
         aria-hidden="true"
         className={[
