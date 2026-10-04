@@ -20,12 +20,15 @@ checklistu nižšie.
 - [ ] **Video pre kartu** — orez na stred, HDR→SDR, kompresia, jemný
       crossfade loop (`scripts/process-video.sh`)
 - [ ] **5 fotiek do detailu** — skopíruje a premenuje do
-      `public/watches/<reference>/`
+      `public/watches/<media>/` (`media` = referencia, ak je známa, inak
+      krátky názov modelu, napr. `memosail`)
 - [ ] **Popis modelu** — vyhľadá fakty o referencii na internete (história,
       technické údaje) a napíše ich **vlastnými slovami** v našom brand
       hlase — web hovorí v **prvej osobe jednotného čísla** („môj hodinár“,
       „predávam“), nikdy v množnom („náš“, „predávame“). Nikdy neprevezme cudzí text doslovne (copyright) a neistotu
-      radšej prizná, než aby si vymýšľal detaily.
+      radšej prizná, než aby si vymýšľal detaily. Do popisu nepíše vety o
+      servise ani hodinárovi (to ukazuje ikona „Servisované“) ani o tom, že
+      sériové či referenčné číslo nie je viditeľné alebo známe.
 - [ ] **Cena** — Claude sa tu zastaví a opýta sa ťa. Nikdy ju
       nenastaví sám ani neprevezme z inzerátov iných predajcov — je to
       tvoje obchodné rozhodnutie.

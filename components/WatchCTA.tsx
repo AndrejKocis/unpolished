@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { InquiryModal } from "@/components/InquiryModal";
 import { watchWhatsappLink } from "@/lib/constants";
+import { watchLabel } from "@/lib/format";
 import { useLocale } from "@/components/LocaleProvider";
 import type { Watch } from "@/lib/schema";
 
@@ -42,7 +43,7 @@ export function WatchCTA({ watch, sticky = false }: { watch: Watch; sticky?: boo
           {dict.watchDetail.writeToUs}
         </Button>
         <Button
-          href={watchWhatsappLink(watch.brand, watch.model, watch.reference)}
+          href={watchWhatsappLink(watchLabel(watch))}
           variant="secondary"
           fullWidthOnMobile
           target="_blank"
@@ -54,7 +55,7 @@ export function WatchCTA({ watch, sticky = false }: { watch: Watch; sticky?: boo
       <InquiryModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        prefilledMessage={`${dict.watchDetail.inquiryPrefix} ${watch.brand} ${watch.model} ref. ${watch.reference}.`}
+        prefilledMessage={`${dict.watchDetail.inquiryPrefix} ${watchLabel(watch)}.`}
       />
     </>
   );

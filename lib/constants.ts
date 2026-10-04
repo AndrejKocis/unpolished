@@ -24,6 +24,6 @@ function waLink(text: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
-export function watchWhatsappLink(brand: string, model: string, reference: string) {
-  return waLink(`Dobrý deň, mám záujem o ${brand} ${model} ref. ${reference}.`);
+export function watchWhatsappLink(label: string) {
+  return waLink(`Dobrý deň, mám záujem o ${label}.`);
 }

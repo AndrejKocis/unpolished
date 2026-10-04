@@ -2,7 +2,7 @@ const SQUARE_SHOTS = new Set(["04-lugs-macro", "05-dial-macro", "07-crown", "08-
 
 // Výnimky pre konkrétne fotky, ktoré nesedia na štandardný 4:5 portrétový
 // rámik (napr. odfotené na šírku) — kľúč je "referencia/názov-bez-prípony".
-const SQUARE_SHOTS_BY_REFERENCE = new Set([
+const SQUARE_SHOTS_BY_MEDIA = new Set([
   // GUB 01-dial.jpg je takmer na šírku (1600×1414) — v 4:5 portrétovom
   // rámiku by sa orezalo ~30 % šírky, v štvorcovom len ~12 %.
   "26-Rubis/01-dial",
@@ -18,9 +18,9 @@ const SQUARE_SHOTS_BY_REFERENCE = new Set([
   "racing-regatta/03-profile",
 ]);
 
-export function imageAspect(filename: string, reference: string): "square" | "portrait" {
+export function imageAspect(filename: string, media: string): "square" | "portrait" {
   const base = filename.replace(/\.[a-z0-9]+$/i, "");
-  if (SQUARE_SHOTS.has(base) || SQUARE_SHOTS_BY_REFERENCE.has(`${reference}/${base}`)) {
+  if (SQUARE_SHOTS.has(base) || SQUARE_SHOTS_BY_MEDIA.has(`${media}/${base}`)) {
     return "square";
   }
   return "portrait";

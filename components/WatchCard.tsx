@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Watch } from "@/lib/schema";
-import { formatPrice, statusBadgeLabel } from "@/lib/format";
+import { formatPrice, statusBadgeLabel, watchLabel } from "@/lib/format";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
 import { CardVideo } from "@/components/CardVideo";
@@ -28,14 +28,14 @@ export function WatchCard({
       <div className="relative aspect-[4/5] bg-paper overflow-hidden">
         {watch.video ? (
           <CardVideo
-            src={assetPath(`/watches/${watch.reference}/${watch.video}`)}
-            ariaLabel={`${watch.brand} ${watch.model} ref. ${watch.reference}`}
-            posterSrc={watch.videoPoster ? assetPath(`/watches/${watch.reference}/${watch.videoPoster}`) : undefined}
+            src={assetPath(`/watches/${watch.media}/${watch.video}`)}
+            ariaLabel={watchLabel(watch)}
+            posterSrc={watch.videoPoster ? assetPath(`/watches/${watch.media}/${watch.videoPoster}`) : undefined}
           />
         ) : (
           <Image
-            src={assetPath(`/watches/${watch.reference}/${watch.images[0]}`)}
-            alt={`${watch.brand} ${watch.model} ref. ${watch.reference}`}
+            src={assetPath(`/watches/${watch.media}/${watch.images[0]}`)}
+            alt={watchLabel(watch)}
             fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
             className="object-cover"

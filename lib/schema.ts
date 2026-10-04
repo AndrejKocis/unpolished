@@ -10,7 +10,10 @@ export const watchFrontmatterSchema = z.object({
   slug: z.string(),
   brand: z.string(),
   model: z.string(),
-  reference: z.string(),
+  // Skutočná referencia výrobcu; vynechaj, ak ju nepoznáme — na webe sa potom nezobrazí.
+  reference: z.string().optional(),
+  // Priečinok s fotkami a videom v public/watches/<media>/.
+  media: z.string(),
   gender: watchGenderSchema,
   year: z.number().int(),
   serialPrefix: z.string(),

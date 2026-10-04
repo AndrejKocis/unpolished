@@ -6,7 +6,7 @@ export function WatchSpecs({ watch, locale }: { watch: Watch; locale: Locale }) 
   const { specLabels: labels, specsShowMore, specsShowLess } = dictionaries[locale].watchDetail;
 
   const rows: [string, string][] = [
-    [labels.reference, watch.reference],
+    ...(watch.reference ? [[labels.reference, watch.reference] as [string, string]] : []),
     [labels.year, String(watch.year)],
     [labels.caliber, watch.caliber],
     [labels.caseSize, `${watch.caseSize} mm`],
@@ -18,9 +18,10 @@ export function WatchSpecs({ watch, locale }: { watch: Watch; locale: Locale }) 
     [labels.warranty, watch.warranty],
   ];
 
-  // Hneď viditeľné sú len kľúčové údaje, zvyšok je v rozbaľovacej časti.
-  const primary = rows.slice(0, 3);
-  const more = rows.slice(3);
+  // Hneď viditeľné sú len kľúčové údaje (referencia, rok, kaliber), zvyšok je v rozbaľovacej časti.
+  const primaryCount = watch.reference ? 3 : 2;
+  const primary = rows.slice(0, primaryCount);
+  const more = rows.slice(primaryCount);
 
   return (
     <div className="border-t border-line">

@@ -6,7 +6,7 @@
 
 brand: ""
 model: ""
-reference: ""
+reference: "" # skutočná referencia výrobcu; ak ju nepoznáš, nechaj prázdne — na webe sa nezobrazí
 gender: "" # women | men | unisex
 year:
 currency: EUR

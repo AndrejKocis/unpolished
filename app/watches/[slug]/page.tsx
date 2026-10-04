@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { getAllWatches, getRelatedWatches, getWatchBySlug } from "@/lib/watches";
-import { formatPrice, statusBadgeLabel } from "@/lib/format";
+import { formatPrice, statusBadgeLabel, watchLabel } from "@/lib/format";
 import { imageAspect } from "@/lib/gallery";
 import { Gallery, type GalleryImage } from "@/components/Gallery";
 import { WatchCTA } from "@/components/WatchCTA";
@@ -24,7 +24,8 @@ export async function generateStaticParams() {
 function buildTitle(watch: NonNullable<ReturnType<typeof getWatchBySlug>>): string {
   const dialAttr = watch.dial.split(",")[0].toLowerCase();
   const isFullSet = watch.set !== "Iba hodinky";
-  return `${watch.brand} ${watch.model} Ref. ${watch.reference} — ${dialAttr} ciferník — ${watch.caseMaterial.toLowerCase()} — ${
+  const ref = watch.reference ? ` Ref. ${watch.reference}` : "";
+  return `${watch.brand} ${watch.model}${ref} — ${dialAttr} ciferník — ${watch.caseMaterial.toLowerCase()} — ${
     isFullSet ? "Unpolished Full Set" : "Unpolished"
   }`;
 }
@@ -39,7 +40,7 @@ export async function generateMetadata({
   if (!watch) return {};
 
   const title = buildTitle(watch);
-  const description = `${watch.brand} ${watch.model} ref. ${watch.reference} z roku ${watch.year}. ${watch.dial}. Neleštené puzdro, ostré hrany, plné lugy.`;
+  const description = `${watchLabel(watch)} z roku ${watch.year}. ${watch.dial}. Neleštené puzdro, ostré hrany, plné lugy.`;
 
   return {
     title,
@@ -47,7 +48,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      images: [assetPath(`/watches/${watch.reference}/${watch.images[0]}`)],
+      images: [assetPath(`/watches/${watch.media}/${watch.images[0]}`)],
     },
   };
 }
@@ -62,12 +63,12 @@ export default async function WatchDetailPage({
   if (!watch) notFound();
 
   const images = watch.images.map((img) => ({
-    src: assetPath(`/watches/${watch.reference}/${img}`),
-    alt: `${watch.brand} ${watch.model} ref. ${watch.reference} — ${img
+    src: assetPath(`/watches/${watch.media}/${img}`),
+    alt: `${watchLabel(watch)} — ${img
       .replace(/\.[a-z0-9]+$/i, "")
       .replace(/^\d+-/, "")
       .replaceAll("-", " ")}`,
-    aspect: imageAspect(img, watch.reference),
+    aspect: imageAspect(img, watch.media),
   }));
 
   const related = getRelatedWatches(watch);
@@ -83,10 +84,10 @@ export default async function WatchDetailPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: `${watch.brand} ${watch.model} ${watch.reference}`,
-    sku: watch.reference,
+    name: watchLabel(watch),
+    sku: watch.reference ?? watch.slug,
     brand: { "@type": "Brand", name: watch.brand },
-    description: `${watch.brand} ${watch.model} ref. ${watch.reference} z roku ${watch.year}. Neleštené puzdro.`,
+    description: `${watchLabel(watch)} z roku ${watch.year}. Neleštené puzdro.`,
     image: images.map((img) => new URL(img.src, SITE_URL).href),
     offers: {
       "@type": "Offer",

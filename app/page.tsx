@@ -21,7 +21,7 @@ const heroSrc = (theme: "light" | "dark", ext: "webp" | "mp4" | "png" | "shadow.
 export default function Home() {
   const available = getAvailableWatches().slice(0, 6);
   const heroWatch = getWatchBySlug("longines-ultra-chron-night-sky-unpolished");
-  const lugsMacro = heroWatch ? assetPath(`/watches/${heroWatch.reference}/hero-wide.jpg`) : undefined;
+  const lugsMacro = heroWatch ? assetPath(`/watches/${heroWatch.media}/hero-wide.jpg`) : undefined;
 
   return (
     <Localized>

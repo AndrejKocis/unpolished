@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/i18n/locale";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import type { Watch } from "@/lib/schema";
 
 const INTL_LOCALE: Record<Locale, string> = { sk: "sk-SK", en: "en-IE" };
 
@@ -23,4 +24,10 @@ export function statusBadgeLabel(status: string, dict: Dictionary): string | nul
   if (status === "reserved") return dict.watchCard.reserved;
   if (status === "sold") return dict.watchCard.sold;
   return null;
+}
+
+// „Značka Model ref. 1234“ — referenciu pridá, len ak ju hodinky majú.
+export function watchLabel(watch: Pick<Watch, "brand" | "model" | "reference">): string {
+  const name = `${watch.brand} ${watch.model}`;
+  return watch.reference ? `${name} ref. ${watch.reference}` : name;
 }
