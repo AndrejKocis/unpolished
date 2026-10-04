@@ -1,6 +1,7 @@
 import type { Watch } from "@/lib/schema";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
+import { StatusFlag } from "@/components/StatusFlag";
 
 function IconServiced({ className = "" }: { className?: string }) {
   return (
@@ -107,31 +108,22 @@ export function WatchStatusFlags({ watch, locale }: { watch: Watch; locale: Loca
     },
   ];
 
+  const { statusYes, statusNo } = dict.watchDetail;
+
   return (
     <section>
       <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-4">
         {dict.watchDetail.statusFlagsTitle}
       </h2>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:flex lg:gap-0 lg:divide-x lg:divide-line">
-        {items.map(({ key, Icon, enabled, label }) => (
-          <div
+      <div className="flex items-center justify-between max-w-md">
+        {items.map(({ key, Icon, enabled, label }, i) => (
+          <StatusFlag
             key={key}
-            className={[
-              "flex flex-col items-start gap-2 lg:flex-1 lg:px-4 lg:first:pl-0",
-              enabled ? "text-ink" : "text-line",
-            ].join(" ")}
-            aria-label={`${label}: ${enabled ? "áno" : "nie"}`}
-          >
-            <Icon className="h-5 w-5" />
-            <span
-              className={[
-                "font-mono text-11 uppercase tracking-[0.06em]",
-                enabled ? "text-ink" : "text-ink-muted",
-              ].join(" ")}
-            >
-              {label}
-            </span>
-          </div>
+            icon={<Icon className="h-6 w-6" />}
+            text={`${label}: ${enabled ? statusYes : statusNo}`}
+            enabled={enabled}
+            align={i === 0 ? "start" : i === items.length - 1 ? "end" : "center"}
+          />
         ))}
       </div>
     </section>

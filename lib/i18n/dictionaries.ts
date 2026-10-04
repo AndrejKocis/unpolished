@@ -108,6 +108,8 @@ const sk = {
     reserved: "Rezervované",
     similarWatches: "Podobné kusy",
     statusFlagsTitle: "Stav hodiniek",
+    statusYes: "áno",
+    statusNo: "nie",
     statusFlags: {
       serviced: "Servisované",
       polished: "Leštené",
@@ -346,6 +348,8 @@ const en: Dictionary = {
     reserved: "Reserved",
     similarWatches: "Similar pieces",
     statusFlagsTitle: "Condition at a glance",
+    statusYes: "yes",
+    statusNo: "no",
     statusFlags: {
       serviced: "Serviced",
       polished: "Polished",
