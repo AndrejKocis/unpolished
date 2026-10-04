@@ -81,10 +81,14 @@ export function Logo({ className = "" }: { className?: string }) {
             </g>
           </g>
         </svg>
-        <span className="absolute inset-y-0 flex items-center" style={{ left: "12.1%", right: "1.5%" }}>
+        {/* Písmo a odsadenie v cqw (% šírky textového poľa), aby text sedel v odznaku pri každej výške loga. */}
+        <span
+          className="absolute inset-y-0 flex items-center [container-type:inline-size]"
+          style={{ left: "12.1%", right: "1.5%" }}
+        >
           <span
             className="logo-badge-text relative top-[0.046em] block font-serif uppercase tracking-[0.08em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]"
-            style={{ marginLeft: "6px" }}
+            style={{ fontSize: "17cqw", marginLeft: "6.4cqw" }}
           >
             unpolished
           </span>
