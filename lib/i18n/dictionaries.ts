@@ -130,6 +130,8 @@ const sk = {
       service: "Servis",
       warranty: "Záruka",
     },
+    specsShowMore: "Všetky špecifikácie",
+    specsShowLess: "Menej špecifikácií",
     accordions: [
       {
         title: "Servis a záruka",
@@ -366,6 +368,8 @@ const en: Dictionary = {
       service: "Service",
       warranty: "Warranty",
     },
+    specsShowMore: "All specifications",
+    specsShowLess: "Fewer specifications",
     accordions: [
       {
         title: "Service & warranty",

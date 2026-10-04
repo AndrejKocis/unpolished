@@ -3,7 +3,7 @@ import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
 
 export function WatchSpecs({ watch, locale }: { watch: Watch; locale: Locale }) {
-  const labels = dictionaries[locale].watchDetail.specLabels;
+  const { specLabels: labels, specsShowMore, specsShowLess } = dictionaries[locale].watchDetail;
 
   const rows: [string, string][] = [
     [labels.reference, watch.reference],
@@ -18,8 +18,29 @@ export function WatchSpecs({ watch, locale }: { watch: Watch; locale: Locale }) 
     [labels.warranty, watch.warranty],
   ];
 
+  // Hneď viditeľné sú len kľúčové údaje, zvyšok je v rozbaľovacej časti.
+  const primary = rows.slice(0, 3);
+  const more = rows.slice(3);
+
   return (
-    <dl className="border-t border-line">
+    <div className="border-t border-line">
+      <SpecRows rows={primary} />
+      <details className="group">
+        <summary className="flex items-center justify-between py-3 border-b border-line cursor-pointer list-none [&::-webkit-details-marker]:hidden font-mono text-11 uppercase tracking-[0.06em] text-ink-muted hover:text-ink">
+          <span className="group-open:hidden">{specsShowMore}</span>
+          <span className="hidden group-open:inline">{specsShowLess}</span>
+          <span className="text-15 group-open:hidden">+</span>
+          <span className="text-15 hidden group-open:inline">−</span>
+        </summary>
+        <SpecRows rows={more} />
+      </details>
+    </div>
+  );
+}
+
+function SpecRows({ rows }: { rows: [string, string][] }) {
+  return (
+    <dl>
       {rows.map(([label, value]) => (
         <div key={label} className="flex gap-6 py-3 border-b border-line">
           <dt className="w-2/5 sm:w-1/3 font-mono text-11 uppercase tracking-[0.06em] text-ink-muted">
