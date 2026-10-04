@@ -42,11 +42,11 @@ const sk = {
   },
   home: {
     heroTitle: "Unpolished.",
-    heroSubtitle: "Vnútri servisované, zvonka nedotknuté. Puzdro, číselník aj patina ostávajú také, aké ich spravil čas.",
+    heroSubtitle: "Vnútri servisované, zvonka nedotknuté. Puzdro, ciferník aj patina ostávajú také, aké ich spravil čas.",
     heroCta: "Prezrieť kolekciu",
     trust: [
       "Overené odborníkom",
-      "12 mesiacov záruka",
+      "Záruka 6 mesiacov na servis",
       "14 dní na vrátenie",
       "Doprava zdarma EU",
     ],
@@ -58,7 +58,7 @@ const sk = {
       "Neleštené pre mňa znamená pôvodné. Hodinky ponúkam v stave, v akom ku mne prišli — či už nosené, alebo takmer nedotknuté — s fazetami a tvarmi puzdra, ako ich navrhol výrobca. Ak túžite po lesku, citlivé, minimálne preleštenie ho vie vrátiť bez toho, aby hodinky stratili charakter. Rozhodnutie však nechávam na vás.",
     whyLink: "Moja filozofia",
     newsletterTitle: "O nových kusoch dávam vedieť najskôr e-mailom.",
-    newsletterSubtitle: "Väčšina kusov sa predá do 48 hodín od zverejnenia.",
+    newsletterSubtitle: "Každý kus je len jeden — o novom sa dozviete ako prví.",
     newsletterSent: "Ďakujem, ste na zozname.",
   },
   watchCard: {
@@ -135,11 +135,11 @@ const sk = {
     accordions: [
       {
         title: "Servis a záruka",
-        body: "Každý kus prechádza servisom u môjho hodinára pred zverejnením. Presný rozsah servisu nájdete v špecifikáciách vyššie. Na strojček poskytujem záruku uvedenú pri danom kuse, ktorá kryje funkčnosť mechanizmu.",
+        body: "Každý kus pred zverejnením prechádza servisom. Presný rozsah servisu nájdete v špecifikáciách vyššie. Na servis poskytujem záruku 6 mesiacov, ktorá kryje funkčnosť strojčeka.",
       },
       {
         title: "Doprava a vrátenie",
-        body: "Doprava v rámci EÚ je zdarma, poistená a s podpisom pri prevzatí. Na vrátenie máte 14 dní od doručenia — hodinka musí byť v stave, v akom bola odoslaná.",
+        body: "Doprava v rámci EÚ je zdarma, poistená a s podpisom pri prevzatí. Na vrátenie máte 14 dní od doručenia — hodinky musia byť v stave, v akom boli odoslané.",
       },
       {
         title: "Prečo kúpiť u mňa",
@@ -188,7 +188,7 @@ const sk = {
     title: "FAQ",
     items: [
       {
-        q: "Ako môžem hodinku kúpiť, keď na webe nie je košík?",
+        q: "Ako môžem hodinky kúpiť, keď na webe nie je košík?",
         a: "Napíšte mi cez formulár na detaile hodinky, e-mailom alebo cez WhatsApp. Detaily platby a doručenia s vami dohodnem individuálne.",
       },
       {
@@ -197,11 +197,11 @@ const sk = {
       },
       {
         q: "Poskytujete záruku?",
-        a: "Áno, na strojček poskytujem záruku uvedenú pri danom kuse — zvyčajne 12 mesiacov od dátumu servisu.",
+        a: "Áno, na servis poskytujem záruku 6 mesiacov od dátumu servisu.",
       },
       {
-        q: "Môžem hodinku vrátiť?",
-        a: "Áno, do 14 dní od doručenia, ak je hodinka v rovnakom stave, v akom bola odoslaná.",
+        q: "Môžem hodinky vrátiť?",
+        a: "Áno, do 14 dní od doručenia, ak sú hodinky v rovnakom stave, v akom boli odoslané.",
       },
       {
         q: "Doručujete mimo EÚ?",
@@ -209,7 +209,7 @@ const sk = {
       },
       {
         q: "Ako overujete pravosť?",
-        a: "Každý kus kontrolujem pred zverejnením — puzdro, ciferník, sériové číslo aj strojček. Servis rieši výhradne môj hodinár, nikdy neleštím.",
+        a: "Každý kus kontrolujem pred zverejnením — puzdro, ciferník, sériové číslo aj strojček. Pri servise sa puzdro nikdy neleští.",
       },
     ],
   },
@@ -217,7 +217,7 @@ const sk = {
     title: "Obchodné podmienky",
     paragraphs: [
       "unpolished predáva jedinečné (1 z 1) kusy vintage hodiniek. Web neobsahuje platobnú bránu — objednávka vzniká na základe individuálnej dohody po kontaktovaní cez formulár, e-mail alebo WhatsApp.",
-      "Na hodinky poskytujem záruku uvedenú pri danom kuse. Vrátenie je možné do 14 dní od doručenia.",
+      "Na servis hodiniek poskytujem záruku 6 mesiacov. Vrátenie je možné do 14 dní od doručenia.",
     ],
     contactPrefix: "Otázky k obchodným podmienkam smerujte na",
   },
@@ -225,7 +225,7 @@ const sk = {
     title: "Ochrana údajov",
     paragraphs: [
       "Údaje z kontaktného formulára a newslettera (meno, e-mail, obsah správy) používam výhradne na vybavenie vášho dopytu alebo zasielanie informácií o nových kusoch, ak ste sa na newsletter prihlásili.",
-      "Údaje neposkytujem tretím stranám okrem poskytovateľa e-mailových služieb (Resend), ktorý správy technicky doručuje.",
+      "Údaje neposkytujem tretím stranám. Správy prijímam e-mailom.",
     ],
     deletePrefix: "Kedykoľvek môžete požiadať o výmaz svojich údajov na",
   },
@@ -284,7 +284,7 @@ const en: Dictionary = {
     heroCta: "Browse the collection",
     trust: [
       "Vetted by an expert",
-      "12-month warranty",
+      "6-month service warranty",
       "14-day returns",
       "Free EU shipping",
     ],
@@ -296,7 +296,7 @@ const en: Dictionary = {
       "Unpolished means original to me. I offer each watch as it came to me — worn or nearly untouched — with the case lines and facets the maker intended. If you'd like the shine back, a careful, minimal polish can restore it without taking away the watch's character. That choice stays with you.",
     whyLink: "My philosophy",
     newsletterTitle: "I email new pieces first.",
-    newsletterSubtitle: "Most pieces sell within 48 hours of listing.",
+    newsletterSubtitle: "Every piece is one of a kind — subscribers hear about it first.",
     newsletterSent: "Thanks, you're on the list.",
   },
   watchCard: {
@@ -373,7 +373,7 @@ const en: Dictionary = {
     accordions: [
       {
         title: "Service & warranty",
-        body: "Every piece is serviced by my own watchmaker before listing. The exact scope of service is listed in the specifications above. The movement carries the warranty stated for that piece, covering mechanical function.",
+        body: "Every piece is serviced before listing. The exact scope of service is listed in the specifications above. The service carries a 6-month warranty covering the movement's function.",
       },
       {
         title: "Shipping & returns",
@@ -435,7 +435,7 @@ const en: Dictionary = {
       },
       {
         q: "Do you offer a warranty?",
-        a: "Yes, the movement carries the warranty stated for that piece — usually 12 months from the service date.",
+        a: "Yes, the service carries a 6-month warranty from the service date.",
       },
       {
         q: "Can I return a watch?",
@@ -447,7 +447,7 @@ const en: Dictionary = {
       },
       {
         q: "How do you verify authenticity?",
-        a: "I inspect every piece before listing — case, dial, serial number and movement. Servicing is handled exclusively by my own watchmaker; I never polish.",
+        a: "I inspect every piece before listing — case, dial, serial number and movement. The case is never polished during service.",
       },
     ],
   },
@@ -455,7 +455,7 @@ const en: Dictionary = {
     title: "Terms of service",
     paragraphs: [
       "unpolished sells unique (1 of 1) vintage watches. The site has no payment gateway — an order is arranged individually after you get in touch through the form, email or WhatsApp.",
-      "Watches carry the warranty stated for that piece. Returns are accepted within 14 days of delivery.",
+      "Servicing carries a 6-month warranty. Returns are accepted within 14 days of delivery.",
     ],
     contactPrefix: "Questions about these terms can be sent to",
   },
@@ -463,7 +463,7 @@ const en: Dictionary = {
     title: "Privacy policy",
     paragraphs: [
       "Data from the contact form and newsletter (name, email, message content) is used solely to handle your enquiry or to send updates about new pieces, if you've signed up for the newsletter.",
-      "I don't share your data with third parties other than my email service provider (Resend), which technically delivers the messages.",
+      "I don't share your data with third parties. Messages reach me by email.",
     ],
     deletePrefix: "You can request deletion of your data at any time at",
   },

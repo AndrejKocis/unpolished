@@ -24,8 +24,11 @@ export async function generateStaticParams() {
 function buildTitle(watch: NonNullable<ReturnType<typeof getWatchBySlug>>): string {
   const dialAttr = watch.dial.split(",")[0].toLowerCase();
   const isFullSet = watch.set !== "Iba hodinky";
-  const ref = watch.reference ? ` Ref. ${watch.reference}` : "";
-  return `${watch.brand} ${watch.model}${ref} — ${dialAttr} ciferník — ${watch.caseMaterial.toLowerCase()} — ${
+  // Referenciu vynechaj, ak ju už obsahuje názov modelu (napr. Ulysse Nardin 36000).
+  const ref = watch.reference && !watch.model.includes(watch.reference) ? ` Ref. ${watch.reference}` : "";
+  // Len základný materiál: „Oceľ, pozlátená lunetka…“ → „oceľ“, „Zlatená oceľ (SGP)“ → „zlatená oceľ“.
+  const material = watch.caseMaterial.split(",")[0].replace(/\s*\(.*\)$/, "").toLowerCase();
+  return `${watch.brand} ${watch.model}${ref} — ${dialAttr} ciferník — ${material} — ${
     isFullSet ? "Unpolished Full Set" : "Unpolished"
   }`;
 }
