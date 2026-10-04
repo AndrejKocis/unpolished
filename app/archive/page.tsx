@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: dict.archive.title,
     description:
-      locale === "sk" ? "Predané kusy z nášho inventára." : "Sold pieces from our inventory.",
+      locale === "sk" ? "Predané kusy z môjho inventára." : "Sold pieces from my inventory.",
   };
 }
 

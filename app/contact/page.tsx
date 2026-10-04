@@ -14,8 +14,8 @@ export async function generateMetadata(): Promise<Metadata> {
     title: dict.contact.title,
     description:
       locale === "sk"
-        ? "Napíšte nám e-mailom, cez WhatsApp alebo formulár nižšie."
-        : "Write to us by email, WhatsApp, or the form below.",
+        ? "Napíšte mi e-mailom, cez WhatsApp alebo formulár nižšie."
+        : "Write to me by email, WhatsApp, or the form below.",
   };
 }
 

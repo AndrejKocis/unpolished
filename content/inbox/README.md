@@ -23,7 +23,8 @@ checklistu nižšie.
       `public/watches/<reference>/`
 - [ ] **Popis modelu** — vyhľadá fakty o referencii na internete (história,
       technické údaje) a napíše ich **vlastnými slovami** v našom brand
-      hlase. Nikdy neprevezme cudzí text doslovne (copyright) a neistotu
+      hlase — web hovorí v **prvej osobe jednotného čísla** („môj hodinár“,
+      „predávam“), nikdy v množnom („náš“, „predávame“). Nikdy neprevezme cudzí text doslovne (copyright) a neistotu
       radšej prizná, než aby si vymýšľal detaily.
 - [ ] **Cena** — Claude sa tu zastaví a opýta sa ťa. Nikdy ju
       nenastaví sám ani neprevezme z inzerátov iných predajcov — je to

@@ -6,7 +6,7 @@ const sk = {
   },
   nav: {
     watches: "Hodinky",
-    about: "O nás",
+    about: "O mne",
     contact: "Kontakt",
     menuOpen: "Otvoriť menu",
     menuClose: "Zavrieť menu",
@@ -27,7 +27,7 @@ const sk = {
     info: "Informácie",
     watches: "Hodinky",
     archive: "Archív",
-    about: "O nás",
+    about: "O mne",
     faq: "FAQ",
     contact: "Kontakt",
   },
@@ -56,10 +56,10 @@ const sk = {
     whyTitle: "Prečo neleštené",
     whyText:
       "Neleštené pre mňa znamená pôvodné. Hodinky ponúkam v stave, v akom ku mne prišli — či už nosené, alebo takmer nedotknuté — s fazetami a tvarmi puzdra, ako ich navrhol výrobca. Ak túžite po lesku, citlivé, minimálne preleštenie ho vie vrátiť bez toho, aby hodinky stratili charakter. Rozhodnutie však nechávam na vás.",
-    whyLink: "Naša filozofia",
-    newsletterTitle: "Nové kusy oznamujeme e-mailom prvý.",
+    whyLink: "Moja filozofia",
+    newsletterTitle: "O nových kusoch dávam vedieť najskôr e-mailom.",
     newsletterSubtitle: "Väčšina kusov sa predá do 48 hodín od zverejnenia.",
-    newsletterSent: "Ďakujeme, ste na zozname.",
+    newsletterSent: "Ďakujem, ste na zozname.",
   },
   watchCard: {
     reserved: "Rezervované",
@@ -103,7 +103,7 @@ const sk = {
   watchDetail: {
     specifications: "Špecifikácie",
     oneOfOne: "1 z 1",
-    writeToUs: "Napíšte nám",
+    writeToUs: "Napíšte mi",
     whatsapp: "WhatsApp",
     reserved: "Rezervované",
     similarWatches: "Podobné kusy",
@@ -135,19 +135,19 @@ const sk = {
     accordions: [
       {
         title: "Servis a záruka",
-        body: "Každý kus prechádza servisom u nášho hodinára pred zverejnením. Presný rozsah servisu nájdete v špecifikáciách vyššie. Na strojček poskytujeme záruku uvedenú pri danom kuse, ktorá kryje funkčnosť mechanizmu.",
+        body: "Každý kus prechádza servisom u môjho hodinára pred zverejnením. Presný rozsah servisu nájdete v špecifikáciách vyššie. Na strojček poskytujem záruku uvedenú pri danom kuse, ktorá kryje funkčnosť mechanizmu.",
       },
       {
         title: "Doprava a vrátenie",
         body: "Doprava v rámci EÚ je zdarma, poistená a s podpisom pri prevzatí. Na vrátenie máte 14 dní od doručenia — hodinka musí byť v stave, v akom bola odoslaná.",
       },
       {
-        title: "Prečo kúpiť u nás",
-        body: "Každý kus si osobne overujeme, fotíme rovnakým spôsobom a popisujeme bez skrášľovania. Nepredávame preleštené puzdrá a v popise uvádzame aj chyby.",
+        title: "Prečo kúpiť u mňa",
+        body: "Každý kus si osobne overujem, fotím rovnakým spôsobom a popisujem bez skrášľovania. Nepredávam preleštené puzdrá a v popise uvádzam aj chyby.",
       },
     ],
     inquiryPrefix: "Mám záujem o",
-    inquirySent: "Ďakujeme za správu. Ozveme sa čo najskôr.",
+    inquirySent: "Ďakujem za správu. Ozvem sa čo najskôr.",
   },
   gallery: {
     zoomAlt: "Zväčšiť fotku",
@@ -161,25 +161,25 @@ const sk = {
     whatsappLabel: "WhatsApp",
   },
   about: {
-    title: "O nás",
+    title: "O mne",
     sections: [
       {
         heading: "Prečo unpolished",
         paragraphs: [
-          "Vintage hodinky sa dajú vylepšiť tak, aby vyzerali novšie. My to nerobíme. Puzdro, ktoré prešlo leštičkou, stráca pôvodné fazety a hrany, ktoré do neho vybrúsil výrobca — a táto strata je nezvratná. Predávame iba kusy, ktorých puzdro je v pôvodnom, nepreleštenom stave, aj keď to znamená viditeľné škrabance alebo patinu.",
+          "Vintage hodinky sa dajú vylepšiť tak, aby vyzerali novšie. Ja to nerobím. Puzdro, ktoré prešlo leštičkou, stráca pôvodné fazety a hrany, ktoré do neho vybrúsil výrobca — a táto strata je nezvratná. Predávam iba kusy, ktorých puzdro je v pôvodnom, nepreleštenom stave, aj keď to znamená viditeľné škrabance alebo patinu.",
           "Nie je to estetická preferencia. Je to jediný spôsob, ako zachovať hodnotu a autenticitu kusu, ktorý má za sebou desaťročia.",
         ],
       },
       {
-        heading: "Kto sme",
+        heading: "Kto som",
         paragraphs: [
-          "unpolished vedie jeden človek so záľubou vo vintage hodinkách, ktorá sa stala prácou. Inventár je zámerne malý — desiatky, nie stovky kusov — pretože každý z nich osobne kontrolujeme, servisujeme a fotíme predtým, než sa dostane do katalógu.",
+          "unpolished vediem sám — moja záľuba vo vintage hodinkách sa stala prácou. Inventár je zámerne malý — desiatky, nie stovky kusov — pretože každý z nich osobne kontrolujem, nechávam servisovať a fotím predtým, než sa dostane do katalógu.",
         ],
       },
       {
-        heading: "Ako pracujeme",
+        heading: "Ako pracujem",
         paragraphs: [
-          "Každý kus má poctivý popis vrátane chýb. Neprikrášľujeme stav ciferníka ani puzdra a neskrývame servisnú históriu. Ak niečo nevieme s istotou potvrdiť, napíšeme to tak — nie ako predpoklad, ale ako otvorenú otázku.",
+          "Každý kus má poctivý popis vrátane chýb. Neprikrášľujem stav ciferníka ani puzdra a neskrývam servisnú históriu. Ak niečo neviem s istotou potvrdiť, napíšem to tak — nie ako predpoklad, ale ako otvorenú otázku.",
         ],
       },
     ],
@@ -189,7 +189,7 @@ const sk = {
     items: [
       {
         q: "Ako môžem hodinku kúpiť, keď na webe nie je košík?",
-        a: "Napíšte nám cez formulár na detaile hodinky, e-mailom alebo cez WhatsApp. Dohodneme si detaily platby a doručenia priamo s vami.",
+        a: "Napíšte mi cez formulár na detaile hodinky, e-mailom alebo cez WhatsApp. Detaily platby a doručenia s vami dohodnem individuálne.",
       },
       {
         q: "Prečo nepredávate preleštené hodinky?",
@@ -197,7 +197,7 @@ const sk = {
       },
       {
         q: "Poskytujete záruku?",
-        a: "Áno, na strojček poskytujeme záruku uvedenú pri danom kuse — zvyčajne 12 mesiacov od dátumu servisu.",
+        a: "Áno, na strojček poskytujem záruku uvedenú pri danom kuse — zvyčajne 12 mesiacov od dátumu servisu.",
       },
       {
         q: "Môžem hodinku vrátiť?",
@@ -205,11 +205,11 @@ const sk = {
       },
       {
         q: "Doručujete mimo EÚ?",
-        a: "Áno, individuálne po dohode — napíšte nám cez kontaktný formulár.",
+        a: "Áno, individuálne po dohode — napíšte mi cez kontaktný formulár.",
       },
       {
         q: "Ako overujete pravosť?",
-        a: "Každý kus kontrolujeme pred zverejnením — puzdro, ciferník, sériové číslo aj strojček. Servis rieši výhradne náš hodinár, nikdy neleštíme.",
+        a: "Každý kus kontrolujem pred zverejnením — puzdro, ciferník, sériové číslo aj strojček. Servis rieši výhradne môj hodinár, nikdy neleštím.",
       },
     ],
   },
@@ -217,15 +217,15 @@ const sk = {
     title: "Obchodné podmienky",
     paragraphs: [
       "unpolished predáva jedinečné (1 z 1) kusy vintage hodiniek. Web neobsahuje platobnú bránu — objednávka vzniká na základe individuálnej dohody po kontaktovaní cez formulár, e-mail alebo WhatsApp.",
-      "Na hodinky poskytujeme záruku uvedenú pri danom kuse. Vrátenie je možné do 14 dní od doručenia.",
+      "Na hodinky poskytujem záruku uvedenú pri danom kuse. Vrátenie je možné do 14 dní od doručenia.",
     ],
     contactPrefix: "Otázky k obchodným podmienkam smerujte na",
   },
   privacy: {
     title: "Ochrana údajov",
     paragraphs: [
-      "Údaje z kontaktného formulára a newslettera (meno, e-mail, obsah správy) používame výhradne na vybavenie vášho dopytu alebo zasielanie informácií o nových kusoch, ak ste sa na newsletter prihlásili.",
-      "Údaje neposkytujeme tretím stranám okrem poskytovateľa e-mailových služieb (Resend), ktorý správy technicky doručuje.",
+      "Údaje z kontaktného formulára a newslettera (meno, e-mail, obsah správy) používam výhradne na vybavenie vášho dopytu alebo zasielanie informácií o nových kusoch, ak ste sa na newsletter prihlásili.",
+      "Údaje neposkytujem tretím stranám okrem poskytovateľa e-mailových služieb (Resend), ktorý správy technicky doručuje.",
     ],
     deletePrefix: "Kedykoľvek môžete požiadať o výmaz svojich údajov na",
   },
@@ -294,8 +294,8 @@ const en: Dictionary = {
     whyTitle: "Why unpolished",
     whyText:
       "Unpolished means original to me. I offer each watch as it came to me — worn or nearly untouched — with the case lines and facets the maker intended. If you'd like the shine back, a careful, minimal polish can restore it without taking away the watch's character. That choice stays with you.",
-    whyLink: "Our philosophy",
-    newsletterTitle: "We email new pieces first.",
+    whyLink: "My philosophy",
+    newsletterTitle: "I email new pieces first.",
     newsletterSubtitle: "Most pieces sell within 48 hours of listing.",
     newsletterSent: "Thanks, you're on the list.",
   },
@@ -373,19 +373,19 @@ const en: Dictionary = {
     accordions: [
       {
         title: "Service & warranty",
-        body: "Every piece is serviced by our own watchmaker before listing. The exact scope of service is listed in the specifications above. The movement carries the warranty stated for that piece, covering mechanical function.",
+        body: "Every piece is serviced by my own watchmaker before listing. The exact scope of service is listed in the specifications above. The movement carries the warranty stated for that piece, covering mechanical function.",
       },
       {
         title: "Shipping & returns",
         body: "Shipping within the EU is free, insured and signature-required. You have 14 days from delivery to return the piece, provided it's in the condition it was sent.",
       },
       {
-        title: "Why buy from us",
-        body: "We personally verify every piece, photograph it the same way every time, and describe it without embellishment. We don't sell repolished cases, and we disclose flaws in the description.",
+        title: "Why buy from me",
+        body: "I personally verify every piece, photograph it the same way every time, and describe it without embellishment. I don't sell repolished cases, and I disclose flaws in the description.",
       },
     ],
     inquiryPrefix: "I'm interested in",
-    inquirySent: "Thank you for your message. We'll get back to you shortly.",
+    inquirySent: "Thank you for your message. I'll get back to you shortly.",
   },
   gallery: {
     zoomAlt: "Zoom photo",
@@ -404,20 +404,20 @@ const en: Dictionary = {
       {
         heading: "Why unpolished",
         paragraphs: [
-          "Vintage watches can be made to look newer. We don't do that. A case that has been through a polishing wheel loses the original facets and edges the maker cut into it — and that loss is irreversible. We only sell pieces whose case is in its original, never-repolished state, even when that means visible scratches or patina.",
+          "Vintage watches can be made to look newer. I don't do that. A case that has been through a polishing wheel loses the original facets and edges the maker cut into it — and that loss is irreversible. I only sell pieces whose case is in its original, never-repolished state, even when that means visible scratches or patina.",
           "This isn't an aesthetic preference. It's the only way to preserve the value and authenticity of a piece with decades behind it.",
         ],
       },
       {
-        heading: "Who we are",
+        heading: "Who I am",
         paragraphs: [
-          "unpolished is run by one person with a passion for vintage watches that became a job. The inventory is deliberately small — dozens, not hundreds, of pieces — because we personally inspect, service and photograph every one before it reaches the catalogue.",
+          "unpolished is a one-person business — my passion for vintage watches that became a job. The inventory is deliberately small — dozens, not hundreds, of pieces — because I personally inspect every one, have it serviced and photograph it before it reaches the catalogue.",
         ],
       },
       {
-        heading: "How we work",
+        heading: "How I work",
         paragraphs: [
-          "Every piece gets an honest description, flaws included. We don't dress up the condition of the dial or case, and we don't hide service history. If we can't confirm something with certainty, we say so — as an open question, not an assumption.",
+          "Every piece gets an honest description, flaws included. I don't dress up the condition of the dial or case, and I don't hide service history. If I can't confirm something with certainty, I say so — as an open question, not an assumption.",
         ],
       },
     ],
@@ -427,7 +427,7 @@ const en: Dictionary = {
     items: [
       {
         q: "How do I buy a watch if there's no cart on the site?",
-        a: "Write to us through the form on the watch's page, by email, or on WhatsApp. We'll arrange payment and delivery details directly with you.",
+        a: "Write to me through the form on the watch's page, by email, or on WhatsApp. I'll arrange payment and delivery details directly with you.",
       },
       {
         q: "Why don't you sell repolished watches?",
@@ -443,11 +443,11 @@ const en: Dictionary = {
       },
       {
         q: "Do you ship outside the EU?",
-        a: "Yes, by individual arrangement — write to us through the contact form.",
+        a: "Yes, by individual arrangement — write to me through the contact form.",
       },
       {
         q: "How do you verify authenticity?",
-        a: "We inspect every piece before listing — case, dial, serial number and movement. Servicing is handled exclusively by our own watchmaker; we never polish.",
+        a: "I inspect every piece before listing — case, dial, serial number and movement. Servicing is handled exclusively by my own watchmaker; I never polish.",
       },
     ],
   },
@@ -463,7 +463,7 @@ const en: Dictionary = {
     title: "Privacy policy",
     paragraphs: [
       "Data from the contact form and newsletter (name, email, message content) is used solely to handle your enquiry or to send updates about new pieces, if you've signed up for the newsletter.",
-      "We don't share your data with third parties other than our email service provider (Resend), which technically delivers the messages.",
+      "I don't share your data with third parties other than my email service provider (Resend), which technically delivers the messages.",
     ],
     deletePrefix: "You can request deletion of your data at any time at",
   },
