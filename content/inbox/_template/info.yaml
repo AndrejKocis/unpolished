@@ -13,6 +13,7 @@ currency: EUR
 status: available # available | reserved | sold
 caseSize:
 caseMaterial: Oceľ
+strap: "" # napr. "Oceľový ťah, pôvodný" / "Kožený remienok, dobový" / "…, neoriginálny"
 caliber: ""
 dial: ""
 set: Iba hodinky

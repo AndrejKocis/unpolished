@@ -20,6 +20,8 @@ export const watchFrontmatterSchema = z.object({
   caliber: z.string(),
   caseSize: z.number(),
   caseMaterial: z.string(),
+  // Na čom hodinky sú: „Oceľový ťah, pôvodný“, „Kožený remienok, dobový“ … (ťah = kovový náramok).
+  strap: z.string(),
   dial: z.string(),
   casePolish: z.string(),
   set: z.string(),

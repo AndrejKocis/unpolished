@@ -11,6 +11,7 @@ export function WatchSpecs({ watch, locale }: { watch: Watch; locale: Locale }) 
     [labels.caliber, watch.caliber],
     [labels.caseSize, `${watch.caseSize} mm`],
     [labels.caseMaterial, watch.caseMaterial],
+    [labels.strap, watch.strap],
     [labels.dial, watch.dial],
     [labels.casePolish, watch.casePolish],
     [labels.set, watch.set],
