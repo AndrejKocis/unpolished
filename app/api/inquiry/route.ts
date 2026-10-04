@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
   try {
     await resend.emails.send({
-      from: "unpolished <noreply@unpolished.com>",
+      from: "unpolished <noreply@unpolished.cz>",
       to: CONTACT_EMAIL,
       ...email,
     });

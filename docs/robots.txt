@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://andrejkocis.github.io/unpolished/sitemap.xml
+Sitemap: https://unpolished.cz/sitemap.xml

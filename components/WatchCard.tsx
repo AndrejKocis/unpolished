@@ -5,7 +5,6 @@ import { dialLabel, formatPrice, statusBadgeLabel, watchLabel } from "@/lib/form
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
 import { CardVideo } from "@/components/CardVideo";
-import { assetPath } from "@/lib/constants";
 
 export function WatchCard({
   watch,
@@ -28,13 +27,13 @@ export function WatchCard({
       <div className="relative aspect-[4/5] bg-paper overflow-hidden">
         {watch.video ? (
           <CardVideo
-            src={assetPath(`/watches/${watch.media}/${watch.video}`)}
+            src={`/watches/${watch.media}/${watch.video}`}
             ariaLabel={watchLabel(watch)}
-            posterSrc={watch.videoPoster ? assetPath(`/watches/${watch.media}/${watch.videoPoster}`) : undefined}
+            posterSrc={watch.videoPoster ? `/watches/${watch.media}/${watch.videoPoster}` : undefined}
           />
         ) : (
           <Image
-            src={assetPath(`/watches/${watch.media}/${watch.images[0]}`)}
+            src={`/watches/${watch.media}/${watch.images[0]}`}
             alt={watchLabel(watch)}
             fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"

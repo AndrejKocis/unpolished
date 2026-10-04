@@ -10,7 +10,7 @@ import { WatchStatusFlags } from "@/components/WatchStatusFlags";
 import { Prose } from "@/components/Prose";
 import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
-import { SITE_URL, assetPath } from "@/lib/constants";
+import { SITE_URL } from "@/lib/constants";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
 import type { Watch } from "@/lib/schema";
@@ -49,7 +49,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      images: [assetPath(`/watches/${watch.media}/${watch.images[0]}`)],
+      images: [`/watches/${watch.media}/${watch.images[0]}`],
     },
   };
 }
@@ -64,7 +64,7 @@ export default async function WatchDetailPage({
   if (!watch) notFound();
 
   const images = watch.images.map((img) => ({
-    src: assetPath(`/watches/${watch.media}/${img}`),
+    src: `/watches/${watch.media}/${img}`,
     alt: `${watchLabel(watch)} — ${img
       .replace(/\.[a-z0-9]+$/i, "")
       .replace(/^\d+-/, "")

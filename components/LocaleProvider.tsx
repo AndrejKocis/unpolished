@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { dictionaries, type Dictionary } from "@/lib/i18n/dictionaries";
 import { readLocaleCookie, type Locale } from "@/lib/i18n/locale";
-import { BASE_PATH, IS_STATIC_EXPORT } from "@/lib/constants";
+import { IS_STATIC_EXPORT } from "@/lib/constants";
 
 type LocaleContextValue = {
   locale: Locale;
@@ -36,7 +36,7 @@ export function LocaleProvider({
 
   function setLocale(next: Locale) {
     setCurrent(next);
-    document.cookie = `locale=${next}; path=${BASE_PATH || "/"}; max-age=31536000`;
+    document.cookie = `locale=${next}; path=/; max-age=31536000`;
   }
 
   return (

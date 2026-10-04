@@ -2,7 +2,6 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { assetPath } from "@/lib/constants";
 
 async function InlineLogo({ src }: { src: string }) {
   if (!src.endsWith(".svg")) {
@@ -11,7 +10,7 @@ async function InlineLogo({ src }: { src: string }) {
     // currentColor tvaru.
     return (
       <Image
-        src={assetPath(src)}
+        src={src}
         alt="Logo výrobcu"
         width={128}
         height={104}
