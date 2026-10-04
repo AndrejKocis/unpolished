@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Watch } from "@/lib/schema";
-import { formatPrice, statusBadgeLabel, watchLabel } from "@/lib/format";
+import { dialLabel, formatPrice, statusBadgeLabel, watchLabel } from "@/lib/format";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
 import { CardVideo } from "@/components/CardVideo";
@@ -46,6 +46,9 @@ export function WatchCard({
       <div className="p-4">
         <p className="font-serif text-15">
           {watch.brand} {watch.model}
+        </p>
+        <p className="text-13 text-ink-muted mt-1">
+          {watch.year} · {dialLabel(watch, locale)}
         </p>
         <p
           className={[

@@ -74,7 +74,7 @@ function HomeContent({
           >
             <Image
               src={heroSrc("light", "webp")}
-              alt="Unpolished watch"
+              alt={dict.home.heroAlt}
               fill
               priority
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -82,7 +82,7 @@ function HomeContent({
             />
             <Image
               src={heroSrc("dark", "webp")}
-              alt="Unpolished watch"
+              alt={dict.home.heroAlt}
               fill
               priority
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -129,7 +129,7 @@ function HomeContent({
             {lugsMacro && (
               <Image
                 src={lugsMacro}
-                alt="Watch lugs macro"
+                alt={dict.home.lugsAlt}
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"

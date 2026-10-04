@@ -35,7 +35,7 @@ function ArchiveContent({ locale, sold }: { locale: Locale; sold: Watch[] }) {
 
       <SectionDivider />
 
-      <WatchGrid watches={sold} locale={locale} />
+      <WatchGrid watches={sold} locale={locale} emptyText={dict.archive.empty} />
     </div>
   );
 }

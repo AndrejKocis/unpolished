@@ -44,6 +44,8 @@ const sk = {
     heroTitle: "Unpolished.",
     heroSubtitle: "Vnútri servisované, zvonka nedotknuté. Puzdro, ciferník aj patina ostávajú také, aké ich spravil čas.",
     heroCta: "Prezrieť kolekciu",
+    heroAlt: "Vintage hodinky s nelešteným puzdrom",
+    lugsAlt: "Detail neleštených lugov — Longines Ultra-Chron",
     trust: [
       "Overené odborníkom",
       "Záruka 6 mesiacov na servis",
@@ -58,8 +60,13 @@ const sk = {
       "Neleštené pre mňa znamená pôvodné. Hodinky ponúkam v stave, v akom ku mne prišli — či už nosené, alebo takmer nedotknuté — s fazetami a tvarmi puzdra, ako ich navrhol výrobca. Ak túžite po lesku, citlivé, minimálne preleštenie ho vie vrátiť bez toho, aby hodinky stratili charakter. Rozhodnutie však nechávam na vás.",
     whyLink: "Moja filozofia",
     newsletterTitle: "O nových kusoch dávam vedieť najskôr e-mailom.",
-    newsletterSubtitle: "Každý kus je len jeden — o novom sa dozviete ako prví.",
+    newsletterSubtitle: "Nové kusy pošlem e-mailom skôr, než ich zverejním.",
     newsletterSent: "Ďakujem, ste na zozname.",
+  },
+  notFound: {
+    title: "Táto stránka neexistuje",
+    text: "Možno bol kus medzitým predaný, alebo sa zmenila adresa.",
+    cta: "Prezrieť hodinky",
   },
   watchCard: {
     reserved: "Rezervované",
@@ -85,6 +92,7 @@ const sk = {
     hideFilters: "Skryť filtre",
     reset: "Zrušiť",
     resultsOne: "KUS",
+    resultsFew: "KUSY",
     resultsMany: "KUSOV",
     gender: "Pre koho",
     genderAll: "Všetky",
@@ -98,6 +106,7 @@ const sk = {
   },
   archive: {
     title: "Archív",
+    empty: "Zatiaľ žiadne predané kusy.",
     subtitle: "Predané kusy. Slúžia ako záznam a referencia, nie sú na predaj.",
   },
   watchDetail: {
@@ -133,6 +142,7 @@ const sk = {
       service: "Servis",
       warranty: "Záruka",
     },
+    didYouKnow: "Vedeli ste?",
     specsShowMore: "Všetky špecifikácie",
     specsShowLess: "Menej špecifikácií",
     accordions: [
@@ -232,9 +242,6 @@ const sk = {
     ],
     deletePrefix: "Kedykoľvek môžete požiadať o výmaz svojich údajov na",
   },
-  journal: {
-    title: "Journal",
-  },
 };
 
 export type Dictionary = typeof sk;
@@ -285,6 +292,8 @@ const en: Dictionary = {
     heroTitle: "Unpolished.",
     heroSubtitle: "Serviced inside, untouched outside. Case, dial and patina stay as time made them.",
     heroCta: "Browse the collection",
+    heroAlt: "Vintage watch with an unpolished case",
+    lugsAlt: "Close-up of unpolished lugs — Longines Ultra-Chron",
     trust: [
       "Vetted by an expert",
       "6-month service warranty",
@@ -299,8 +308,13 @@ const en: Dictionary = {
       "Unpolished means original to me. I offer each watch as it came to me — worn or nearly untouched — with the case lines and facets the maker intended. If you'd like the shine back, a careful, minimal polish can restore it without taking away the watch's character. That choice stays with you.",
     whyLink: "My philosophy",
     newsletterTitle: "I email new pieces first.",
-    newsletterSubtitle: "Every piece is one of a kind — subscribers hear about it first.",
+    newsletterSubtitle: "I email new pieces before they go live on the site.",
     newsletterSent: "Thanks, you're on the list.",
+  },
+  notFound: {
+    title: "This page doesn't exist",
+    text: "The piece may have sold in the meantime, or the address has changed.",
+    cta: "Browse watches",
   },
   watchCard: {
     reserved: "Reserved",
@@ -326,6 +340,7 @@ const en: Dictionary = {
     hideFilters: "Hide filters",
     reset: "Reset",
     resultsOne: "PIECE",
+    resultsFew: "PIECES",
     resultsMany: "PIECES",
     gender: "For",
     genderAll: "All",
@@ -339,6 +354,7 @@ const en: Dictionary = {
   },
   archive: {
     title: "Archive",
+    empty: "No sold pieces yet.",
     subtitle: "Sold pieces. Kept as a record and reference, not for sale.",
   },
   watchDetail: {
@@ -374,6 +390,7 @@ const en: Dictionary = {
       service: "Service",
       warranty: "Warranty",
     },
+    didYouKnow: "Did you know?",
     specsShowMore: "All specifications",
     specsShowLess: "Fewer specifications",
     accordions: [
@@ -472,9 +489,6 @@ const en: Dictionary = {
       "I don't share your data with third parties. Messages reach me by email.",
     ],
     deletePrefix: "You can request deletion of your data at any time at",
-  },
-  journal: {
-    title: "Journal",
   },
 };
 

@@ -4,6 +4,7 @@ import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { getSoldWatches } from "@/lib/watches";
 import { LocaleProvider } from "@/components/LocaleProvider";
 import { Localized } from "@/components/Localized";
 import { getLocale } from "@/lib/i18n/server";
@@ -71,6 +72,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
+  const showArchive = getSoldWatches().length > 0;
   const locale = await getLocale();
 
   return (
@@ -86,7 +88,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <LocaleProvider locale={locale}>
           <Localized>{(l) => <Nav locale={l} />}</Localized>
           <main className="flex-1">{children}</main>
-          <Localized>{(l) => <Footer locale={l} />}</Localized>
+          <Localized>{(l) => <Footer locale={l} showArchive={showArchive} />}</Localized>
         </LocaleProvider>
       </body>
     </html>

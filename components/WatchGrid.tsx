@@ -9,17 +9,19 @@ export function WatchGrid({
   locale,
   priorityCount = 0,
   trailing,
+  emptyText,
 }: {
   watches: Watch[];
   locale: Locale;
   priorityCount?: number;
   trailing?: ReactNode;
+  emptyText?: string;
 }) {
   const dict = dictionaries[locale];
 
   if (watches.length === 0) {
     return (
-      <p className="text-15 text-ink-muted py-16 text-center">{dict.watchGrid.empty}</p>
+      <p className="text-15 text-ink-muted py-16 text-center">{emptyText ?? dict.watchGrid.empty}</p>
     );
   }
 

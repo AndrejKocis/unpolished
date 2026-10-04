@@ -45,23 +45,22 @@ export const watchFrontmatterSchema = z.object({
   onlyBox: z.boolean().default(false),
   originalBracelet: z.boolean().default(false),
   originalStrap: z.boolean().default(false),
+  // Anglický preklad textových polí a popisu (MDX vrátane <DidYouKnow>).
+  en: z.object({
+    caliber: z.string(),
+    caseMaterial: z.string(),
+    strap: z.string(),
+    dial: z.string(),
+    casePolish: z.string(),
+    set: z.string(),
+    service: z.string(),
+    warranty: z.string(),
+    content: z.string(),
+  }),
 });
 
 export type WatchFrontmatter = z.infer<typeof watchFrontmatterSchema>;
 
 export type Watch = WatchFrontmatter & {
-  content: string;
-};
-
-export const articleFrontmatterSchema = z.object({
-  slug: z.string(),
-  title: z.string(),
-  date: z.string(),
-  excerpt: z.string(),
-});
-
-export type ArticleFrontmatter = z.infer<typeof articleFrontmatterSchema>;
-
-export type Article = ArticleFrontmatter & {
   content: string;
 };

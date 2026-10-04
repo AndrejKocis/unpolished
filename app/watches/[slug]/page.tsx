@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { getAllWatches, getRelatedWatches, getWatchBySlug } from "@/lib/watches";
-import { formatPrice, statusBadgeLabel, watchLabel } from "@/lib/format";
+import { dialLabel, formatPrice, localizeWatch, statusBadgeLabel, watchLabel } from "@/lib/format";
 import { imageAspect } from "@/lib/gallery";
 import { Gallery, type GalleryImage } from "@/components/Gallery";
 import { WatchCTA } from "@/components/WatchCTA";
@@ -21,14 +20,13 @@ export async function generateStaticParams() {
   return getAllWatches().map((w) => ({ slug: w.slug }));
 }
 
-function buildTitle(watch: NonNullable<ReturnType<typeof getWatchBySlug>>): string {
-  const dialAttr = watch.dial.split(",")[0].toLowerCase();
+function buildTitle(watch: Watch, locale: Locale): string {
   const isFullSet = watch.set !== "Iba hodinky";
   // Referenciu vynechaj, ak ju už obsahuje názov modelu (napr. Ulysse Nardin 36000).
   const ref = watch.reference && !watch.model.includes(watch.reference) ? ` Ref. ${watch.reference}` : "";
   // Len základný materiál: „Oceľ, pozlátená lunetka…“ → „oceľ“, „Zlatená oceľ (SGP)“ → „zlatená oceľ“.
-  const material = watch.caseMaterial.split(",")[0].replace(/\s*\(.*\)$/, "").toLowerCase();
-  return `${watch.brand} ${watch.model}${ref} — ${dialAttr} ciferník — ${material} — ${
+  const material = localizeWatch(watch, locale).caseMaterial.split(",")[0].replace(/\s*\(.*\)$/, "").toLowerCase();
+  return `${watch.brand} ${watch.model}${ref} — ${dialLabel(watch, locale)} — ${material} — ${
     isFullSet ? "Unpolished Full Set" : "Unpolished"
   }`;
 }
@@ -42,7 +40,7 @@ export async function generateMetadata({
   const watch = getWatchBySlug(slug);
   if (!watch) return {};
 
-  const title = buildTitle(watch);
+  const title = buildTitle(watch, "sk");
   const description = `${watchLabel(watch)} z roku ${watch.year}. ${watch.dial}. Neleštené puzdro, ostré hrany, plné lugy.`;
 
   return {
@@ -75,7 +73,6 @@ export default async function WatchDetailPage({
   }));
 
   const related = getRelatedWatches(watch);
-  const title = buildTitle(watch);
 
   const availability =
     watch.status === "available"
@@ -102,9 +99,6 @@ export default async function WatchDetailPage({
     },
   };
 
-  // Popis nezávisí od jazyka — vyrenderuj MDX raz a zdieľaj ho medzi jazykovými verziami.
-  const description = <Prose content={watch.content} />;
-
   return (
     <Localized>
       {(locale) => (
@@ -113,9 +107,7 @@ export default async function WatchDetailPage({
           watch={watch}
           images={images}
           related={related}
-          title={title}
           jsonLd={jsonLd}
-          description={description}
         />
       )}
     </Localized>
@@ -127,19 +119,17 @@ function WatchDetailContent({
   watch,
   images,
   related,
-  title,
   jsonLd,
-  description,
 }: {
   locale: Locale;
   watch: Watch;
   images: GalleryImage[];
   related: Watch[];
-  title: string;
   jsonLd: object;
-  description: ReactNode;
 }) {
   const dict = dictionaries[locale];
+  const localized = localizeWatch(watch, locale);
+  const title = buildTitle(watch, locale);
 
   return (
     <div className="pb-20 lg:pb-0">
@@ -179,12 +169,12 @@ function WatchDetailContent({
             <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-4">
               {dict.watchDetail.specifications}
             </h2>
-            <WatchSpecs watch={watch} locale={locale} />
+            <WatchSpecs watch={localized} locale={locale} />
           </section>
 
           {/* 6. Popis */}
           <section>
-            {description}
+            <Prose content={localized.content} locale={locale} />
           </section>
         </div>
       </div>

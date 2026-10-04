@@ -24,11 +24,17 @@ checklistu nižšie.
       krátky názov modelu, napr. `memosail`)
 - [ ] **Popis modelu** — vyhľadá fakty o referencii na internete (história,
       technické údaje) a napíše ich **vlastnými slovami** v našom brand
-      hlase — web hovorí v **prvej osobe jednotného čísla** („môj hodinár“,
-      „predávam“), nikdy v množnom („náš“, „predávame“). Nikdy neprevezme cudzí text doslovne (copyright) a neistotu
+      hlase — zberateľský žargón (dial, lugy, dátumovka, high-beat, A/h,
+      full set), **prvá osoba jednotného čísla** („predávam“, „môj“), nikdy
+      množné („náš“, „predávame“). Kovový náramok je vždy „ťah“, koža a
+      kaučuk „remienok“. Nikdy neprevezme cudzí text doslovne (copyright) a neistotu
       radšej prizná, než aby si vymýšľal detaily. Do popisu nepíše vety o
       servise ani hodinárovi (to ukazuje ikona „Servisované“) ani o tom, že
       sériové či referenčné číslo nie je viditeľné alebo známe.
+- [ ] **Anglická verzia** — do poľa `en:` v `content/watches/<slug>.mdx`
+      preloží textové špecifikácie (caliber, caseMaterial, strap, dial,
+      casePolish, set, service, warranty) a celý popis vrátane
+      `<DidYouKnow>` (`content`) v rovnakom štýle.
 - [ ] **Cena** — Claude sa tu zastaví a opýta sa ťa. Nikdy ju
       nenastaví sám ani neprevezme z inzerátov iných predajcov — je to
       tvoje obchodné rozhodnutie.

@@ -31,3 +31,16 @@ export function watchLabel(watch: Pick<Watch, "brand" | "model" | "reference">):
   const name = `${watch.brand} ${watch.model}`;
   return watch.reference ? `${name} ref. ${watch.reference}` : name;
 }
+
+// Hodinky s textami v danom jazyku — obsah je po slovensky, preklad je v poli `en`.
+export function localizeWatch(watch: Watch, locale: Locale): Watch {
+  if (locale !== "en") return watch;
+  const { content, ...fields } = watch.en;
+  return { ...watch, ...fields, content };
+}
+
+// „modrý ciferník“ / „blue dial“ — prvá časť poľa Ciferník.
+export function dialLabel(watch: Watch, locale: Locale): string {
+  const color = localizeWatch(watch, locale).dial.split(",")[0].toLowerCase();
+  return locale === "en" ? `${color} dial` : `${color} ciferník`;
+}

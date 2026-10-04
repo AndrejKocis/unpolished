@@ -3,7 +3,7 @@ import { INSTAGRAM_HANDLE, INSTAGRAM_URL, SITE_NAME, VAT_INFO } from "@/lib/cons
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
 
-export function Footer({ locale }: { locale: Locale }) {
+export function Footer({ locale, showArchive }: { locale: Locale; showArchive: boolean }) {
   const dict = dictionaries[locale];
   const year = new Date().getFullYear();
 
@@ -12,7 +12,8 @@ export function Footer({ locale }: { locale: Locale }) {
       heading: dict.footer.shop,
       links: [
         { href: "/watches", label: dict.footer.watches },
-        { href: "/archive", label: dict.footer.archive },
+        // Archív ukáž až po prvom predanom kuse.
+        ...(showArchive ? [{ href: "/archive", label: dict.footer.archive }] : []),
       ],
     },
     {

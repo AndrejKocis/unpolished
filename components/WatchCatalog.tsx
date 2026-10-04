@@ -48,7 +48,12 @@ export function WatchCatalog({ watches: all, brands, locale, query }: Props & { 
         <div className="flex items-center gap-4">
           <FilterPanel brands={brands} searchParams={sp} />
           <p className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted">
-            {watches.length} {watches.length === 1 ? dict.watches.resultsOne : dict.watches.resultsMany}
+            {watches.length}{" "}
+            {watches.length === 1
+              ? dict.watches.resultsOne
+              : watches.length <= 4 && watches.length > 1
+                ? dict.watches.resultsFew
+                : dict.watches.resultsMany}
           </p>
         </div>
 

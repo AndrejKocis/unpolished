@@ -34,11 +34,11 @@ async function InlineLogo({ src }: { src: string }) {
   );
 }
 
-export function DidYouKnow({ logo, children }: { logo?: string; children: ReactNode }) {
+export function DidYouKnow({ logo, label, children }: { logo?: string; label: string; children: ReactNode }) {
   return (
     <div className="border-t border-line pt-6 mt-2">
       {logo && <InlineLogo src={logo} />}
-      <h3 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-2">Vedeli ste?</h3>
+      <h3 className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-2">{label}</h3>
       <div className="text-15 leading-relaxed [&>p]:mb-0">{children}</div>
     </div>
   );
