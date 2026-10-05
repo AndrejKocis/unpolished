@@ -174,6 +174,7 @@ const sk = {
     lightboxAlt: "Zväčšená fotka",
     prev: "Predchádzajúca fotka",
     next: "Nasledujúca fotka",
+    showPhoto: "Zobraziť fotku",
   },
   contact: {
     title: "Kontakt",
@@ -431,6 +432,7 @@ const en: Dictionary = {
     lightboxAlt: "Enlarged photo",
     prev: "Previous photo",
     next: "Next photo",
+    showPhoto: "Show photo",
   },
   contact: {
     title: "Contact",
@@ -686,6 +688,7 @@ const cs: Dictionary = {
     lightboxAlt: "Zvětšená fotka",
     prev: "Předchozí fotka",
     next: "Další fotka",
+    showPhoto: "Zobrazit fotku",
   },
   contact: {
     title: "Kontakt",

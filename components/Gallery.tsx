@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useLocale } from "@/components/LocaleProvider";
 
 export type GalleryImage = { src: string; alt: string; aspect: "square" | "portrait" };
@@ -35,32 +35,103 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
     if (index === null) triggerRef.current?.focus();
   }, [index]);
 
+  // Mobil a tablet: jedna fotka na posúvanie prstom (scroll-snap) + pás náhľadov pod ňou,
+  // aby názov a cena boli hneď pod galériou. Desktop ostáva mriežka.
+  const trackRef = useRef<HTMLDivElement>(null);
+  const thumbsRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  function onTrackScroll() {
+    const track = trackRef.current;
+    if (!track) return;
+    const i = Math.round(track.scrollLeft / track.clientWidth);
+    if (i !== active) setActive(i);
+  }
+
+  function goTo(i: number) {
+    const track = trackRef.current;
+    if (track) track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
+  }
+
+  // Aktívny náhľad drž v pruhu viditeľný (bez rolovania celej stránky).
+  useEffect(() => {
+    const strip = thumbsRef.current;
+    const thumb = strip?.children[active] as HTMLElement | undefined;
+    if (!strip || !thumb) return;
+    const left = thumb.offsetLeft - (strip.clientWidth - thumb.offsetWidth) / 2;
+    strip.scrollTo({ left, behavior: "smooth" });
+  }, [active]);
+
+  const openLightbox = (i: number) => (e: MouseEvent<HTMLButtonElement>) => {
+    triggerRef.current = e.currentTarget;
+    setIndex(i);
+  };
+
+  // Rovnaké `sizes` v karuseli aj v mriežke → prehliadač stiahne prvú fotku len raz.
+  const sizes = "(min-width: 1024px) 60vw, 100vw";
+
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-line">
+      <div className="lg:hidden">
+        <div
+          ref={trackRef}
+          onScroll={onTrackScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {images.map((img, i) => (
+            <button
+              key={img.src}
+              type="button"
+              onClick={openLightbox(i)}
+              className={[
+                "relative w-full shrink-0 snap-center bg-paper block",
+                img.aspect === "square" ? "aspect-square" : "aspect-[4/5]",
+              ].join(" ")}
+              aria-label={`${dict.gallery.zoomAlt}: ${img.alt}`}
+            >
+              <Image src={img.src} alt={img.alt} fill sizes={sizes} className="object-cover" priority={i === 0} />
+            </button>
+          ))}
+        </div>
+
+        {images.length > 1 && (
+          <div
+            ref={thumbsRef}
+            className="flex gap-2 overflow-x-auto px-4 sm:px-6 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {images.map((img, i) => (
+              <button
+                key={img.src}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={`${dict.gallery.showPhoto} ${i + 1}`}
+                aria-current={i === active ? "true" : undefined}
+                className={[
+                  "relative w-16 sm:w-20 aspect-[4/5] shrink-0 bg-paper border transition-opacity",
+                  i === active ? "border-ink opacity-100" : "border-transparent opacity-50",
+                ].join(" ")}
+              >
+                <Image src={img.src} alt="" fill sizes="80px" className="object-cover" />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="hidden lg:grid grid-cols-2 gap-px bg-line">
         {images.map((img, i) => (
           <button
             key={img.src}
             type="button"
-            onClick={(e) => {
-              triggerRef.current = e.currentTarget;
-              setIndex(i);
-            }}
+            onClick={openLightbox(i)}
             className={[
               "relative w-full bg-paper block",
               img.aspect === "square" ? "aspect-square" : "aspect-[4/5]",
-              i === 0 ? "lg:col-span-2" : "",
+              i === 0 ? "col-span-2" : "",
             ].join(" ")}
             aria-label={`${dict.gallery.zoomAlt}: ${img.alt}`}
           >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-              priority={i === 0}
-            />
+            <Image src={img.src} alt={img.alt} fill sizes={sizes} className="object-cover" priority={i === 0} />
           </button>
         ))}
       </div>
