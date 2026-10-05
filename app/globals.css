@@ -225,3 +225,10 @@
 html[data-locale-pending] body {
   visibility: hidden;
 }
+
+/* Malé mono štítky (text-11) sú na telefóne o 1 px väčšie kvôli čitateľnosti. */
+@media (max-width: 639px) {
+  .text-11 {
+    font-size: 12px;
+  }
+}

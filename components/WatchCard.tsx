@@ -43,7 +43,7 @@ export function WatchCard({
         )}
       </div>
       <div className="p-4">
-        <p className="font-serif text-15">
+        <p className="font-serif text-18 leading-snug">
           {watch.brand} {watch.model}
         </p>
         <p className="text-13 text-ink-muted mt-1">
