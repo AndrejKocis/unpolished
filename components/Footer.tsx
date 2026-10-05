@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { INSTAGRAM_HANDLE, INSTAGRAM_URL, SITE_NAME, VAT_INFO } from "@/lib/constants";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL, SITE_NAME } from "@/lib/constants";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
 
@@ -55,13 +55,17 @@ export function Footer({ locale, showArchive }: { locale: Locale; showArchive: b
           <span>
             © {year} {SITE_NAME}
           </span>
-          <span>{VAT_INFO}</span>
           <a
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:opacity-70 transition-opacity duration-150"
+            className="flex items-center gap-2 hover:opacity-70 transition-opacity duration-150"
           >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4.2" />
+              <circle cx="17.4" cy="6.6" r="0.9" fill="currentColor" stroke="none" />
+            </svg>
             {INSTAGRAM_HANDLE}
           </a>
         </div>
