@@ -7,6 +7,8 @@
 # start-offset odreže začiatok videa (napr. ak kamera najprv panuje cez zápästie
 # predtým, než sa dostane na ciferník) — slučka potom začína až odtiaľto.
 # Výstup:   public/watches/<referencia>/loop.mp4
+# Voliteľne CROP_OVERRIDE="crop=w:h:x:y" (v pixeloch SDR videa) nahradí stredový orez,
+# napr. keď treba hodinky v zábere priblížiť alebo posunúť. CRF (predvolene 24) mení kompresiu.
 
 set -euo pipefail
 
@@ -67,6 +69,8 @@ else
   CROP="crop=$WIDTH:$CROP_H:0:$Y_OFF"
 fi
 
+CROP="${CROP_OVERRIDE:-$CROP}"
+
 MAIN_DUR=$(python3 -c "print(round($DURATION - $FADE, 3))")
 
 if (( $(python3 -c "print(1 if $MAIN_DUR <= 0 else 0)") )); then
@@ -82,7 +86,7 @@ ffmpeg -y -loglevel error -ss "$START" -i "$TMP_SDR" -filter_complex "
 [s3]trim=0:$FADE,setpts=PTS-STARTPTS[head];
 [tail][head]xfade=transition=fade:duration=$FADE:offset=0[xf];
 [main][xf]concat=n=2:v=1:a=0[outv]
-" -map "[outv]" -an -c:v libx264 -preset slow -crf 24 -movflags +faststart -pix_fmt yuv420p \
+" -map "[outv]" -an -c:v libx264 -preset slow -crf "${CRF:-24}" -movflags +faststart -pix_fmt yuv420p \
   "$OUT_DIR/loop.mp4"
 
 echo "Hotovo: $OUT_DIR/loop.mp4 ($(du -h "$OUT_DIR/loop.mp4" | cut -f1))"
