@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useRouter, usePathname } from "next/navigation";
 import { useLocale } from "@/components/LocaleProvider";
 
@@ -54,7 +55,9 @@ export function FilterPanel({ brands, searchParams }: { brands: string[]; search
         {activeCount > 0 && <span className="text-ink-muted">({activeCount})</span>}
       </button>
 
-      {open && (
+      {/* Panel ide cez portál do <body>: lišta filtrov má transform (schovávanie pri rolovaní),
+          ktorý by fixed panel uväznil a orezal na svoju veľkosť. */}
+      {open && createPortal(
         <div className="fixed inset-0 z-50">
           <button
             type="button"
@@ -106,7 +109,8 @@ export function FilterPanel({ brands, searchParams }: { brands: string[]; search
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );
