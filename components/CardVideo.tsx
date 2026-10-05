@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 const FADE_MS = 150;
 // Dotykové zariadenia: video karty v strede obrazovky sa spustí, až keď tam karta vydrží.
-const TOUCH_DWELL_MS = 1000;
+const TOUCH_DWELL_MS = 600;
 
 // Karty, ktoré sú práve v strednom páse obrazovky, a karta, ktorá práve hrá —
 // na dotykových zariadeniach hrá vždy len jedna (najbližšie k stredu).
@@ -94,6 +94,11 @@ export function CardVideo({
       ([entry]) => {
         if (entry.isIntersecting) {
           touchCandidates.set(root, start);
+          // Sťahuj už počas čakania, aby video po ňom hneď hralo.
+          if (!played && video.readyState === 0) {
+            video.preload = "auto";
+            video.load();
+          }
           dwell = setTimeout(start, TOUCH_DWELL_MS);
         } else {
           touchCandidates.delete(root);
