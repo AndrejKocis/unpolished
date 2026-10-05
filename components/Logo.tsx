@@ -12,13 +12,13 @@ export function Logo({ className = "" }: { className?: string }) {
         {/* Celý tvar (ikona + odznak) vektorizovaný z jedného referenčného obrázka —
             dve samostatné podcesty v jednej <path>, spojené tenkou medzerou. */}
         <svg
-          viewBox="0 0 1726 460"
+          viewBox="0 0 1742 460"
           className="h-full w-auto text-ink block"
           style={{ transform: "scaleX(1.05)", transformOrigin: "left" }}
           aria-hidden="true"
         >
           <defs>
-            {/* Odznak je čistá geometria (obdĺžnik s pravými rohmi R 760), nie obkreslený bitmapový tvar —
+            {/* Odznak je čistá geometria (obdĺžnik s pravými rohmi R 760; za textom je vpravo ~1 px voľného miesta), nie obkreslený bitmapový tvar —
                 obkreslenie malo nerovnomerné „schodovité“ rohy, viditeľné najmä pri malom logu na mobile. */}
             {/* Obrys odznaku (len hlavný odznak, bez ľavej hrany): linka vo farbe pozadia (--white) vnútri tvaru, kúsok od okraja.
                 Ťahy idú po kópii tvaru s ľavou hranou posunutou von (x 1500), takže ľavá strana sa odreže.
@@ -36,10 +36,10 @@ export function Logo({ className = "" }: { className?: string }) {
             <path id="logo-piece" d="M371 4048 c185 -365 354 -917 413 -1345 94 -679 -32 -1407 -375
 -2168 -33 -71 -59 -131 -59 -132 0 -2 331 -3 735 -3 l735 0 -2 1853 -3 1852
 -738 3 -737 2 31 -62z" />
-            <path id="logo-badge" d="M2080 400 H16250 A760 760 0 0 1 17010 1160 V3350 A760 760 0 0 1 16250 4110 H2080 Z" />
+            <path id="logo-badge" d="M2080 400 H16410 A760 760 0 0 1 17170 1160 V3350 A760 760 0 0 1 16410 4110 H2080 Z" />
             <g clipPath="url(#logo-clip)" fill="none">
-              <path d="M1500 400 H16250 A760 760 0 0 1 17010 1160 V3350 A760 760 0 0 1 16250 4110 H1500 Z" strokeWidth="560" style={{ stroke: "var(--white)" }} />
-              <path d="M1500 400 H16250 A760 760 0 0 1 17010 1160 V3350 A760 760 0 0 1 16250 4110 H1500 Z" strokeWidth="300" stroke="currentColor" />
+              <path d="M1500 400 H16410 A760 760 0 0 1 17170 1160 V3350 A760 760 0 0 1 16410 4110 H1500 Z" strokeWidth="560" style={{ stroke: "var(--white)" }} />
+              <path d="M1500 400 H16410 A760 760 0 0 1 17170 1160 V3350 A760 760 0 0 1 16410 4110 H1500 Z" strokeWidth="300" stroke="currentColor" />
             </g>
             <g clipPath="url(#logo-clip-piece)" fill="none">
               <path d="M-500 400 H2600 V4110 H-500 Z" strokeWidth="560" style={{ stroke: "var(--white)" }} />
@@ -50,7 +50,7 @@ export function Logo({ className = "" }: { className?: string }) {
         {/* Písmo a odsadenie v cqw (% šírky textového poľa), aby text sedel v odznaku pri každej výške loga. */}
         <span
           className="absolute inset-y-0 flex items-center [container-type:inline-size]"
-          style={{ left: "12.1%", right: "1.5%" }}
+          style={{ left: "11.99%", right: "2.4%" }}
         >
           <span
             className="logo-badge-text relative top-[0.046em] block font-serif uppercase tracking-[0.08em] leading-none font-bold text-white [-webkit-text-stroke:0.5px_currentColor]"
