@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-const FADE_MS = 150;
+// Jemné prelínanie medzi fotkou a videom (pri spustení aj návrate na fotku).
+const FADE_MS = 700;
 // Dotykové zariadenia: video karty v strede obrazovky sa spustí, až keď tam karta vydrží.
 const TOUCH_DWELL_MS = 600;
 
@@ -36,6 +37,8 @@ export function CardVideo({
   const liveRef = useRef<HTMLVideoElement>(null);
   const resetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [hovering, setHovering] = useState(false);
+  // Prelínanie začne až keď video naozaj hrá — nie počas sťahovania.
+  const [playing, setPlaying] = useState(false);
 
   function handleEnter() {
     if (resetTimeout.current) clearTimeout(resetTimeout.current);
@@ -152,9 +155,11 @@ export function CardVideo({
         playsInline
         preload="none"
         aria-label={ariaLabel}
+        onPlaying={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
         className={[
-          "absolute inset-0 h-full w-full object-cover transition-opacity",
-          hovering ? "opacity-100" : "opacity-0",
+          "absolute inset-0 h-full w-full object-cover transition-opacity ease-in-out",
+          hovering && playing ? "opacity-100" : "opacity-0",
         ].join(" ")}
         style={{ transitionDuration: `${FADE_MS}ms` }}
       />
