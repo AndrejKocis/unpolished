@@ -60,13 +60,24 @@ export function CardVideo({
 
   const rootRef = useRef<HTMLDivElement>(null);
 
-  // Bez hoveru (telefón, tablet bez myši) prehrávaj kartu v strede obrazovky.
+  // Bez hoveru (telefón, tablet bez myši) prehraj raz kartu v strede obrazovky, potom sa vráť
+  // na fotku. Znova sa spustí, až keď karta odíde zo stredu a vráti sa.
   useEffect(() => {
     const root = rootRef.current;
-    if (!root || matchMedia("(hover: hover)").matches || prefersLowData()) return;
+    const video = liveRef.current;
+    if (!root || !video || matchMedia("(hover: hover)").matches || prefersLowData()) return;
 
+    video.loop = false;
+    let played = false;
     let dwell: ReturnType<typeof setTimeout> | null = null;
+    function onEnded() {
+      played = true;
+      stop();
+    }
+    video.addEventListener("ended", onEnded);
+
     function start() {
+      if (played) return;
       // Spusti len kartu najbližšie k stredu — v riadku tabletu je v páse viac kariet naraz.
       const closest = [...touchCandidates.keys()].sort((a, b) => distanceFromCenter(a) - distanceFromCenter(b))[0];
       if (closest !== root) return;
@@ -86,6 +97,7 @@ export function CardVideo({
           dwell = setTimeout(start, TOUCH_DWELL_MS);
         } else {
           touchCandidates.delete(root);
+          played = false;
           if (dwell) clearTimeout(dwell);
           if (stopActive === stop) {
             stop();
@@ -102,6 +114,7 @@ export function CardVideo({
     observer.observe(root);
     return () => {
       observer.disconnect();
+      video.removeEventListener("ended", onEnded);
       touchCandidates.delete(root);
       if (dwell) clearTimeout(dwell);
       if (stopActive === stop) stopActive = null;
