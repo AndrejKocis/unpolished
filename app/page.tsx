@@ -54,7 +54,7 @@ function HomeContent({
               {dict.home.heroCta}
             </Button>
           </div>
-          <div className="relative aspect-square order-1 lg:order-2">
+          <div className="hero-reveal relative aspect-square order-1 lg:order-2">
           {/* Tmavá fotka má tieň len o pár úrovní pod pozadím a video ho rozbije na schodíky,
               preto je v tmavom režime tieň samostatná hladká vrstva pod maskovanými hodinkami. */}
           <div
