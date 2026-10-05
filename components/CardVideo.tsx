@@ -50,20 +50,20 @@ export function CardVideo({
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
         />
       )}
-      {/* Živé video — prehráva sa na hover, mimo neho sa jemne odfaduje */}
+      {/* Živé video — prehráva sa na hover, mimo neho sa jemne odfaduje.
+          Sťahuje sa až pri prvom hoveri (play), na dotykových zariadeniach vôbec. */}
       <video
         ref={liveRef}
         src={src}
-        poster={posterSrc}
         muted
         loop
         playsInline
-        preload="auto"
+        preload="none"
         aria-label={ariaLabel}
         className={[
           "absolute inset-0 h-full w-full object-cover transition-opacity",
