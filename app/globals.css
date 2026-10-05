@@ -195,10 +195,28 @@
   animation: hero-reveal 1.4s cubic-bezier(0.25, 0.1, 0.25, 1) 0.15s both;
 }
 
+/* Hero text a tlačidlo — postupne sa zjavia s jemným vysunutím nahor (oneskorenie nastavuje page.tsx). */
+@keyframes hero-text-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-reveal-text {
+  /* backwards: po dobehnutí animácia nič nedrží, takže hover efekt tlačidla (opacity) funguje. */
+  animation: hero-text-reveal 1s cubic-bezier(0.25, 0.1, 0.25, 1) backwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .logo-slide-in,
   .logo-badge-text,
-  .hero-reveal {
+  .hero-reveal,
+  .hero-reveal-text {
     animation: none;
   }
 }

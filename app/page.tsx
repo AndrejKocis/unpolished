@@ -46,11 +46,13 @@ function HomeContent({
       <section>
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="flex flex-col items-start gap-4 text-left order-2 lg:order-1">
-            <h1 className="font-serif text-32 lg:text-48 leading-tight">
+            <h1 className="hero-reveal-text font-serif text-32 lg:text-48 leading-tight" style={{ animationDelay: "0.35s" }}>
               {dict.home.heroTitle}
             </h1>
-            <p className="text-15">{dict.home.heroSubtitle}</p>
-            <Button href="/watches" fullWidthOnMobile className="mt-2">
+            <p className="hero-reveal-text text-15" style={{ animationDelay: "0.5s" }}>
+              {dict.home.heroSubtitle}
+            </p>
+            <Button href="/watches" fullWidthOnMobile className="hero-reveal-text mt-2" style={{ animationDelay: "0.65s" }}>
               {dict.home.heroCta}
             </Button>
           </div>
