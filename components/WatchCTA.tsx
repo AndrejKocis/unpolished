@@ -43,7 +43,7 @@ export function WatchCTA({ watch, sticky = false }: { watch: Watch; sticky?: boo
           {dict.watchDetail.writeToUs}
         </Button>
         <Button
-          href={watchWhatsappLink(watchLabel(watch))}
+          href={watchWhatsappLink(dict.watchDetail.whatsappMessage, watchLabel(watch))}
           variant="secondary"
           fullWidthOnMobile
           target="_blank"

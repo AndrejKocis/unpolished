@@ -17,6 +17,7 @@ function waLink(text: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
-export function watchWhatsappLink(label: string) {
-  return waLink(`Dobrý deň, mám záujem o ${label}.`);
+// `greeting` je úvod správy v jazyku návštevníka (dict.watchDetail.whatsappMessage).
+export function watchWhatsappLink(greeting: string, label: string) {
+  return waLink(`${greeting} ${label}.`);
 }

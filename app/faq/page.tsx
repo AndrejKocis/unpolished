@@ -10,10 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const dict = dictionaries[locale];
   return {
     title: dict.faq.title,
-    description:
-      locale === "sk"
-        ? "Časté otázky o nákupe, doprave, servise a overovaní pravosti."
-        : "Frequently asked questions about buying, shipping, servicing and authentication.",
+    description: dict.faq.metaDescription,
   };
 }
 

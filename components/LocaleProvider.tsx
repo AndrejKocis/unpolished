@@ -52,7 +52,7 @@ export function useLocale() {
   return ctx;
 }
 
-export function LocaleSwitch({ sk, en }: Record<Locale, ReactNode>) {
+export function LocaleSwitch(versions: Record<Locale, ReactNode>) {
   const { locale } = useLocale();
-  return locale === "en" ? en : sk;
+  return versions[locale];
 }

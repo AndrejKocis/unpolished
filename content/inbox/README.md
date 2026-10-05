@@ -31,13 +31,16 @@ checklistu nižšie.
       radšej prizná, než aby si vymýšľal detaily. Do popisu nepíše vety o
       servise ani hodinárovi (to ukazuje ikona „Servisované“) ani o tom, že
       sériové či referenčné číslo nie je viditeľné alebo známe.
-- [ ] **Anglická verzia** — do poľa `en:` v `content/watches/<slug>.mdx`
-      preloží textové špecifikácie (caliber, caseMaterial, strap, dial,
-      casePolish, set, service, warranty) a celý popis vrátane
-      `<DidYouKnow>` (`content`) v rovnakom štýle.
+- [ ] **Česká a anglická verzia** — web je CZ (predvolený) / SK / EN.
+      Základné texty v `content/watches/<slug>.mdx` sú slovenské; do polí
+      `cs:` a `en:` preloží textové špecifikácie (caliber, caseMaterial,
+      strap, dial, casePolish, set, service, warranty) a celý popis vrátane
+      `<DidYouKnow>` (`content`) v rovnakom štýle (česky: číselník, ouška,
+      tah, řemínek, datumovka).
 - [ ] **Cena** — Claude sa tu zastaví a opýta sa ťa. Nikdy ju
       nenastaví sám ani neprevezme z inzerátov iných predajcov — je to
-      tvoje obchodné rozhodnutie.
+      tvoje obchodné rozhodnutie. Dve ceny: `price` v € (SK a EN verzia)
+      a `priceCzk` v Kč (CZ verzia).
 - [ ] **Zápis do katalógu** — vytvorí `content/watches/<slug>.mdx`,
       priečinok v inboxe potom vyprace.
 

@@ -6,6 +6,18 @@ export type WatchStatus = z.infer<typeof watchStatusSchema>;
 export const watchGenderSchema = z.enum(["women", "men", "unisex"]);
 export type WatchGender = z.infer<typeof watchGenderSchema>;
 
+const localizedWatchText = z.object({
+  caliber: z.string(),
+  caseMaterial: z.string(),
+  strap: z.string(),
+  dial: z.string(),
+  casePolish: z.string(),
+  set: z.string(),
+  service: z.string(),
+  warranty: z.string(),
+  content: z.string(),
+});
+
 export const watchFrontmatterSchema = z.object({
   slug: z.string(),
   brand: z.string(),
@@ -28,6 +40,8 @@ export const watchFrontmatterSchema = z.object({
   service: z.string(),
   warranty: z.string(),
   price: z.number(),
+  // Cena v Kč pre českú verziu webu (price je v mene `currency`, zobrazuje sa v SK a EN).
+  priceCzk: z.number(),
   currency: z.string(),
   status: watchStatusSchema,
   images: z.array(z.string()).min(1),
@@ -45,18 +59,9 @@ export const watchFrontmatterSchema = z.object({
   onlyBox: z.boolean().default(false),
   originalBracelet: z.boolean().default(false),
   originalStrap: z.boolean().default(false),
-  // Anglický preklad textových polí a popisu (MDX vrátane <DidYouKnow>).
-  en: z.object({
-    caliber: z.string(),
-    caseMaterial: z.string(),
-    strap: z.string(),
-    dial: z.string(),
-    casePolish: z.string(),
-    set: z.string(),
-    service: z.string(),
-    warranty: z.string(),
-    content: z.string(),
-  }),
+  // Preklady textových polí a popisu (MDX vrátane <DidYouKnow>); základné texty sú slovenské.
+  cs: localizedWatchText,
+  en: localizedWatchText,
 });
 
 export type WatchFrontmatter = z.infer<typeof watchFrontmatterSchema>;

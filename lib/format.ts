@@ -2,22 +2,16 @@ import type { Locale } from "@/lib/i18n/locale";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Watch } from "@/lib/schema";
 
-const INTL_LOCALE: Record<Locale, string> = { sk: "sk-SK", en: "en-IE" };
+const INTL_LOCALE: Record<Locale, string> = { cs: "cs-CZ", sk: "sk-SK", en: "en-IE" };
 
-export function formatPrice(price: number, currency: string, locale: Locale = "sk"): string {
+// Česká verzia ukazuje cenu v Kč (priceCzk), slovenská a anglická v eurách (price).
+export function formatWatchPrice(watch: Pick<Watch, "price" | "priceCzk" | "currency">, locale: Locale): string {
+  const [amount, currency] = locale === "cs" ? [watch.priceCzk, "CZK"] : [watch.price, watch.currency];
   return new Intl.NumberFormat(INTL_LOCALE[locale], {
     style: "currency",
     currency,
     maximumFractionDigits: 0,
-  }).format(price);
-}
-
-export function formatDate(iso: string, locale: Locale = "sk"): string {
-  return new Intl.DateTimeFormat(INTL_LOCALE[locale], {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(iso));
+  }).format(amount);
 }
 
 export function statusBadgeLabel(status: string, dict: Dictionary): string | null {
@@ -32,10 +26,10 @@ export function watchLabel(watch: Pick<Watch, "brand" | "model" | "reference">):
   return watch.reference ? `${name} ref. ${watch.reference}` : name;
 }
 
-// Hodinky s textami v danom jazyku — obsah je po slovensky, preklad je v poli `en`.
+// Základné texty v súbore sú slovenské; preklady sú v poliach `cs` a `en`.
 export function localizeWatch(watch: Watch, locale: Locale): Watch {
-  if (locale !== "en") return watch;
-  const { content, ...fields } = watch.en;
+  if (locale === "sk") return watch;
+  const { content, ...fields } = watch[locale];
   return { ...watch, ...fields, content };
 }
 

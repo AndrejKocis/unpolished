@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Watch } from "@/lib/schema";
-import { dialLabel, formatPrice, statusBadgeLabel, watchLabel } from "@/lib/format";
+import { dialLabel, formatWatchPrice, statusBadgeLabel, watchLabel } from "@/lib/format";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
 import { CardVideo } from "@/components/CardVideo";
@@ -55,7 +55,7 @@ export function WatchCard({
             sold ? "line-through text-sold" : "text-ink",
           ].join(" ")}
         >
-          {formatPrice(watch.price, watch.currency, locale)}
+          {formatWatchPrice(watch, locale)}
         </p>
         {badge && (
           <p className="font-mono text-11 uppercase tracking-[0.06em] text-sold mt-1">

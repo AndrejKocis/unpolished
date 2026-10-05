@@ -26,4 +26,5 @@ notes: |
   Voľné poznámky pre Claude — chyby, história, čo zdôrazniť v popise.
 
 # Vyplní sa až na konci, po potvrdení checklistu:
-# price:
+# price:      # v € (SK a EN verzia)
+# priceCzk:   # v Kč (CZ verzia)

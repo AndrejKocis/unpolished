@@ -18,6 +18,7 @@ const sk = {
     toggleLabel: "Prepnúť tmavý režim",
   },
   lang: {
+    cs: "CZ",
     sk: "SK",
     en: "EN",
     toggleLabel: "Prepnúť jazyk",
@@ -77,6 +78,7 @@ const sk = {
   },
   watches: {
     title: "Hodinky",
+    metaDescription: "Katalóg neleštených vintage hodiniek.",
     brand: "Značka",
     decade: "Dekáda",
     price: "Cena",
@@ -106,6 +108,7 @@ const sk = {
   },
   archive: {
     title: "Archív",
+    metaDescription: "Predané kusy z môjho inventára.",
     empty: "Zatiaľ žiadne predané kusy.",
     subtitle: "Predané kusy. Slúžia ako záznam a referencia, nie sú na predaj.",
   },
@@ -160,6 +163,10 @@ const sk = {
       },
     ],
     inquiryPrefix: "Mám záujem o",
+    whatsappMessage: "Dobrý deň, mám záujem o",
+    // {label} {year} {dial} sa doplnia v app/watches/[slug]/page.tsx
+    metaDescription: "{label} z roku {year}. {dial}. Neleštené puzdro, ostré hrany, plné lugy.",
+    jsonLdDescription: "{label} z roku {year}. Neleštené puzdro.",
     inquirySent: "Ďakujem za správu. Ozvem sa čo najskôr.",
   },
   gallery: {
@@ -170,11 +177,13 @@ const sk = {
   },
   contact: {
     title: "Kontakt",
+    metaDescription: "Napíšte mi e-mailom, cez WhatsApp alebo formulár nižšie.",
     emailLabel: "E-mail",
     whatsappLabel: "WhatsApp",
   },
   about: {
     title: "O mne",
+    metaDescription: "Filozofia unpolished: prečo predávam iba neleštené vintage hodinky.",
     sections: [
       {
         heading: "Prečo unpolished",
@@ -199,6 +208,7 @@ const sk = {
   },
   faq: {
     title: "FAQ",
+    metaDescription: "Časté otázky o nákupe, doprave, servise a overovaní pravosti.",
     items: [
       {
         q: "Ako môžem hodinky kúpiť, keď na webe nie je košík?",
@@ -266,6 +276,7 @@ const en: Dictionary = {
     toggleLabel: "Toggle dark mode",
   },
   lang: {
+    cs: "CZ",
     sk: "SK",
     en: "EN",
     toggleLabel: "Toggle language",
@@ -325,6 +336,7 @@ const en: Dictionary = {
   },
   watches: {
     title: "Watches",
+    metaDescription: "Catalogue of unpolished vintage watches.",
     brand: "Brand",
     decade: "Decade",
     price: "Price",
@@ -354,6 +366,7 @@ const en: Dictionary = {
   },
   archive: {
     title: "Archive",
+    metaDescription: "Sold pieces from my inventory.",
     empty: "No sold pieces yet.",
     subtitle: "Sold pieces. Kept as a record and reference, not for sale.",
   },
@@ -408,6 +421,9 @@ const en: Dictionary = {
       },
     ],
     inquiryPrefix: "I'm interested in",
+    whatsappMessage: "Hello, I'm interested in",
+    metaDescription: "{label} from {year}. {dial}. Unpolished case, sharp edges, full lugs.",
+    jsonLdDescription: "{label} from {year}. Unpolished case.",
     inquirySent: "Thank you for your message. I'll get back to you shortly.",
   },
   gallery: {
@@ -418,11 +434,13 @@ const en: Dictionary = {
   },
   contact: {
     title: "Contact",
+    metaDescription: "Write to me by email, WhatsApp, or the form below.",
     emailLabel: "Email",
     whatsappLabel: "WhatsApp",
   },
   about: {
     title: "About",
+    metaDescription: "The unpolished philosophy: why I only sell unpolished vintage watches.",
     sections: [
       {
         heading: "Why unpolished",
@@ -447,6 +465,7 @@ const en: Dictionary = {
   },
   faq: {
     title: "FAQ",
+    metaDescription: "Frequently asked questions about buying, shipping, servicing and authentication.",
     items: [
       {
         q: "How do I buy a watch if there's no cart on the site?",
@@ -492,4 +511,259 @@ const en: Dictionary = {
   },
 };
 
-export const dictionaries = { sk, en };
+const cs: Dictionary = {
+  meta: {
+    siteTitle: "unpolished — neleštěné vintage hodinky",
+    siteDescription:
+      "Kurátorovaný prodej vintage hodinek s originálním, nepřeleštěným pouzdrem.",
+  },
+  nav: {
+    watches: "Hodinky",
+    about: "O mně",
+    contact: "Kontakt",
+    menuOpen: "Otevřít menu",
+    menuClose: "Zavřít menu",
+    home: "unpolished — domů",
+  },
+  theme: {
+    dark: "Tmavý",
+    light: "Světlý",
+    toggleLabel: "Přepnout tmavý režim",
+  },
+  lang: {
+    cs: "CZ",
+    sk: "SK",
+    en: "EN",
+    toggleLabel: "Přepnout jazyk",
+  },
+  footer: {
+    shop: "Obchod",
+    info: "Informace",
+    watches: "Hodinky",
+    archive: "Archiv",
+    about: "O mně",
+    faq: "FAQ",
+    contact: "Kontakt",
+  },
+  common: {
+    close: "Zavřít",
+    send: "Odeslat",
+    sending: "Odesílám…",
+    name: "Jméno",
+    email: "E-mail",
+    message: "Zpráva",
+    genericError: "Něco se pokazilo. Zkuste to prosím znovu nebo napište na",
+  },
+  home: {
+    heroTitle: "Unpolished.",
+    heroSubtitle: "Uvnitř servisované, zvenku nedotčené. Pouzdro, ciferník i patina zůstávají takové, jaké je udělal čas.",
+    heroCta: "Prohlédnout kolekci",
+    heroAlt: "Vintage hodinky s neleštěným pouzdrem",
+    lugsAlt: "Detail neleštěných oušek — Longines Ultra-Chron",
+    trust: [
+      "Ověřeno odborníkem",
+      "Záruka 6 měsíců na servis",
+      "14 dní na vrácení",
+      "Doprava zdarma v EU",
+    ],
+    currentTitle: "Aktuální kusy",
+    currentSubtitle: "Každý kus je jediný. Když zmizí, zmizí.",
+    allWatches: "Všechny hodinky",
+    whyTitle: "Proč neleštěné",
+    whyText:
+      "Neleštěné pro mě znamená původní. Hodinky nabízím ve stavu, v jakém ke mně přišly — ať už nošené, nebo téměř nedotčené — s fazetami a tvary pouzdra, jak je navrhl výrobce. Pokud toužíte po lesku, citlivé, minimální přeleštění ho dokáže vrátit, aniž by hodinky ztratily charakter. Rozhodnutí ale nechávám na vás.",
+    whyLink: "Moje filozofie",
+    newsletterTitle: "O nových kusech dávám vědět nejdřív e-mailem.",
+    newsletterSubtitle: "Nové kusy pošlu e-mailem dřív, než je zveřejním.",
+    newsletterSent: "Děkuji, jste na seznamu.",
+  },
+  notFound: {
+    title: "Tato stránka neexistuje",
+    text: "Možná byl kus mezitím prodán, nebo se změnila adresa.",
+    cta: "Prohlédnout hodinky",
+  },
+  watchCard: {
+    reserved: "Rezervováno",
+    sold: "Prodáno",
+  },
+  watchGrid: {
+    empty: "Filtru neodpovídají žádné kusy.",
+  },
+  watches: {
+    title: "Hodinky",
+    metaDescription: "Katalog neleštěných vintage hodinek.",
+    brand: "Značka",
+    decade: "Dekáda",
+    price: "Cena",
+    sort: "Řazení",
+    all: "Všechny",
+    newest: "Nejnovější",
+    oldest: "Nejstarší",
+    priceAsc: "Od nejlevnějších",
+    priceDesc: "Od nejdražších",
+    showSold: "Zobrazit prodané",
+    filter: "Filtrovat",
+    showFilters: "Zobrazit filtry",
+    hideFilters: "Skrýt filtry",
+    reset: "Zrušit",
+    resultsOne: "KUS",
+    resultsFew: "KUSY",
+    resultsMany: "KUSŮ",
+    gender: "Pro koho",
+    genderAll: "Všechny",
+    genderWomen: "Dámské",
+    genderMen: "Pánské",
+    priceBands: [
+      { value: "under-500", label: "Do 500 €" },
+      { value: "500-1500", label: "500–1500 €" },
+      { value: "over-1500", label: "1500 € a více" },
+    ],
+  },
+  archive: {
+    title: "Archiv",
+    metaDescription: "Prodané kusy z mého inventáře.",
+    empty: "Zatím žádné prodané kusy.",
+    subtitle: "Prodané kusy. Slouží jako záznam a reference, nejsou na prodej.",
+  },
+  watchDetail: {
+    specifications: "Specifikace",
+    oneOfOne: "1 z 1",
+    writeToUs: "Napište mi",
+    whatsapp: "WhatsApp",
+    reserved: "Rezervováno",
+    similarWatches: "Podobné kusy",
+    statusFlagsTitle: "Stav hodinek",
+    statusYes: "ano",
+    statusNo: "ne",
+    statusFlags: {
+      serviced: "Servisováno",
+      polished: "Leštěno",
+      keepsTime: "Drží čas",
+      missingParts: "Chybí díl",
+      fullSet: "Full set",
+      onlyBox: "Pouze krabička",
+      originalBracelet: "Původní tah (náramek)",
+      originalStrap: "Původní řemínek",
+    },
+    specLabels: {
+      reference: "Reference",
+      year: "Rok",
+      caliber: "Kalibr",
+      caseSize: "Průměr pouzdra",
+      caseMaterial: "Materiál",
+      strap: "Tah / řemínek",
+      dial: "Ciferník",
+      casePolish: "Stav pouzdra",
+      set: "Set",
+      service: "Servis",
+      warranty: "Záruka",
+    },
+    didYouKnow: "Věděli jste?",
+    specsShowMore: "Všechny specifikace",
+    specsShowLess: "Méně specifikací",
+    accordions: [
+      {
+        title: "Servis a záruka",
+        body: "Každý kus před zveřejněním projde servisem. Přesný rozsah servisu najdete ve specifikacích výše. Na servis poskytuji záruku 6 měsíců, která kryje funkčnost strojku.",
+      },
+      {
+        title: "Doprava a vrácení",
+        body: "Doprava v rámci EU je zdarma, pojištěná a s podpisem při převzetí. Na vrácení máte 14 dní od doručení — hodinky musí být ve stavu, v jakém byly odeslány.",
+      },
+      {
+        title: "Proč koupit u mě",
+        body: "Každý kus osobně ověřuji, fotím stejným způsobem a popisuji bez přikrášlování. Neprodávám přeleštěná pouzdra a v popisu uvádím i vady.",
+      },
+    ],
+    inquiryPrefix: "Mám zájem o",
+    whatsappMessage: "Dobrý den, mám zájem o",
+    metaDescription: "{label} z roku {year}. {dial}. Neleštěné pouzdro, ostré hrany, plná ouška.",
+    jsonLdDescription: "{label} z roku {year}. Neleštěné pouzdro.",
+    inquirySent: "Děkuji za zprávu. Ozvu se co nejdřív.",
+  },
+  gallery: {
+    zoomAlt: "Zvětšit fotku",
+    lightboxAlt: "Zvětšená fotka",
+    prev: "Předchozí fotka",
+    next: "Další fotka",
+  },
+  contact: {
+    title: "Kontakt",
+    metaDescription: "Napište mi e-mailem, přes WhatsApp nebo formulářem níže.",
+    emailLabel: "E-mail",
+    whatsappLabel: "WhatsApp",
+  },
+  about: {
+    title: "O mně",
+    metaDescription: "Filozofie unpolished: proč prodávám jen neleštěné vintage hodinky.",
+    sections: [
+      {
+        heading: "Proč unpolished",
+        paragraphs: [
+          "Vintage hodinky se dají vylepšit tak, aby vypadaly novější. Já to nedělám. Pouzdro, které prošlo leštičkou, ztrácí původní fazety a hrany, které do něj vybrousil výrobce — a tahle ztráta je nevratná. Prodávám jen kusy, jejichž pouzdro je v původním, nepřeleštěném stavu, i když to znamená viditelné škrábance nebo patinu.",
+          "Není to estetická preference. Je to jediný způsob, jak zachovat hodnotu a autenticitu kusu, který má za sebou desítky let.",
+        ],
+      },
+      {
+        heading: "Kdo jsem",
+        paragraphs: [
+          "unpolished vedu sám — moje záliba ve vintage hodinkách se stala prací. Inventář je záměrně malý — desítky, ne stovky kusů — protože každý z nich osobně kontroluji, nechávám servisovat a fotím dřív, než se dostane do katalogu.",
+        ],
+      },
+      {
+        heading: "Jak pracuji",
+        paragraphs: [
+          "Každý kus má poctivý popis včetně vad. Nepřikrášluji stav ciferníku ani pouzdra a neskrývám servisní historii. Pokud něco nedokážu s jistotou potvrdit, napíšu to tak — ne jako předpoklad, ale jako otevřenou otázku.",
+        ],
+      },
+    ],
+  },
+  faq: {
+    title: "FAQ",
+    metaDescription: "Časté dotazy k nákupu, dopravě, servisu a ověřování pravosti.",
+    items: [
+      {
+        q: "Jak můžu hodinky koupit, když na webu není košík?",
+        a: "Napište mi přes formulář na detailu hodinek, e-mailem nebo přes WhatsApp. Podrobnosti platby a doručení s vámi domluvím individuálně.",
+      },
+      {
+        q: "Proč neprodáváte přeleštěné hodinky?",
+        a: "Leštění nevratně odstraňuje původní kov pouzdra a s ním i fazety a hrany, které určují tvar kusu. Snižuje to sběratelskou i tržní hodnotu.",
+      },
+      {
+        q: "Poskytujete záruku?",
+        a: "Ano, na servis poskytuji záruku 6 měsíců od data servisu.",
+      },
+      {
+        q: "Můžu hodinky vrátit?",
+        a: "Ano, do 14 dní od doručení, pokud jsou hodinky ve stejném stavu, v jakém byly odeslány.",
+      },
+      {
+        q: "Doručujete mimo EU?",
+        a: "Ano, individuálně po domluvě — napište mi přes kontaktní formulář.",
+      },
+      {
+        q: "Jak ověřujete pravost?",
+        a: "Každý kus kontroluji před zveřejněním — pouzdro, ciferník, sériové číslo i strojek. Při servisu se pouzdro nikdy neleští.",
+      },
+    ],
+  },
+  terms: {
+    title: "Obchodní podmínky",
+    paragraphs: [
+      "unpolished prodává jedinečné (1 z 1) kusy vintage hodinek. Web nemá platební bránu — objednávka vzniká na základě individuální domluvy po kontaktování přes formulář, e-mail nebo WhatsApp.",
+      "Na servis hodinek poskytuji záruku 6 měsíců. Vrácení je možné do 14 dní od doručení.",
+    ],
+    contactPrefix: "Dotazy k obchodním podmínkám směřujte na",
+  },
+  privacy: {
+    title: "Ochrana údajů",
+    paragraphs: [
+      "Údaje z kontaktního formuláře a newsletteru (jméno, e-mail, obsah zprávy) používám výhradně k vyřízení vašeho dotazu nebo k zasílání informací o nových kusech, pokud jste se k newsletteru přihlásili.",
+      "Údaje neposkytuji třetím stranám. Zprávy přijímám e-mailem.",
+    ],
+    deletePrefix: "Kdykoli můžete požádat o výmaz svých údajů na",
+  },
+};
+
+export const dictionaries = { cs, sk, en };

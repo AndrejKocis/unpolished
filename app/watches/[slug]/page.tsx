@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllWatches, getRelatedWatches, getWatchBySlug } from "@/lib/watches";
-import { dialLabel, formatPrice, localizeWatch, statusBadgeLabel, watchLabel } from "@/lib/format";
+import { dialLabel, formatWatchPrice, localizeWatch, statusBadgeLabel, watchLabel } from "@/lib/format";
 import { imageAspect } from "@/lib/gallery";
 import { Gallery, type GalleryImage } from "@/components/Gallery";
 import { WatchCTA } from "@/components/WatchCTA";
@@ -12,6 +12,7 @@ import { WatchGrid } from "@/components/WatchGrid";
 import { SectionDivider } from "@/components/SectionDivider";
 import { SITE_URL } from "@/lib/constants";
 import { dictionaries } from "@/lib/i18n/dictionaries";
+import { getLocale } from "@/lib/i18n/server";
 import type { Locale } from "@/lib/i18n/locale";
 import type { Watch } from "@/lib/schema";
 import { Localized } from "@/components/Localized";
@@ -31,6 +32,14 @@ function buildTitle(watch: Watch, locale: Locale): string {
   }`;
 }
 
+// Doplní {label} {year} {dial} do šablóny popisu zo slovníka.
+function describe(template: string, watch: Watch, locale: Locale): string {
+  return template
+    .replace("{label}", watchLabel(watch))
+    .replace("{year}", String(watch.year))
+    .replace("{dial}", localizeWatch(watch, locale).dial);
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -40,8 +49,9 @@ export async function generateMetadata({
   const watch = getWatchBySlug(slug);
   if (!watch) return {};
 
-  const title = buildTitle(watch, "sk");
-  const description = `${watchLabel(watch)} z roku ${watch.year}. ${watch.dial}. Neleštené puzdro, ostré hrany, plné lugy.`;
+  const locale = await getLocale();
+  const title = buildTitle(watch, locale);
+  const description = describe(dictionaries[locale].watchDetail.metaDescription, watch, locale);
 
   return {
     title,
@@ -73,6 +83,8 @@ export default async function WatchDetailPage({
   }));
 
   const related = getRelatedWatches(watch);
+  // Štruktúrované dáta pre vyhľadávače v jazyku a mene stránky (statický web: čeština, Kč).
+  const locale = await getLocale();
 
   const availability =
     watch.status === "available"
@@ -87,13 +99,13 @@ export default async function WatchDetailPage({
     name: watchLabel(watch),
     sku: watch.reference ?? watch.slug,
     brand: { "@type": "Brand", name: watch.brand },
-    description: `${watchLabel(watch)} z roku ${watch.year}. Neleštené puzdro.`,
+    description: describe(dictionaries[locale].watchDetail.jsonLdDescription, watch, locale),
     image: images.map((img) => new URL(img.src, SITE_URL).href),
     offers: {
       "@type": "Offer",
       url: `${SITE_URL}/watches/${watch.slug}`,
-      priceCurrency: watch.currency,
-      price: watch.price,
+      priceCurrency: locale === "cs" ? "CZK" : watch.currency,
+      price: locale === "cs" ? watch.priceCzk : watch.price,
       availability,
       itemCondition: "https://schema.org/UsedCondition",
     },
@@ -149,7 +161,7 @@ function WatchDetailContent({
 
           <div>
             {watch.status === "available" ? (
-              <p className="font-mono text-24">{formatPrice(watch.price, watch.currency, locale)}</p>
+              <p className="font-mono text-24">{formatWatchPrice(watch, locale)}</p>
             ) : (
               <p className="font-mono text-24 text-sold">{statusBadgeLabel(watch.status, dict)}</p>
             )}

@@ -43,12 +43,12 @@ const THEME_INIT_SCRIPT = `
 })();
 `;
 
-// Statický export je predrenderovaný po slovensky; pri anglickej cookie skry stránku,
+// Statický export je predrenderovaný v predvolenom jazyku (čeština); pri inej jazykovej cookie skry stránku,
 // kým LocaleProvider po hydratácii neprepne jazyk (poistka 3 s, ak by JS zlyhal).
 const LOCALE_INIT_SCRIPT = `
 (function () {
   try {
-    if (/(?:^|;\\s*)locale=en(?:;|$)/.test(document.cookie)) {
+    if (/(?:^|;\\s*)locale=(sk|en)(?:;|$)/.test(document.cookie)) {
       var root = document.documentElement;
       root.setAttribute('data-locale-pending', '');
       setTimeout(function () { root.removeAttribute('data-locale-pending'); }, 3000);

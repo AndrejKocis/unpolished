@@ -12,10 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const dict = dictionaries[locale];
   return {
     title: dict.watches.title,
-    description:
-      locale === "sk"
-        ? "Katalóg neleštených vintage hodiniek."
-        : "Catalogue of unpolished vintage watches.",
+    description: dict.watches.metaDescription,
   };
 }
 

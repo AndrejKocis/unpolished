@@ -10,10 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const dict = dictionaries[locale];
   return {
     title: dict.about.title,
-    description:
-      locale === "sk"
-        ? "Filozofia unpolished: prečo predávam iba neleštené vintage hodinky."
-        : "The unpolished philosophy: why I only sell unpolished vintage watches.",
+    description: dict.about.metaDescription,
   };
 }
 

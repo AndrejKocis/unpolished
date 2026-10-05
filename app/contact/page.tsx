@@ -12,10 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const dict = dictionaries[locale];
   return {
     title: dict.contact.title,
-    description:
-      locale === "sk"
-        ? "Napíšte mi e-mailom, cez WhatsApp alebo formulár nižšie."
-        : "Write to me by email, WhatsApp, or the form below.",
+    description: dict.contact.metaDescription,
   };
 }
 
