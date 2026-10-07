@@ -47,3 +47,7 @@ next-env.d.ts
 
 # watch-hand-animation skill: work files and venv
 /tmp/hand-anim/
+
+# instagram koncepty: médiá sa generujú skriptom scripts/instagram/draft.mjs
+/instagram/drafts/**/*.jpg
+/instagram/drafts/**/*.mp4
