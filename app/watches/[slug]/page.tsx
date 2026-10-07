@@ -104,8 +104,10 @@ export default async function WatchDetailPage({
     offers: {
       "@type": "Offer",
       url: `${SITE_URL}/watches/${watch.slug}`,
-      priceCurrency: locale === "cs" ? "CZK" : watch.currency,
-      price: locale === "cs" ? watch.priceCzk : watch.price,
+      // Pri predaných kusoch cenu nezverejňujem ani v štruktúrovaných dátach.
+      ...(watch.status === "sold"
+        ? {}
+        : { priceCurrency: locale === "cs" ? "CZK" : watch.currency, price: locale === "cs" ? watch.priceCzk : watch.price }),
       availability,
       itemCondition: "https://schema.org/UsedCondition",
     },

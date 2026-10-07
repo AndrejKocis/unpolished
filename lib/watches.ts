@@ -16,6 +16,9 @@ export function getAllWatches(): Watch[] {
     const raw = fs.readFileSync(path.join(WATCHES_DIR, file), "utf8");
     const { data, content } = matter(raw);
     const frontmatter = watchFrontmatterSchema.parse(data);
+    // Cena predaného kusu sa nezverejňuje: vynulujem ju hneď pri načítaní, aby sa nedostala
+    // do HTML ani do dát posielaných klientským komponentom (katalóg, tlačidlá na detaile).
+    if (frontmatter.status === "sold") return { ...frontmatter, price: 0, priceCzk: 0, content };
     return { ...frontmatter, content };
   });
 
