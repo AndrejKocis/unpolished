@@ -46,9 +46,6 @@ export function Logo({ className = "" }: { className?: string }) {
               <path d="M-500 400 H2600 V4110 H-500 Z" strokeWidth="560" style={{ stroke: "var(--ink)" }} />
               <path d="M-500 400 H2600 V4110 H-500 Z" strokeWidth="300" stroke="currentColor" />
             </g>
-            {/* Odznak má farbu pozadia, preto ho ohraničuje tenký vonkajší obrys vo farbe --ink. */}
-            <use href="#logo-piece" fill="none" strokeWidth="160" style={{ stroke: "var(--ink)" }} />
-            <use href="#logo-badge" fill="none" strokeWidth="160" style={{ stroke: "var(--ink)" }} />
           </g>
         </svg>
         {/* Text „UNPOLISHED“ ako krivky (Instrument Serif, prestrkanie 0,08 em, kerning cez HarfBuzz):
