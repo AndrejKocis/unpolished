@@ -41,6 +41,12 @@ export function WatchCard({
             priority={priority}
           />
         )}
+        {/* Štítok „Predané“ leží nad fotkou aj videom (CardVideo je absolute inset-0, toto ide po ňom). */}
+        {sold && (
+          <span className="absolute left-3 top-3 z-10 bg-white px-2 py-1 font-mono text-11 uppercase tracking-[0.06em] text-sold">
+            {badge}
+          </span>
+        )}
       </div>
       <div className="p-4">
         <p className="font-serif text-18 leading-snug">
@@ -49,12 +55,10 @@ export function WatchCard({
         <p className="text-13 text-ink-muted mt-1">
           {watch.year} · {dialLabel(watch, locale)}
         </p>
-        {/* Pri predaných kusoch cenu nezverejňujem, ostáva len štítok „Predané“. */}
+        {/* Pri predaných kusoch cenu nezverejňujem, štítok „Predané“ je na fotke. */}
         {!sold && <p className="font-mono text-13 mt-2 text-ink">{formatWatchPrice(watch, locale)}</p>}
-        {badge && (
-          <p className={["font-mono text-11 uppercase tracking-[0.06em] text-sold", sold ? "mt-2" : "mt-1"].join(" ")}>
-            {badge}
-          </p>
+        {badge && !sold && (
+          <p className="font-mono text-11 uppercase tracking-[0.06em] text-sold mt-1">{badge}</p>
         )}
       </div>
     </Link>

@@ -25,7 +25,7 @@ export function decadeLabel(decade: string): string {
 
 // Filtrovanie a triedenie katalógu podľa URL parametrov (/watches?brand=…&sort=…).
 export function filterWatches(all: Watch[], sp: URLSearchParams): Watch[] {
-  let watches = sp.get("sold") === "1" ? all : all.filter((w) => w.status !== "sold");
+  let watches = all;
 
   const selectedBrands = (sp.get("brand") ?? "").split(",").filter(Boolean);
   if (selectedBrands.length > 0) {
@@ -37,7 +37,8 @@ export function filterWatches(all: Watch[], sp: URLSearchParams): Watch[] {
   }
   const price = sp.get("price");
   if (price) {
-    watches = watches.filter((w) => matchesPriceBand(w.price, price));
+    // Predané kusy nemajú zverejnenú cenu (price 0), do cenových pásiem preto nepatria.
+    watches = watches.filter((w) => w.status !== "sold" && matchesPriceBand(w.price, price));
   }
   const gender = sp.get("gender");
   if (gender === "women" || gender === "men") {
@@ -52,5 +53,6 @@ export function filterWatches(all: Watch[], sp: URLSearchParams): Watch[] {
   } else if (sort === "oldest") {
     watches = [...watches].sort((a, b) => a.year - b.year);
   }
-  return watches;
+  // Predané kusy ostávajú v prehľade ako referencia, vždy až za tými, ktoré sú na predaj.
+  return [...watches.filter((w) => w.status !== "sold"), ...watches.filter((w) => w.status === "sold")];
 }

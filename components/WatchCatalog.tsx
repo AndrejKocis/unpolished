@@ -53,12 +53,14 @@ export function WatchCatalog({ watches: all, brands, locale, query }: Props & { 
   const dict = dictionaries[locale];
   const sp = new URLSearchParams(query);
   const watches = filterWatches(all, sp);
+  // Počítadlo ukazuje len kusy na predaj; predané sú na konci len ako referencia.
+  const forSale = watches.filter((w) => w.status !== "sold").length;
   const gender = sp.get("gender") ?? undefined;
 
   const hrefWith = (overrides: { gender?: string }) => {
     const params = new URLSearchParams();
     const nextGender = "gender" in overrides ? overrides.gender : gender;
-    for (const key of ["brand", "decade", "price", "sort", "sold"]) {
+    for (const key of ["brand", "decade", "price", "sort"]) {
       const value = sp.get(key);
       if (value) params.set(key, value);
     }
@@ -95,10 +97,10 @@ export function WatchCatalog({ watches: all, brands, locale, query }: Props & { 
         <div className="flex items-center gap-4">
           <FilterPanel brands={brands} searchParams={sp} />
           <p className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted">
-            {watches.length}{" "}
-            {watches.length === 1
+            {forSale}{" "}
+            {forSale === 1
               ? dict.watches.resultsOne
-              : watches.length <= 4 && watches.length > 1
+              : forSale <= 4 && forSale > 1
                 ? dict.watches.resultsFew
                 : dict.watches.resultsMany}
           </p>
