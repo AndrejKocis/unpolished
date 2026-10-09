@@ -1,4 +1,4 @@
-# Instagram koncepty (@unpolished.watch)
+# Instagram koncepty (@unpolished.watches)
 
 Agent pripravuje koncepty, zverejňuje ich majiteľ ručne. Publikovanie cez Meta Graph API zatiaľ nie je.
 
