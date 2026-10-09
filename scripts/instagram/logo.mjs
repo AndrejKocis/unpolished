@@ -1,4 +1,4 @@
-// Logo unpolished ako PNG (svetlý variant: odznak biely, nápis a ikona #111) pre Instagram koncepty.
+// Logo unpolished ako PNG pre Instagram koncepty: celé čierne (#111), odznak bez bieleho podkladu.
 // Skladá sa z rovnakých SVG ako hlavička webu (components/Logo.tsx), vyberie ich z buildu docs/index.html.
 import fs from "node:fs";
 import { createRequire } from "node:module";
@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 const sharp = require("sharp");
 
 const INK = "#111111";
-const WHITE = "#ffffff";
+const NONE = "rgba(0,0,0,0)"; // výplň odznaku a medzera pri obryse ostávajú priehľadné
 
 export async function logoPng(width) {
   const html = fs.readFileSync(new URL("../../docs/index.html", import.meta.url), "utf8");
@@ -27,7 +27,7 @@ export async function logoPng(width) {
   const total = bx + bw * 1.05;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${total}" height="${H}">
     <g color="${INK}">${crescent.replace("VIEWPORT", `x="0" y="${k}" width="${cw}" height="${27 * k}"`)}</g>
-    <g color="${WHITE}" transform="translate(${bx},0) scale(1.05,1)">${badge.replace("VIEWPORT", `x="0" y="0" width="${bw}" height="${H}"`)}</g>
+    <g color="${NONE}" transform="translate(${bx},0) scale(1.05,1)">${badge.replace("VIEWPORT", `x="0" y="0" width="${bw}" height="${H}"`)}</g>
     <g color="${INK}" transform="translate(${bx},0)">${text.replace("VIEWPORT", `x="0" y="0" width="${bw}" height="${H}"`)}</g>
   </svg>`;
   return sharp(Buffer.from(svg)).resize({ width: Math.round(width) }).png().toBuffer();

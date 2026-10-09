@@ -1,7 +1,7 @@
 // Instagram koncept z hodiniek na webe: node scripts/instagram/draft.mjs <slug>
 // Výstup v instagram/drafts/<slug>/:
 //   na predaj — carousel 01.jpg… (1080×1350, logo len na prvej) + reel.mp4 (1080×1920, loop + pár fotiek, s logom)
-//   predané   — 01.jpg s poster fotkou, štítkom „Prodáno“ vľavo hore (ako karta na webe) a logom
+//   predané   — 01.jpg s poster fotkou, štítkom „SOLD“ vľavo hore (ako karta na webe) a logom
 // Popis (caption.md) píše agent zvlášť, podľa pravidiel v instagram/README.md.
 import fs from "node:fs";
 import path from "node:path";
@@ -34,13 +34,13 @@ const logo = await logoPng(LOGO_W);
 const logoH = (await sharp(logo).metadata()).height;
 const cover = watch.videoPoster ?? watch.images[0];
 
-// Štítok „Prodáno“ v mierke karty na webe (mobil ~343 px → ×3,15): mono 11 px, verzálky, sivý text na bielom.
+// Štítok „SOLD“ v mierke karty na webe (mobil ~343 px → ×3,15): mono 11 px, verzálky, sivý text na bielom.
 function soldBadge() {
   const s = W / 343;
   const font = 11 * s;
   const padX = 8 * s;
   const padY = 4 * s;
-  const label = "PRODÁNO";
+  const label = "SOLD";
   const w = Math.round(label.length * font * 0.66 + padX * 2);
   const h = Math.round(font * 1.4 + padY * 2);
   return {
