@@ -3,10 +3,11 @@
 Kategória: Watches & Jewelry Store (alebo najbližšia ponúkaná). Tlačidlo: Email.
 
 ```
-Unpolished · vintage watches
-Original, never polished. Serviced, 6-month warranty.
-Prague · free EU shipping
-↓ available pieces & prices
+⌚ Unpolished · vintage watches
+✨ Original, never polished
+🔧 Serviced · 6-month warranty
+📍 Prague · 📦 free EU shipping
+👇 available pieces & prices
 ```
 
 Odkaz v bio:
