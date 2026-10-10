@@ -24,7 +24,8 @@ if (!token) throw new Error("Chýba INSTAGRAM_ACCESS_TOKEN v .env.local");
 const draft = path.join(ROOT, "instagram/drafts", slug);
 const caption = fs.readFileSync(path.join(draft, "caption.md"), "utf8").trim();
 const photos = fs.readdirSync(draft).filter((f) => f.endsWith(".jpg")).sort();
-const url = (f) => `${SITE}/ig/${slug}/${f}`;
+// ?v= podľa obsahu súboru, aby Instagram ani CDN nevzali staršiu verziu z cache.
+const url = (f) => `${SITE}/ig/${slug}/${f}?v=${fs.statSync(path.join(draft, f)).size}`;
 
 async function api(method, endpoint, params = {}) {
   const body = new URLSearchParams({ ...params, access_token: token });
