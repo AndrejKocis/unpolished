@@ -8,7 +8,7 @@ const sharp = require("sharp");
 const INK = "#111111";
 const NONE = "rgba(0,0,0,0)"; // výplň odznaku a medzera pri obryse ostávajú priehľadné
 
-export async function logoPng(width) {
+export async function logoPng(width, opacity = 1) {
   const html = fs.readFileSync(new URL("../../docs/index.html", import.meta.url), "utf8");
   const start = html.indexOf('<span class="relative inline-flex items-stretch');
   const svgs = html.slice(start).match(/<svg[\s\S]*?<\/svg>/g).slice(0, 3);
@@ -25,11 +25,11 @@ export async function logoPng(width) {
   const bx = cw - 4 * k;
   const bw = (1742 / 460) * H;
   const total = bx + bw * 1.05;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${total}" height="${H}">
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${total}" height="${H}"><g opacity="${opacity}">
     <g color="${INK}">${crescent.replace("VIEWPORT", `x="0" y="${k}" width="${cw}" height="${27 * k}"`)}</g>
     <g color="${NONE}" transform="translate(${bx},0) scale(1.05,1)">${badge.replace("VIEWPORT", `x="0" y="0" width="${bw}" height="${H}"`)}</g>
     <g color="${INK}" transform="translate(${bx},0)">${text.replace("VIEWPORT", `x="0" y="0" width="${bw}" height="${H}"`)}</g>
-  </svg>`;
+  </g></svg>`;
   return sharp(Buffer.from(svg)).resize({ width: Math.round(width) }).png().toBuffer();
 }
 

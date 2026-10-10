@@ -16,7 +16,8 @@ const ROOT = new URL("../../", import.meta.url).pathname;
 const W = 1080;
 const H = 1350; // 4:5, najväčší pomer, ktorý Instagram v carouseli ukáže celý
 const REEL_H = 1920;
-const LOGO_W = Math.round(W * 0.12);
+const LOGO_W = Math.round(W * 0.2);
+const LOGO_OPACITY = 0.5; // vodoznak: väčší, ale polopriehľadný, nech neruší fotku
 const MARGIN = 40;
 const MAX_PHOTOS = 6;
 const REEL_PHOTOS = 3;
@@ -31,7 +32,7 @@ const out = path.join(ROOT, "instagram/drafts", slug);
 fs.mkdirSync(out, { recursive: true });
 for (const f of fs.readdirSync(out)) if (/\.(jpg|mp4)$/.test(f)) fs.rmSync(path.join(out, f));
 
-const logo = await logoPng(LOGO_W);
+const logo = await logoPng(LOGO_W, LOGO_OPACITY);
 const logoH = (await sharp(logo).metadata()).height;
 const cover = watch.videoPoster ?? watch.images[0];
 
