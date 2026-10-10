@@ -84,6 +84,15 @@ if (watch.status === "sold") {
     inputs.push("-i", logoFile);
     const n = photos.length + 1;
     const top = (REEL_H - H) / 2;
+    // Úvodný nápis (značka, model, rok) v hornom rozmazanom páse prvé 3 s, potom zmizne.
+    // Veľa ľudí pozerá reels bez zvuku, nápis hneď povie, čo sú to za hodinky.
+    const titleFile = path.join(out, ".title.png");
+    const title = `${watch.brand} ${watch.model.replace(/"/g, "")} · ${watch.year}`.replaceAll("&", "&amp;");
+    await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${top}">
+      <text x="50%" y="58%" text-anchor="middle" dominant-baseline="central" font-family="Georgia, serif" font-size="56"
+        fill="#ffffff" stroke="#000000" stroke-opacity="0.25" stroke-width="2" paint-order="stroke">${title}</text>
+    </svg>`)).png().toFile(titleFile);
+    inputs.push("-loop", "1", "-t", "3", "-framerate", "30", "-i", titleFile);
     let graph = "";
     for (let i = 0; i < n; i++) {
       graph +=
@@ -93,10 +102,13 @@ if (watch.status === "sold") {
         `[bg${i}][fg${i}]overlay=0:${top},fps=30,setsar=1,format=yuv420p[s${i}];`;
     }
     graph += `${Array.from({ length: n }, (_, i) => `[s${i}]`).join("")}concat=n=${n}:v=1:a=0[v];`;
-    graph += `[v][${n}:v]overlay=${W - LOGO_W - MARGIN}:${top + H - logoH - MARGIN},format=yuv420p[out]`;
+    graph += `[${n + 1}:v]format=rgba,fade=t=in:st=0:d=0.4:alpha=1,fade=t=out:st=2.4:d=0.6:alpha=1[title];`;
+    graph += `[v][${n}:v]overlay=${W - LOGO_W - MARGIN}:${top + H - logoH - MARGIN}[vl];`;
+    graph += `[vl][title]overlay=0:0:eof_action=pass,format=yuv420p[out]`;
     execFileSync("ffmpeg", ["-y", "-v", "error", ...inputs, "-filter_complex", graph, "-map", "[out]",
       "-c:v", "libx264", "-crf", "20", "-preset", "slow", "-movflags", "+faststart", path.join(out, "reel.mp4")]);
     fs.rmSync(logoFile);
+    fs.rmSync(titleFile);
   }
 }
 
