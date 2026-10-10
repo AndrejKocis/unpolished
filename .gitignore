@@ -51,3 +51,4 @@ next-env.d.ts
 # instagram koncepty: médiá sa generujú skriptom scripts/instagram/draft.mjs
 /instagram/drafts/**/*.jpg
 /instagram/drafts/**/*.mp4
+/instagram/profile/**/*.png

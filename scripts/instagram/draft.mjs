@@ -84,15 +84,31 @@ if (watch.status === "sold") {
     inputs.push("-i", logoFile);
     const n = photos.length + 1;
     const top = (REEL_H - H) / 2;
-    // Úvodný nápis (značka, model, rok) v hornom rozmazanom páse prvé 3 s, potom zmizne.
-    // Veľa ľudí pozerá reels bez zvuku, nápis hneď povie, čo sú to za hodinky.
-    const titleFile = path.join(out, ".title.png");
-    const title = `${watch.brand} ${watch.model.replace(/"/g, "")} · ${watch.year}`.replaceAll("&", "&amp;");
-    await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${top}">
-      <text x="50%" y="58%" text-anchor="middle" dominant-baseline="central" font-family="Georgia, serif" font-size="56"
-        fill="#ffffff" stroke="#000000" stroke-opacity="0.25" stroke-width="2" paint-order="stroke">${title}</text>
-    </svg>`)).png().toFile(titleFile);
-    inputs.push("-loop", "1", "-t", "3", "-framerate", "30", "-i", titleFile);
+    // Úvod v hornom rozmazanom páse: 0–2,5 s háčik z hook.txt (ak je), potom 3 s názov (značka, model, rok).
+    // Veľa ľudí pozerá reels bez zvuku, háčik ich má zastaviť a názov povie, čo sú to za hodinky.
+    const hookPath = path.join(out, "hook.txt");
+    const hook = fs.existsSync(hookPath) ? fs.readFileSync(hookPath, "utf8").trim() : "";
+    const name = `${watch.brand} ${watch.model.replace(/"/g, "")} · ${watch.year}`;
+    const xml = (t) => t.replaceAll("&", "&amp;").replaceAll("<", "&lt;");
+    async function band(file, lines, size) {
+      const gap = size * 1.2;
+      const y0 = top * 0.58 - ((lines.length - 1) * gap) / 2;
+      await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${top}">${lines
+        .map((l, i) => `<text x="50%" y="${y0 + i * gap}" text-anchor="middle" dominant-baseline="central" font-family="Georgia, serif"
+          font-size="${size}" fill="#ffffff" stroke="#000000" stroke-opacity="0.25" stroke-width="2" paint-order="stroke">${xml(l)}</text>`)
+        .join("")}</svg>`)).png().toFile(file);
+    }
+    // Háčik zalomený na max. 2 riadky.
+    const words = hook.split(" ");
+    const half = Math.ceil(words.length / 2);
+    const hookLines = hook.length > 30 ? [words.slice(0, half).join(" "), words.slice(half).join(" ")] : [hook];
+    const titles = [];
+    if (hook) titles.push({ file: path.join(out, ".hook.png"), lines: hookLines, size: 66, start: 0, dur: 2.5 });
+    titles.push({ file: path.join(out, ".title.png"), lines: [name], size: 52, start: hook ? 2.5 : 0, dur: 3 });
+    for (const t of titles) {
+      await band(t.file, t.lines, t.size);
+      inputs.push("-loop", "1", "-t", String(t.dur), "-framerate", "30", "-i", t.file);
+    }
     let graph = "";
     for (let i = 0; i < n; i++) {
       graph +=
@@ -102,13 +118,17 @@ if (watch.status === "sold") {
         `[bg${i}][fg${i}]overlay=0:${top},fps=30,setsar=1,format=yuv420p[s${i}];`;
     }
     graph += `${Array.from({ length: n }, (_, i) => `[s${i}]`).join("")}concat=n=${n}:v=1:a=0[v];`;
-    graph += `[${n + 1}:v]format=rgba,fade=t=in:st=0:d=0.4:alpha=1,fade=t=out:st=2.4:d=0.6:alpha=1[title];`;
-    graph += `[v][${n}:v]overlay=${W - LOGO_W - MARGIN}:${top + H - logoH - MARGIN}[vl];`;
-    graph += `[vl][title]overlay=0:0:eof_action=pass,format=yuv420p[out]`;
+    graph += `[v][${n}:v]overlay=${W - LOGO_W - MARGIN}:${top + H - logoH - MARGIN}[t0];`;
+    titles.forEach((t, i) => {
+      graph +=
+        `[${n + 1 + i}:v]format=rgba,fade=t=in:st=0:d=0.3:alpha=1,fade=t=out:st=${t.dur - 0.4}:d=0.4:alpha=1,setpts=PTS+${t.start}/TB[tt${i}];` +
+        `[t${i}][tt${i}]overlay=0:0:eof_action=pass[t${i + 1}];`;
+    });
+    graph += `[t${titles.length}]format=yuv420p[out]`;
     execFileSync("ffmpeg", ["-y", "-v", "error", ...inputs, "-filter_complex", graph, "-map", "[out]",
       "-c:v", "libx264", "-crf", "20", "-preset", "slow", "-movflags", "+faststart", path.join(out, "reel.mp4")]);
     fs.rmSync(logoFile);
-    fs.rmSync(titleFile);
+    for (const t of titles) fs.rmSync(t.file);
   }
 }
 

@@ -1,13 +1,13 @@
-Zodiac Super Sea Wolf "75 ATM", začátek 70. let
+Zodiac Super Sea Wolf "75 ATM", early 1970s
 
-Skin diver s černým číselníkem, oranžovou minutovkou a vodotěsností 750 metrů. Patentovaná korunka a přepracované víko posunuly Super Sea Wolf z 200 na 750 m a dostaly ho až na zápěstí amerických Navy SEALs.
+A skin diver with a black dial, an orange minute hand and a 750 m rating. A patented crown and a redesigned caseback took the Super Sea Wolf from 200 to 750 metres and onto the wrists of US Navy SEALs.
 
-Ocel, 40 mm · automat 70-72 · neleštěné · servis 2025 · full set (krabička, papíry) · dobový ZRC tah
+Steel, 40 mm · automatic 70-72 · unpolished · serviced 2025 · full set (box, papers) · period ZRC dive bracelet
 
-Detail a cena na unpolished.cz, odkaz v bio.
+Details and price on unpolished.cz, link in bio.
 
 —
 
-Zodiac Super Sea Wolf "75 ATM", early 1970s. Black dial, orange minute hand, 750 m rated, unpolished 40 mm steel case, serviced 2025, full set on a period ZRC dive bracelet. Details on unpolished.cz, link in bio.
+Skin diver z počátku 70. let s černým číselníkem, oranžovou minutovkou a vodotěsností 750 m. Ocel 40 mm, automat, neleštěné, servis 2025, full set na dobovém tahu ZRC. Detail a cena na unpolished.cz, odkaz v bio.
 
 #zodiac #zodiacseawolf #superseawolf #skindiver #divewatch #vintagewatch #vintagewatches #unpolished #watchcollector #hodinky
