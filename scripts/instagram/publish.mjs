@@ -1,5 +1,6 @@
 // Zverejnenie konceptu na Instagram cez Instagram API (Facebook Login, stránka Unpolished ↔ @unpolished.watches).
-//   node scripts/instagram/publish.mjs <slug> [--reel] [--publish]
+//   node scripts/instagram/publish.mjs <slug> [--reel | --story] [--publish]
+// --story zverejní každú fotku konceptu ako samostatnú story (bez popisu, poradie podľa názvu súboru).
 // Bez --publish len pripraví kontajnery a overí, že ich Instagram spracoval; nič sa nezverejní.
 // Token: INSTAGRAM_ACCESS_TOKEN v .env.local (gitignorovaný, používateľský token aplikácie unpolished-posts).
 // Médiá musia byť verejne na webe:
@@ -15,6 +16,7 @@ const SITE = "https://unpolished.cz";
 const [slug, ...flags] = process.argv.slice(2);
 if (!slug) throw new Error("Použitie: node scripts/instagram/publish.mjs <slug> [--reel] [--publish]");
 const reel = flags.includes("--reel");
+const story = flags.includes("--story");
 const publish = flags.includes("--publish");
 
 const env = fs.readFileSync(path.join(ROOT, ".env.local"), "utf8");
@@ -22,7 +24,7 @@ const token = env.match(/^INSTAGRAM_ACCESS_TOKEN=(.+)$/m)?.[1].trim();
 if (!token) throw new Error("Chýba INSTAGRAM_ACCESS_TOKEN v .env.local");
 
 const draft = path.join(ROOT, "instagram/drafts", slug);
-const caption = fs.readFileSync(path.join(draft, "caption.md"), "utf8").trim();
+const caption = story ? "" : fs.readFileSync(path.join(draft, "caption.md"), "utf8").trim();
 const photos = fs.readdirSync(draft).filter((f) => f.endsWith(".jpg")).sort();
 // ?v= podľa obsahu súboru, aby Instagram ani CDN nevzali staršiu verziu z cache.
 const url = (f) => `${SITE}/ig/${slug}/${f}?v=${fs.statSync(path.join(draft, f)).size}`;
@@ -54,6 +56,19 @@ for (const f of files) {
 
 const me = await api("GET", `/${IG_USER}`, { fields: "username" });
 console.log(`Účet: @${me.username}`);
+
+if (story) {
+  const ids = [];
+  for (const f of photos) {
+    const { id } = await api("POST", `/${IG_USER}/media`, { media_type: "STORIES", image_url: url(f) });
+    await ready(id);
+    ids.push(id);
+  }
+  console.log(`Pripravených ${ids.length} stories.`);
+  if (!publish) console.log("Nezverejnené. Na zverejnenie spusti znova s --publish.");
+  else for (const id of ids) console.log("Story zverejnená:", (await api("POST", `/${IG_USER}/media_publish`, { creation_id: id })).id);
+  process.exit(0);
+}
 
 let container;
 if (reel) {
