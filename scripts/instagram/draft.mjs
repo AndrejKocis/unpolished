@@ -27,8 +27,9 @@ if (!slug) throw new Error("Použitie: node scripts/instagram/draft.mjs <slug>")
 const { data: watch } = matter(fs.readFileSync(path.join(ROOT, "content/watches", `${slug}.mdx`), "utf8"));
 const media = path.join(ROOT, "public/watches", watch.media);
 const out = path.join(ROOT, "instagram/drafts", slug);
-fs.rmSync(out, { recursive: true, force: true });
+// Zmaže len vygenerované médiá, popis (caption.md) píše agent a ostáva.
 fs.mkdirSync(out, { recursive: true });
+for (const f of fs.readdirSync(out)) if (/\.(jpg|mp4)$/.test(f)) fs.rmSync(path.join(out, f));
 
 const logo = await logoPng(LOGO_W);
 const logoH = (await sharp(logo).metadata()).height;
