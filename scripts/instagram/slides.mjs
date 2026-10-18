@@ -1,7 +1,7 @@
 // Textový carousel z instagram/drafts/<slug>/slides.json → 01.jpg… (1080×1350) v štýle webu.
 //   node scripts/instagram/slides.mjs <slug>
 // Slajd: { kind?: "cover" | "recap" | "cta" | "photo", photo?: "<media>/<súbor>" z public/watches, focusY?: zvislý stred výrezu fotky
-//   (0–1, predvolene 0,5), title, body?, sub?, items? }
+//   (0–1, predvolene 0,5), title, body?, sub?, items?, follow? (výrazná výzva na cta slajde) }
 // kind "photo": fotka na celú plochu (poster karty z webu) so štítkom vľavo dole: title = názov, sub = rok a detail.
 // Každá slajda má číslo (3/10) a handle, obsah drží 120 px od okrajov (orez mriežky profilu).
 import fs from "node:fs";
@@ -86,7 +86,8 @@ for (const [i, s] of slides.entries()) {
   const titleLines = wrap(s.title, s.kind === "cta" ? 20 : 22);
   const bodyLines = s.body ? wrap(s.body, 38) : [];
   const recapH = s.items ? 110 + s.items.reduce((h, it) => h + wrap(it, 34).length * 54 + 30, 0) : 0;
-  const blockH = s.kind === "recap" ? recapH : titleLines.length * titleSize * 1.15 + 40 + bodyLines.length * 58;
+  const followH = s.follow ? 50 + wrap(s.follow, 26).length * 56 + 60 : 0;
+  const blockH = s.kind === "recap" ? recapH : titleLines.length * titleSize * 1.15 + 40 + bodyLines.length * 58 + followH;
   let y = photoH ? photoH + 110 : Math.round((H - 120 - blockH) / 2 + titleSize * 0.8);
   const serif = `font-family="${SERIF}" fill="${INK}"`;
   if (s.kind === "cover") {
@@ -108,6 +109,15 @@ for (const [i, s] of slides.entries()) {
     if (s.kind === "cta") overlays.push({ input: logo, left: PAD, top: Math.round(y - titleSize - 60 - logoH) });
     y += titleLines.length * titleSize * 1.15 + 40;
     svg += textLines(bodyLines, PAD, y, 42, 58, `font-family="${SERIF}" fill="${s.kind === "cta" ? MUTED : INK}"`);
+    // Výrazná výzva na sledovanie: čierny pruh s bielym textom a šípkou, ako tlačidlo.
+    if (s.follow) {
+      const fy = y + bodyLines.length * 58 + 50;
+      const lines = wrap(s.follow, 26);
+      const bh = lines.length * 56 + 60;
+      svg += `<rect x="${PAD}" y="${fy}" width="${W - 2 * PAD}" height="${bh}" fill="${INK}"/>`;
+      svg += textLines(lines, PAD + 40, fy + 72, 44, 56, `font-family="${SERIF}" fill="#ffffff"`);
+      svg += `<text x="${W - PAD - 40}" y="${fy + bh / 2}" text-anchor="end" dominant-baseline="central" font-family="${MONO}" font-size="48" fill="#ffffff">→</text>`;
+    }
   }
   svg += `<text x="${PAD}" y="${H - 70}" font-family="${MONO}" font-size="28" fill="${MUTED}">${esc(handle)}</text>`;
   svg += `<text x="${W - PAD}" y="${H - 70}" text-anchor="end" font-family="${MONO}" font-size="28" fill="${MUTED}">${n}</text>`;
