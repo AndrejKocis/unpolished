@@ -43,12 +43,14 @@ function IconMissingPart({ className = "" }: { className?: string }) {
   );
 }
 
+// Plný set: otvorená krabička s odklopenými chlopňami, na rozdiel od zatvorenej „Iba box“.
 function IconFullSet({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
-      <rect x="3" y="9" width="18" height="11" strokeLinejoin="round" />
-      <path d="M3 9 12 4l9 5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M9 20v-5h6v5" strokeLinejoin="round" />
+      <path d="M4 10 12 13 20 10V18L12 21 4 18Z" strokeLinejoin="round" />
+      <path d="M12 13v8" />
+      <path d="M4 10 1.5 7 9.5 4 12 7 14.5 4 22.5 7 20 10" strokeLinejoin="round" />
+      <path d="M4 10 12 7 20 10" strokeLinejoin="round" />
     </svg>
   );
 }
