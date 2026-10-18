@@ -17,11 +17,12 @@ Agent pripravuje koncepty, zverejňuje ich majiteľ ručne. Publikovanie cez Met
 
 ## Popis
 
-- Najprv angličtina (celý popis), potom za `—` krátko čeština (2–3 vety + odkaz).
-- Vecný zberateľský tón ako popisy na webe: rok, kaliber, priemer, stav (unpolished), servis, set, ťah/remienok. Jedna-dve vety príbehu modelu.
-- Bez emoji. Cenu nikdy neuvádzaj, namiesto nej „Details and price on unpolished.cz, link in bio.“
-- Predaný kus: štítok SOLD na fotke, v popise bez ceny.
-- Okolo 10 cielených hashtagov: značka, model, typ (tuningfork, skindiver…), #vintagewatch, #unpolished, #watchcollector, #hodinky.
+- Najprv angličtina, potom po prázdnom riadku krátko čeština (2–3 vety + odkaz). Bez „—“ a bez „·“ zoznamov.
+- Prvá osoba, prirodzené vety s kontrakciami (it's, I had it serviced…), konkrétne čísla a mená: rok, kaliber, priemer, servis, set.
+- Bez ceny: „Price and details on unpolished.cz, link in bio.“ Predaný kus: štítok SOLD na fotke.
+- 3 hashtagy (značka, model, #vintagewatches).
+- Pred zverejnením skontroluj anglickú časť: `python3 <instagram-agent>/skills/ig-human/detect.py caption.md` musí dať PASS.
+  Pozor, humanize.py kazí češtinu (veľké písmeno po „70.“), na český text ho nepoužívaj.
 
 ## Reel
 
