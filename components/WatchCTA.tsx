@@ -39,7 +39,13 @@ export function WatchCTA({ watch, sticky = false }: { watch: Watch; sticky?: boo
   return (
     <>
       <div className={wrapperClass}>
-        <Button variant="primary" fullWidthOnMobile onClick={() => setModalOpen(true)}>
+        <Button
+          variant="primary"
+          fullWidthOnMobile
+          onClick={() => setModalOpen(true)}
+          data-umami-event="inquiry-open"
+          data-umami-event-watch={watch.slug}
+        >
           {dict.watchDetail.writeToUs}
         </Button>
         <Button
@@ -48,6 +54,8 @@ export function WatchCTA({ watch, sticky = false }: { watch: Watch; sticky?: boo
           fullWidthOnMobile
           target="_blank"
           rel="noopener noreferrer"
+          data-umami-event="whatsapp-click"
+          data-umami-event-watch={watch.slug}
         >
           {dict.watchDetail.whatsapp}
         </Button>

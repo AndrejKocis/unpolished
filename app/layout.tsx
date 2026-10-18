@@ -9,7 +9,7 @@ import { LocaleProvider } from "@/components/LocaleProvider";
 import { Localized } from "@/components/Localized";
 import { getLocale } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
-import { IS_STATIC_EXPORT, SITE_URL } from "@/lib/constants";
+import { IS_STATIC_EXPORT, SITE_URL, UMAMI_WEBSITE_ID } from "@/lib/constants";
 
 const instrumentSerif = Instrument_Serif({
   weight: "400",
@@ -83,6 +83,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         {IS_STATIC_EXPORT && <script dangerouslySetInnerHTML={{ __html: LOCALE_INIT_SCRIPT }} />}
+        {/* Umami: bez cookies, počíta len na unpolished.cz (lokálny náhľad sa nezapočíta). */}
+        {IS_STATIC_EXPORT && UMAMI_WEBSITE_ID && (
+          <script defer src="https://cloud.umami.is/script.js" data-website-id={UMAMI_WEBSITE_ID} data-domains="unpolished.cz" />
+        )}
       </head>
       <body className="min-h-full flex flex-col font-sans">
         <LocaleProvider locale={locale}>

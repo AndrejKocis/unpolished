@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { CONTACT_EMAIL } from "@/lib/constants";
 import { useLocale } from "@/components/LocaleProvider";
 import { sendInquiry, type InquiryBody } from "@/lib/inquiry";
+import { track } from "@/lib/analytics";
 
 type Props = {
   open: boolean;
@@ -46,6 +47,7 @@ export function InquiryModal({ open, onClose, prefilledMessage = "" }: Props) {
     try {
       await sendInquiry({ ...data, type: "inquiry" });
       setStatus("sent");
+      track("inquiry-sent");
       form.reset();
     } catch {
       setStatus("error");

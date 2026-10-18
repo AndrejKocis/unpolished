@@ -35,7 +35,7 @@ function ContactPageContent({ locale }: { locale: Locale }) {
         <div className="flex flex-col gap-2 text-15">
           <p>
             {dict.contact.emailLabel}:{" "}
-            <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-[3px]">
+            <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-[3px]" data-umami-event="email-click">
               {CONTACT_EMAIL}
             </a>
           </p>
@@ -43,6 +43,8 @@ function ContactPageContent({ locale }: { locale: Locale }) {
             {dict.contact.whatsappLabel}:{" "}
             <a
               href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              data-umami-event="whatsapp-click"
+              data-umami-event-watch="contact"
               target="_blank"
               rel="noopener noreferrer"
               className="underline underline-offset-[3px]"
@@ -52,7 +54,7 @@ function ContactPageContent({ locale }: { locale: Locale }) {
           </p>
           <p>
             {dict.contact.instagramLabel}:{" "}
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-[3px]">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-[3px]" data-umami-event="instagram-click">
               {INSTAGRAM_HANDLE}
             </a>
           </p>

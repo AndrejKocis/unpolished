@@ -57,6 +57,7 @@ export function Footer({ locale, showArchive }: { locale: Locale; showArchive: b
           </span>
           <a
             href={INSTAGRAM_URL}
+            data-umami-event="instagram-click"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 hover:opacity-70 transition-opacity duration-150"

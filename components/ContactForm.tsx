@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { CONTACT_EMAIL } from "@/lib/constants";
 import { useLocale } from "@/components/LocaleProvider";
 import { sendInquiry, type InquiryBody } from "@/lib/inquiry";
+import { track } from "@/lib/analytics";
 
 export function ContactForm({ defaultMessage = "" }: { defaultMessage?: string }) {
   const { dict } = useLocale();
@@ -20,6 +21,7 @@ export function ContactForm({ defaultMessage = "" }: { defaultMessage?: string }
     try {
       await sendInquiry({ ...data, type: "inquiry" });
       setStatus("sent");
+      track("contact-sent");
       form.reset();
     } catch {
       setStatus("error");

@@ -4,6 +4,8 @@ export const SITE_NAME = "unpolished";
 // Publikuje sa na GitHub Pages s vlastnou doménou (public/CNAME).
 export const IS_STATIC_EXPORT = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
 export const SITE_URL = "https://unpolished.cz";
+// Umami (štatistiky bez cookies, cloud.umami.is). Prázdne ID = meranie vypnuté.
+export const UMAMI_WEBSITE_ID = "";
 
 export const CONTACT_EMAIL = "info@unpolished.com";
 export const WHATSAPP_NUMBER = "420724462929";
