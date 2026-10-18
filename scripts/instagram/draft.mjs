@@ -89,13 +89,20 @@ if (watch.status === "sold") {
           return { start: Number(start), dur: Number(dur), text };
         })
       : [];
+    // clip.json: vlastný záber z terénu namiesto loopu a fotiek, napr.
+    //   { "file": "/Users/andrej/Downloads/IMG_0176.MOV", "start": 5, "end": 13.5, "speed": 0.55, "zoom": 1.3, "cx": 0.48, "cy": 0.55 }
+    // Úsek start–end sa spomalí (speed < 1, pri 60 fps ostane plynulý), priblíži okolo cx/cy (podiel šírky/výšky) a ide na celú plochu 9:16.
+    const clipPath = path.join(out, "clip.json");
+    const clip = fs.existsSync(clipPath) ? JSON.parse(fs.readFileSync(clipPath, "utf8")) : null;
     const loopSec = Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path.join(media, watch.video)]));
     const cardsEnd = Math.max(0, ...cards.map((c) => c.start + c.dur));
     const photoSec = Math.max(REEL_PHOTO_SECONDS, Math.ceil(((cardsEnd - loopSec) / photos.length) * 10) / 10);
-    const inputs = ["-i", path.join(media, watch.video)];
-    for (const p of photos) inputs.push("-loop", "1", "-t", String(photoSec), "-framerate", "30", "-i", path.join(media, p));
+    const inputs = clip
+      ? ["-ss", String(clip.start), "-t", String(clip.end - clip.start), "-i", clip.file]
+      : ["-i", path.join(media, watch.video)];
+    if (!clip) for (const p of photos) inputs.push("-loop", "1", "-t", String(photoSec), "-framerate", "30", "-i", path.join(media, p));
     inputs.push("-i", logoFile);
-    const n = photos.length + 1;
+    const n = clip ? 1 : photos.length + 1;
     const top = (REEL_H - H) / 2;
     // Úvod v hornom rozmazanom páse: 0–2,5 s háčik z hook.txt (ak je), potom 3 s názov (značka, model, rok).
     // Veľa ľudí pozerá reels bez zvuku, háčik ich má zastaviť a názov povie, čo sú to za hodinky.
@@ -146,15 +153,23 @@ if (watch.status === "sold") {
       inputs.push("-loop", "1", "-t", String(t.dur), "-framerate", "30", "-i", t.file);
     }
     let graph = "";
-    for (let i = 0; i < n; i++) {
+    if (clip) {
+      const z = clip.zoom ?? 1;
+      graph +=
+        `[0:v]setpts=PTS/${clip.speed ?? 1},` +
+        `crop=w=iw/${z}:h=ih/${z}:x=min(max(0\\,iw*${clip.cx ?? 0.5}-iw/${z}/2)\\,iw-iw/${z}):y=min(max(0\\,ih*${clip.cy ?? 0.5}-ih/${z}/2)\\,ih-ih/${z}),` +
+        `scale=${W}:${REEL_H},fps=30,setsar=1,format=yuv420p[v];`;
+    } else for (let i = 0; i < n; i++) {
       graph +=
         `[${i}:v]split[a${i}][b${i}];` +
         `[a${i}]scale=${W}:${REEL_H}:force_original_aspect_ratio=increase,crop=${W}:${REEL_H},boxblur=40:4[bg${i}];` +
         `[b${i}]scale=${W}:${H}:force_original_aspect_ratio=increase,crop=${W}:${H}[fg${i}];` +
         `[bg${i}][fg${i}]overlay=0:${top},fps=30,setsar=1,format=yuv420p[s${i}];`;
     }
-    graph += `${Array.from({ length: n }, (_, i) => `[s${i}]`).join("")}concat=n=${n}:v=1:a=0[v];`;
-    graph += `[v][${n}:v]overlay=${W - LOGO_W - MARGIN}:${top + H - logoH - MARGIN}[t0];`;
+    if (!clip) graph += `${Array.from({ length: n }, (_, i) => `[s${i}]`).join("")}concat=n=${n}:v=1:a=0[v];`;
+    // Vodoznak: pri vlastnom zábere vľavo dole v bezpečnej zóne (y < 1440), inak v rohu záberu 4:5.
+    const logoPos = clip ? `${MARGIN + 20}:${1440 - logoH}` : `${W - LOGO_W - MARGIN}:${top + H - logoH - MARGIN}`;
+    graph += `[v][${n}:v]overlay=${logoPos}[t0];`;
     titles.forEach((t, i) => {
       graph +=
         `[${n + 1 + i}:v]format=rgba,fade=t=in:st=0:d=0.2:alpha=1,fade=t=out:st=${t.dur - 0.25}:d=0.25:alpha=1,setpts=PTS+${t.start}/TB[tt${i}];` +
@@ -162,7 +177,7 @@ if (watch.status === "sold") {
     });
     graph += `[t${titles.length}]format=yuv420p[out]`;
     execFileSync("ffmpeg", ["-y", "-v", "error", ...inputs, "-filter_complex", graph, "-map", "[out]",
-      "-c:v", "libx264", "-crf", "20", "-preset", "slow", "-movflags", "+faststart", path.join(out, "reel.mp4")]);
+      "-an", "-c:v", "libx264", "-crf", "20", "-preset", "slow", "-movflags", "+faststart", path.join(out, "reel.mp4")]);
     fs.rmSync(logoFile);
     for (const t of titles) fs.rmSync(t.file);
   }
