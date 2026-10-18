@@ -1,13 +1,15 @@
 export function Logo({ className = "" }: { className?: string }) {
   return (
     <span className={["relative inline-flex items-stretch h-[24px] sm:h-[29px]", className].join(" ")}>
-      {/* logo3.svg — samostatná ikona pred hlavným odznakom, rovnaká výška. Farby loga sú prehodené:
+      {/* logo3.svg — samostatná ikona pred hlavným odznakom (tenší polmesiac s drážkou stredom), rovnaká výška. Farby loga sú prehodené:
           odznak má farbu pozadia (--white), nápis, linky a táto ikona farbu textu (--ink). */}
       <svg viewBox="0 0 35 78" className="h-[22px] sm:h-[27px] self-center w-auto text-ink shrink-0 -mr-[4px]" fill="none" aria-hidden="true">
         <path
-          d="M22.0703 0C29.8467 10.9415 34.4209 24.3176 34.4209 38.7637C34.4209 53.4186 29.7132 66.9721 21.7305 78H0C11.2545 68.6454 18.4209 54.5422 18.4209 38.7637C18.4209 23.2494 11.4928 9.35387 0.5625 0H22.0703Z"
+          d="M22.0703 0C29.8467 10.9415 34.4209 24.3176 34.4209 38.7637C34.4209 53.4186 29.7132 66.9721 21.7305 78H9C19.5 68.6 25.5 54.5 25.5 38.7637C25.5 23.25 19 9.35 9.5 0H22.0703Z"
           fill="currentColor"
         />
+        {/* Tenká drážka stredom polmesiaca vo farbe pozadia stránky. */}
+        <path d="M15.8 -1C24.5 11 30 24.3 30 38.76C30 53.4 25.5 66.9 15.5 79" fill="none" stroke="var(--white)" strokeWidth="1.6" />
       </svg>
       <span className="logo-slide-in relative h-full">
         {/* Celý tvar (ikona + odznak) vektorizovaný z jedného referenčného obrázka —

@@ -16,6 +16,7 @@ export async function logoPng(width, opacity = 1) {
     s
       .replace(/^<svg[^>]*?(viewBox="[^"]*")[^>]*>/, "<svg $1 VIEWPORT>")
       .replaceAll("var(--ink)", INK)
+      .replaceAll("var(--white)", "#f4f4f4") // drážka v polmesiaci: farba papiera
       .replace(/style="stroke:([^"]*)"/g, 'stroke="$1"'),
   );
   // Rozmery ako v hlavičke webu: odznak výška 29, ikona 27 (zvislo na stred), ikona prekrýva odznak o 4 px, odznak scaleX 1.05.
