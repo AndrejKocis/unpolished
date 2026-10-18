@@ -7,8 +7,8 @@ Hamilton Thin-o-matic, 1965. 10k gold fill, and it's properly thin.
 Seiko Quartz, 1980. Cream dial, burgundy leather.
 GUB Glashütte Spezimatic, 1975, from East Germany.
 
-I've had every one serviced, you get a 6-month warranty, and EU shipping's free. Which one would you pick? Tell me in the comments. Details and prices: link in bio.
+I've had every one serviced, you get a 6-month warranty, and EU shipping's free. Which one would you pick? Tell me in the comments, and follow for one honest vintage piece a week. Details and prices: link in bio.
 
-Šest neleštěných hodinek na podzim, všechny servisované, se zárukou 6 měsíců a dopravou v EU zdarma. Které byste si vybrali? Detail a cena na unpolished.cz, odkaz v bio.
+Šest neleštěných hodinek na podzim, všechny servisované, se zárukou 6 měsíců a dopravou v EU zdarma. Které byste si vybrali? Sledujte pro jeden poctivý vintage kus týdně. Detail a cena na unpolished.cz, odkaz v bio.
 
 #vintagewatches #unpolished #watchcollector
