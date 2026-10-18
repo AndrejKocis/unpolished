@@ -1,6 +1,6 @@
 // Textový carousel z instagram/drafts/<slug>/slides.json → 01.jpg… (1080×1350) v štýle webu.
 //   node scripts/instagram/slides.mjs <slug>
-// Slajd: { kind?: "cover" | "recap" | "cta" | "photo", photo?: "<media>/<súbor>" z public/watches, focusY?: zvislý stred výrezu fotky
+// Slajd: { kind?: "cover" | "cover-full" | "recap" | "cta" | "photo", photo?: "<media>/<súbor>" z public/watches, focusY?: zvislý stred výrezu fotky
 //   (0–1, predvolene 0,5), title, body?, sub?, items?, follow? (výrazná výzva na cta slajde) }
 // kind "photo": fotka na celú plochu (poster karty z webu) so štítkom vľavo dole: title = názov, sub = rok a detail.
 // Každá slajda má číslo (3/10) a handle, obsah drží 120 px od okrajov (orez mriežky profilu).
@@ -46,9 +46,16 @@ const textLines = (lines, x, y, size, gap, attrs) =>
 async function photoCrop(file, h, focusY) {
   const img = sharp(file).rotate();
   const { width, height } = await img.metadata();
-  const ch = Math.round((h / W) * width);
+  let cw = width;
+  let ch = Math.round((h / W) * width);
+  // Fotka je na požadovaný pomer príliš nízka (napr. štvorec na 4:5): orež šírku na strede namiesto výšky.
+  if (ch > height) {
+    ch = height;
+    cw = Math.round((W / h) * height);
+  }
+  const left = Math.round((width - cw) / 2);
   const top = Math.max(0, Math.min(height - ch, Math.round(focusY * height - ch / 2)));
-  return sharp(file).rotate().extract({ left: 0, top, width, height: ch }).resize(W, h).toBuffer();
+  return sharp(file).rotate().extract({ left, top, width: cw, height: ch }).resize(W, h).toBuffer();
 }
 
 const logo = await logoPng(260);
@@ -59,6 +66,23 @@ for (const [i, s] of slides.entries()) {
   const n = `${i + 1}/${slides.length}`;
   const overlays = [];
   let photoH = 0;
+  if (s.kind === "cover-full") {
+    // Cover cez celú plochu: fotka, tmavý prechod dole a biely nadpis, aby bol čitateľný aj v malej mriežke profilu.
+    const t = wrap(s.title, 14);
+    const ty = H - 150 - (t.length - 1) * 104 - (s.sub ? 70 : 0);
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.75"/></linearGradient></defs>
+      <rect width="${W}" height="${H}" fill="url(#g)"/>
+      ${textLines(t, PAD, ty, 96, 104, `font-family="${SERIF}" fill="#ffffff"`)}
+      ${s.sub ? `<text x="${PAD}" y="${ty + t.length * 104 - 20}" font-family="${SERIF}" font-style="italic" font-size="44" fill="#ffffff" fill-opacity="0.85">${esc(s.sub)}</text>` : ""}
+      <text x="${W - PAD}" y="${H - 70}" text-anchor="end" font-family="${MONO}" font-size="28" fill="#ffffff">${n}</text>
+    </svg>`;
+    await sharp(await photoCrop(path.join(ROOT, "public/watches", s.photo), H, s.focusY ?? 0.5))
+      .composite([{ input: Buffer.from(svg) }])
+      .jpeg({ quality: 92 })
+      .toFile(path.join(dir, `${String(i + 1).padStart(2, "0")}.jpg`));
+    continue;
+  }
   if (s.kind === "photo") {
     // Celoplošná fotka hodiniek a biely štítok s názvom vľavo dole (nad číslom a handle).
     const label = `<rect x="${PAD - 24}" y="${H - 300}" width="${W - 2 * PAD + 48}" height="150" fill="#ffffff" fill-opacity="0.92"/>

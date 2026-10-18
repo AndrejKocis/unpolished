@@ -2,10 +2,11 @@
   "handle": "@unpolished.watches",
   "slides": [
     {
-      "kind": "cover",
-      "photo": "../../instagram/drafts/autumn-edit/cover-collage.jpg",
-      "title": "The autumn edit",
-      "sub": "Six unpolished pieces for shorter days."
+      "kind": "cover-full",
+      "photo": "ultra-chron/hero-wide.jpg",
+      "focusY": 0.5,
+      "title": "6 watches. None polished.",
+      "sub": "The autumn edit"
     },
     {
       "kind": "photo",
