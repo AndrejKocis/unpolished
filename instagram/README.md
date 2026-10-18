@@ -26,7 +26,9 @@ Agent pripravuje koncepty, zverejňuje ich majiteľ ručne. Publikovanie cez Met
 
 ## Reel
 
-- `hook.txt` v priečinku konceptu: krátky anglický háčik (napr. „POV: a 1969 watch that hums instead of ticks“),
+- `cards.txt` (prednostne): scenár z ig-reel, riadky „začiatok trvanie text“ (karta max. 6 slov). Karty idú v bezpečnej
+  zóne (y 300+, vľavo), video sa natiahne na ich dĺžku. Háčik vyber cez ig-reel/hookscore.py (cieľ 70+), časovanie cez beats.py.
+- `hook.txt` v priečinku konceptu (staršie, ak nie je cards.txt): krátky anglický háčik (napr. „POV: a 1969 watch that hums instead of ticks“),
   ukáže sa prvé 2,5 s, potom 3 s názov hodiniek. Bez `hook.txt` len názov.
 - Hudbu pridáva majiteľ ručne v Instagrame (populárna skladba = vyšší dosah). Cez API len carousel a fotky.
 

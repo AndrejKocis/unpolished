@@ -80,8 +80,20 @@ if (watch.status === "sold") {
     const logoFile = path.join(out, ".logo.png");
     fs.writeFileSync(logoFile, logo);
     const photos = watch.images.slice(0, REEL_PHOTOS);
+    // cards.txt (scenár z ig-reel): riadky „začiatok trvanie text“, napr. „0 2.2 You've never heard a watch hum.“
+    // Karty idú po sebe v bezpečnej zóne Instagramu (y 230–1440, vpravo 230 px voľných); video sa natiahne na ich dĺžku.
+    const cardsPath = path.join(out, "cards.txt");
+    const cards = fs.existsSync(cardsPath)
+      ? fs.readFileSync(cardsPath, "utf8").trim().split("\n").map((l) => {
+          const [, start, dur, text] = l.match(/^([\d.]+)\s+([\d.]+)\s+(.+)$/);
+          return { start: Number(start), dur: Number(dur), text };
+        })
+      : [];
+    const loopSec = Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path.join(media, watch.video)]));
+    const cardsEnd = Math.max(0, ...cards.map((c) => c.start + c.dur));
+    const photoSec = Math.max(REEL_PHOTO_SECONDS, Math.ceil(((cardsEnd - loopSec) / photos.length) * 10) / 10);
     const inputs = ["-i", path.join(media, watch.video)];
-    for (const p of photos) inputs.push("-loop", "1", "-t", String(REEL_PHOTO_SECONDS), "-framerate", "30", "-i", path.join(media, p));
+    for (const p of photos) inputs.push("-loop", "1", "-t", String(photoSec), "-framerate", "30", "-i", path.join(media, p));
     inputs.push("-i", logoFile);
     const n = photos.length + 1;
     const top = (REEL_H - H) / 2;
@@ -103,11 +115,34 @@ if (watch.status === "sold") {
     const words = hook.split(" ");
     const half = Math.ceil(words.length / 2);
     const hookLines = hook.length > 30 ? [words.slice(0, half).join(" "), words.slice(half).join(" ")] : [hook];
+    // Karta scenára: biely serif na tmavom polopriehľadnom podklade, zarovnaná vľavo, max. 2 riadky.
+    const CARD_Y = 300;
+    async function card(file, text) {
+      const lines = [];
+      for (const word of text.split(" ")) {
+        const last = lines.at(-1);
+        if (last && (last + " " + word).length <= 20) lines[lines.length - 1] = `${last} ${word}`;
+        else lines.push(word);
+      }
+      const size = 64;
+      const gap = size * 1.18;
+      const h = Math.round(lines.length * gap + 56);
+      const w = Math.round(Math.max(...lines.map((l) => l.length)) * size * 0.5 + 72);
+      await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${h}">
+        <rect x="60" y="0" width="${w}" height="${h}" rx="6" fill="#000000" fill-opacity="0.45"/>${lines
+          .map((l, i) => `<text x="96" y="${28 + size * 0.85 + i * gap}" font-family="Georgia, serif" font-size="${size}" fill="#ffffff">${xml(l)}</text>`)
+          .join("")}</svg>`)).png().toFile(file);
+    }
     const titles = [];
-    if (hook) titles.push({ file: path.join(out, ".hook.png"), lines: hookLines, size: 66, start: 0, dur: 2.5 });
-    titles.push({ file: path.join(out, ".title.png"), lines: [name], size: 52, start: hook ? 2.5 : 0, dur: 3 });
+    if (cards.length) {
+      for (const [i, c] of cards.entries()) titles.push({ file: path.join(out, `.card${i}.png`), text: c.text, start: c.start, dur: c.dur, y: CARD_Y });
+    } else {
+      if (hook) titles.push({ file: path.join(out, ".hook.png"), lines: hookLines, size: 66, start: 0, dur: 2.5, y: 0 });
+      titles.push({ file: path.join(out, ".title.png"), lines: [name], size: 52, start: hook ? 2.5 : 0, dur: 3, y: 0 });
+    }
     for (const t of titles) {
-      await band(t.file, t.lines, t.size);
+      if (t.text) await card(t.file, t.text);
+      else await band(t.file, t.lines, t.size);
       inputs.push("-loop", "1", "-t", String(t.dur), "-framerate", "30", "-i", t.file);
     }
     let graph = "";
@@ -122,8 +157,8 @@ if (watch.status === "sold") {
     graph += `[v][${n}:v]overlay=${W - LOGO_W - MARGIN}:${top + H - logoH - MARGIN}[t0];`;
     titles.forEach((t, i) => {
       graph +=
-        `[${n + 1 + i}:v]format=rgba,fade=t=in:st=0:d=0.3:alpha=1,fade=t=out:st=${t.dur - 0.4}:d=0.4:alpha=1,setpts=PTS+${t.start}/TB[tt${i}];` +
-        `[t${i}][tt${i}]overlay=0:0:eof_action=pass[t${i + 1}];`;
+        `[${n + 1 + i}:v]format=rgba,fade=t=in:st=0:d=0.2:alpha=1,fade=t=out:st=${t.dur - 0.25}:d=0.25:alpha=1,setpts=PTS+${t.start}/TB[tt${i}];` +
+        `[t${i}][tt${i}]overlay=0:${t.y}:eof_action=pass[t${i + 1}];`;
     });
     graph += `[t${titles.length}]format=yuv420p[out]`;
     execFileSync("ffmpeg", ["-y", "-v", "error", ...inputs, "-filter_complex", graph, "-map", "[out]",
