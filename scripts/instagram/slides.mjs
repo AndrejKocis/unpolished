@@ -1,7 +1,8 @@
 // Textový carousel z instagram/drafts/<slug>/slides.json → 01.jpg… (1080×1350) v štýle webu.
 //   node scripts/instagram/slides.mjs <slug>
 // Slajd: { kind?: "cover" | "cover-full" | "recap" | "cta" | "photo", photo?: "<media>/<súbor>" z public/watches, focusY?: zvislý stred výrezu fotky
-//   (0–1, predvolene 0,5), title, body?, sub?, items?, follow? (výrazná výzva na cta slajde) }
+//   (0–1, predvolene 0,5), title, body?, sub?, items?, follow? (výrazná výzva na cta slajde),
+//   num? (číslo hodiniek v štítku foto slajdu), grid? (fotky do očíslovanej mozaiky na cta slajde) }
 // kind "photo": fotka na celú plochu (poster karty z webu) so štítkom vľavo dole: title = názov, sub = rok a detail.
 // Každá slajda má číslo (3/10) a handle, obsah drží 120 px od okrajov (orez mriežky profilu).
 import fs from "node:fs";
@@ -87,10 +88,41 @@ for (const [i, s] of slides.entries()) {
       .toFile(path.join(dir, `${String(i + 1).padStart(2, "0")}.jpg`));
     continue;
   }
+  if (s.kind === "cta" && s.grid) {
+    // Záverečný slajd s očíslovanou mozaikou hodiniek: odpoveď na otázku je jedno číslo v komentári.
+    const gap = 16;
+    const tw = Math.floor((W - 2 * PAD - 2 * gap) / 3);
+    const tiles = [];
+    let g = "";
+    for (const [k, ph] of s.grid.entries()) {
+      const x = PAD + (k % 3) * (tw + gap);
+      const yy = 120 + Math.floor(k / 3) * (tw + gap);
+      tiles.push({ input: await photoCrop(path.join(ROOT, "public/watches", ph), Math.round(tw * (W / tw)), 0.5).then((b) => sharp(b).resize(tw, tw, { fit: "cover" }).toBuffer()), left: x, top: yy });
+      g += `<rect x="${x + 12}" y="${yy + 12}" width="54" height="54" fill="#ffffff"/>
+        <text x="${x + 39}" y="${yy + 40}" text-anchor="middle" dominant-baseline="central" font-family="${MONO}" font-size="30" fill="${INK}">${k + 1}</text>`;
+    }
+    const gy = 120 + 2 * tw + gap;
+    let y2 = gy + 110;
+    g += `<text x="${PAD}" y="${y2}" font-family="${SERIF}" font-size="68" fill="${INK}">${esc(s.title)}</text>`;
+    if (s.body) g += `<text x="${PAD}" y="${(y2 += 66)}" font-family="${SERIF}" font-size="44" fill="${ACCENT}">${esc(s.body)}</text>`;
+    if (s.follow) {
+      const fy = y2 + 50;
+      g += `<line x1="${PAD}" x2="${W - PAD}" y1="${fy}" y2="${fy}" stroke="${INK}" stroke-opacity="0.15" stroke-width="2"/>
+        <text x="${PAD}" y="${fy + 66}" font-family="${MONO}" font-size="28" letter-spacing="4" fill="${ACCENT}">FOLLOW</text>
+        <text x="${PAD}" y="${fy + 140}" font-family="${SERIF}" font-size="64" fill="${INK}">${esc(handle)}</text>
+        <text x="${PAD}" y="${fy + 194}" font-family="${SERIF}" font-style="italic" font-size="36" fill="${MUTED}">${esc(s.follow)}</text>`;
+    }
+    g += `<text x="${W - PAD}" y="${H - 70}" text-anchor="end" font-family="${MONO}" font-size="28" fill="${MUTED}">${n}</text>`;
+    await sharp({ create: { width: W, height: H, channels: 3, background: PAPER } })
+      .composite([...tiles, { input: Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">${g}</svg>`), left: 0, top: 0 }])
+      .jpeg({ quality: 92 })
+      .toFile(path.join(dir, `${String(i + 1).padStart(2, "0")}.jpg`));
+    continue;
+  }
   if (s.kind === "photo") {
     // Celoplošná fotka hodiniek a biely štítok s názvom vľavo dole (nad číslom a handle).
     const label = `<rect x="${PAD - 24}" y="${H - 300}" width="${W - 2 * PAD + 48}" height="150" fill="#ffffff" fill-opacity="0.92"/>
-      <text x="${PAD}" y="${H - 236}" font-family="${SERIF}" font-size="${s.title.length > 32 ? 38 : 46}" fill="${INK}">${esc(s.title)}</text>
+      <text x="${PAD}" y="${H - 236}" font-family="${SERIF}" font-size="${s.title.length > 32 ? 38 : 46}" fill="${INK}">${s.num ? `<tspan fill="${ACCENT}">${s.num}</tspan> · ` : ""}${esc(s.title)}</text>
       <text x="${PAD}" y="${H - 186}" font-family="${MONO}" font-size="28" fill="${MUTED}">${esc(s.sub ?? "")}</text>
       <text x="${PAD}" y="${H - 70}" font-family="${MONO}" font-size="28" fill="#ffffff">${esc(handle)}</text>
       <text x="${W - PAD}" y="${H - 70}" text-anchor="end" font-family="${MONO}" font-size="28" fill="#ffffff">${n}</text>`;

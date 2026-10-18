@@ -8,8 +8,8 @@ GUB Glashütte Spezimatic, 1975, from East Germany.
 
 I've had every one serviced, each comes with a 6-month warranty, and EU shipping's free. Prices and details are on the website in my profile.
 
-Which one would you pick? Tell me in the comments.
+Which one would you pick? Comment 1 to 6.
 
-Šest neleštěných vintage hodinek na podzim, všechny servisované, se zárukou 6 měsíců a dopravou v EU zdarma. Ceny jsou na webu v profilu. Které byste si vybrali?
+Šest neleštěných vintage hodinek na podzim, všechny servisované, se zárukou 6 měsíců a dopravou v EU zdarma. Ceny jsou na webu v profilu. Které byste si vybrali? Napište 1 až 6.
 
 #vintagewatches #unpolished #watchcollector #vintagelongines #vintageomega
