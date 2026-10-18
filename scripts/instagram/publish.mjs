@@ -25,7 +25,8 @@ if (!token) throw new Error("Chýba INSTAGRAM_ACCESS_TOKEN v .env.local");
 
 const draft = path.join(ROOT, "instagram/drafts", slug);
 const caption = story ? "" : fs.readFileSync(path.join(draft, "caption.md"), "utf8").trim();
-const photos = fs.readdirSync(draft).filter((f) => f.endsWith(".jpg")).sort();
+// Len očíslované slajdy a stories (01.jpg, 01-slug.jpg), nie pomocné súbory ako cover-collage.jpg.
+const photos = fs.readdirSync(draft).filter((f) => /^\d+.*\.jpg$/.test(f)).sort();
 // ?v= podľa obsahu súboru, aby Instagram ani CDN nevzali staršiu verziu z cache.
 const url = (f) => `${SITE}/ig/${slug}/${f}?v=${fs.statSync(path.join(draft, f)).size}`;
 
