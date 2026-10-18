@@ -50,7 +50,6 @@ const sk = {
     trust: [
       "Overené odborníkom",
       "Záruka 6 mesiacov na servis",
-      "14 dní na vrátenie",
       "Doprava zdarma EU",
     ],
     currentTitle: "Aktuálne kusy",
@@ -156,8 +155,8 @@ const sk = {
         body: "Každý kus pred zverejnením prechádza servisom. Presný rozsah servisu nájdete v špecifikáciách vyššie. Na servis poskytujem záruku 6 mesiacov, ktorá kryje funkčnosť strojčeka.",
       },
       {
-        title: "Doprava a vrátenie",
-        body: "Doprava v rámci EÚ je zdarma, poistená a s podpisom pri prevzatí. Na vrátenie máte 14 dní od doručenia — hodinky musia byť v stave, v akom boli odoslané.",
+        title: "Doprava",
+        body: "Doprava v rámci EÚ je zdarma, poistená a s podpisom pri prevzatí.",
       },
       {
         title: "Prečo kúpiť u mňa",
@@ -228,10 +227,6 @@ const sk = {
         a: "Áno, na servis poskytujem záruku 6 mesiacov od dátumu servisu.",
       },
       {
-        q: "Môžem hodinky vrátiť?",
-        a: "Áno, do 14 dní od doručenia, ak sú hodinky v rovnakom stave, v akom boli odoslané.",
-      },
-      {
         q: "Doručujete mimo EÚ?",
         a: "Áno, individuálne po dohode — napíšte mi cez kontaktný formulár.",
       },
@@ -245,7 +240,7 @@ const sk = {
     title: "Obchodné podmienky",
     paragraphs: [
       "unpolished predáva jedinečné (1 z 1) kusy vintage hodiniek. Web neobsahuje platobnú bránu — objednávka vzniká na základe individuálnej dohody po kontaktovaní cez formulár, e-mail alebo WhatsApp.",
-      "Na servis hodiniek poskytujem záruku 6 mesiacov. Vrátenie je možné do 14 dní od doručenia.",
+      "Na servis hodiniek poskytujem záruku 6 mesiacov.",
     ],
     contactPrefix: "Otázky k obchodným podmienkam smerujte na",
   },
@@ -313,7 +308,6 @@ const en: Dictionary = {
     trust: [
       "Vetted by an expert",
       "6-month service warranty",
-      "14-day returns",
       "Free EU shipping",
     ],
     currentTitle: "Current pieces",
@@ -419,8 +413,8 @@ const en: Dictionary = {
         body: "Every piece is serviced before listing. The exact scope of service is listed in the specifications above. The service carries a 6-month warranty covering the movement's function.",
       },
       {
-        title: "Shipping & returns",
-        body: "Shipping within the EU is free, insured and signature-required. You have 14 days from delivery to return the piece, provided it's in the condition it was sent.",
+        title: "Shipping",
+        body: "Shipping within the EU is free, insured and signature-required.",
       },
       {
         title: "Why buy from me",
@@ -490,10 +484,6 @@ const en: Dictionary = {
         a: "Yes, the service carries a 6-month warranty from the service date.",
       },
       {
-        q: "Can I return a watch?",
-        a: "Yes, within 14 days of delivery, provided the watch is in the same condition it was sent in.",
-      },
-      {
         q: "Do you ship outside the EU?",
         a: "Yes, by individual arrangement — write to me through the contact form.",
       },
@@ -507,7 +497,7 @@ const en: Dictionary = {
     title: "Terms of service",
     paragraphs: [
       "unpolished sells unique (1 of 1) vintage watches. The site has no payment gateway — an order is arranged individually after you get in touch through the form, email or WhatsApp.",
-      "Servicing carries a 6-month warranty. Returns are accepted within 14 days of delivery.",
+      "Servicing carries a 6-month warranty.",
     ],
     contactPrefix: "Questions about these terms can be sent to",
   },
@@ -573,7 +563,6 @@ const cs: Dictionary = {
     trust: [
       "Ověřeno odborníkem",
       "Záruka 6 měsíců na servis",
-      "14 dní na vrácení",
       "Doprava zdarma v EU",
     ],
     currentTitle: "Aktuální kusy",
@@ -679,8 +668,8 @@ const cs: Dictionary = {
         body: "Každý kus před zveřejněním projde servisem. Přesný rozsah servisu najdete ve specifikacích výše. Na servis poskytuji záruku 6 měsíců, která kryje funkčnost strojku.",
       },
       {
-        title: "Doprava a vrácení",
-        body: "Doprava v rámci EU je zdarma, pojištěná a s podpisem při převzetí. Na vrácení máte 14 dní od doručení — hodinky musí být ve stavu, v jakém byly odeslány.",
+        title: "Doprava",
+        body: "Doprava v rámci EU je zdarma, pojištěná a s podpisem při převzetí.",
       },
       {
         title: "Proč koupit u mě",
@@ -750,10 +739,6 @@ const cs: Dictionary = {
         a: "Ano, na servis poskytuji záruku 6 měsíců od data servisu.",
       },
       {
-        q: "Můžu hodinky vrátit?",
-        a: "Ano, do 14 dní od doručení, pokud jsou hodinky ve stejném stavu, v jakém byly odeslány.",
-      },
-      {
         q: "Doručujete mimo EU?",
         a: "Ano, individuálně po domluvě — napište mi přes kontaktní formulář.",
       },
@@ -767,7 +752,7 @@ const cs: Dictionary = {
     title: "Obchodní podmínky",
     paragraphs: [
       "unpolished prodává jedinečné (1 z 1) kusy vintage hodinek. Web nemá platební bránu — objednávka vzniká na základě individuální domluvy po kontaktování přes formulář, e-mail nebo WhatsApp.",
-      "Na servis hodinek poskytuji záruku 6 měsíců. Vrácení je možné do 14 dní od doručení.",
+      "Na servis hodinek poskytuji záruku 6 měsíců.",
     ],
     contactPrefix: "Dotazy k obchodním podmínkám směřujte na",
   },
