@@ -22,7 +22,13 @@ export function getAllWatches(): Watch[] {
     return { ...frontmatter, content };
   });
 
-  return watches.sort((a, b) => Number(isGoldCase(a)) - Number(isGoldCase(b)) || b.year - a.year);
+  // Poradie v prehľade: pánske pred dámskymi, v rámci nich zlaté puzdrá na konci, potom od najnovšieho roku.
+  return watches.sort(
+    (a, b) =>
+      Number(a.gender === "women") - Number(b.gender === "women") ||
+      Number(isGoldCase(a)) - Number(isGoldCase(b)) ||
+      b.year - a.year,
+  );
 }
 
 // Zlaté = zlatené, pozlátené alebo gold filled puzdro, aj oceľ s pozlátenými detailmi (napr. luneta).
