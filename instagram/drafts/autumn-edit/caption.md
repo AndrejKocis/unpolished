@@ -2,7 +2,7 @@ The autumn edit. Six vintage watches I'd wear this month, all with their origina
 
 Two vintage Longines open it. The Ultra-Chron Night Sky from 1971, with a black dial that looks like a night sky, and the 1965 Flagship Automatic, still on its original brown croc strap.
 Omega f300Hz Genève, 1972. Gold dial, and it hums instead of ticking.
-Hamilton Thin-o-matic, 1965. 10k gold fill, and it's properly thin.
+Hamilton Thin-o-matic T-451, 1960. 10k gold fill, and it's properly thin.
 Seiko Quartz, 1980. Cream dial, burgundy leather.
 GUB Glashütte Spezimatic, 1975, from East Germany.
 
