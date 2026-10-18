@@ -1,6 +1,5 @@
 0 2.0 You've never heard a watch hum.
-2.0 1.6 This one has since 1969.
-3.6 1.8 Tuning fork: 360 times a second
-5.4 1.8 No dial. Just the movement.
-7.2 1.8 35 mm, never polished, serviced 2025
-9.0 1.5 Price in bio. Let it hum.
+2.0 1.8 Tuning fork: 360 times a second
+3.8 2.0 No dial. Just the movement.
+5.8 1.8 1969, 35 mm, never polished
+7.6 1.4 Price in bio. Let it hum.

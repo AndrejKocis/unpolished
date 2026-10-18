@@ -171,7 +171,8 @@ if (watch.status === "sold") {
     graph += clip ? `[v]null[t0];` : `[v][${n}:v]overlay=${W - LOGO_W - MARGIN}:${top + H - logoH - MARGIN}[t0];`;
     titles.forEach((t, i) => {
       graph +=
-        `[${n + 1 + i}:v]format=rgba,fade=t=in:st=0:d=0.2:alpha=1,fade=t=out:st=${t.dur - 0.25}:d=0.25:alpha=1,setpts=PTS+${t.start}/TB[tt${i}];` +
+        // Prvá karta (háčik) je viditeľná hneď od prvého snímku, ostatné sa jemne objavia.
+        `[${n + 1 + i}:v]format=rgba,${t.start > 0 ? "fade=t=in:st=0:d=0.2:alpha=1," : ""}fade=t=out:st=${t.dur - 0.25}:d=0.25:alpha=1,setpts=PTS+${t.start}/TB[tt${i}];` +
         `[t${i}][tt${i}]overlay=0:${t.y}:eof_action=pass[t${i + 1}];`;
     });
     graph += `[t${titles.length}]format=yuv420p[out]`;
