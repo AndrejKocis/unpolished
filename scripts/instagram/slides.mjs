@@ -18,6 +18,7 @@ const PAD = 120;
 const PAPER = "#f4f4f4";
 const INK = "#111111";
 const MUTED = "#6b6b6b";
+const ACCENT = "#b3261e"; // tlmená červená (ako červené detaily na ciferníkoch), len pre výzvu na sledovanie
 const SERIF = "Georgia, serif";
 const MONO = "Menlo, monospace";
 
@@ -86,7 +87,7 @@ for (const [i, s] of slides.entries()) {
   const titleLines = wrap(s.title, s.kind === "cta" ? 20 : 22);
   const bodyLines = s.body ? wrap(s.body, 38) : [];
   const recapH = s.items ? 110 + s.items.reduce((h, it) => h + wrap(it, 34).length * 54 + 30, 0) : 0;
-  const followH = s.follow ? 50 + wrap(s.follow, 26).length * 56 + 60 : 0;
+  const followH = s.follow ? 60 + 250 : 0;
   const blockH = s.kind === "recap" ? recapH : titleLines.length * titleSize * 1.15 + 40 + bodyLines.length * 58 + followH;
   let y = photoH ? photoH + 110 : Math.round((H - 120 - blockH) / 2 + titleSize * 0.8);
   const serif = `font-family="${SERIF}" fill="${INK}"`;
@@ -109,14 +110,13 @@ for (const [i, s] of slides.entries()) {
     if (s.kind === "cta") overlays.push({ input: logo, left: PAD, top: Math.round(y - titleSize - 60 - logoH) });
     y += titleLines.length * titleSize * 1.15 + 40;
     svg += textLines(bodyLines, PAD, y, 42, 58, `font-family="${SERIF}" fill="${s.kind === "cta" ? MUTED : INK}"`);
-    // Výrazná výzva na sledovanie: čierny pruh s bielym textom a šípkou, ako tlačidlo.
+    // Výzva na sledovanie (variant E): tenká linka, červený štítok FOLLOW, veľký handle, pod ním dôvod kurzívou.
     if (s.follow) {
-      const fy = y + bodyLines.length * 58 + 50;
-      const lines = wrap(s.follow, 26);
-      const bh = lines.length * 56 + 60;
-      svg += `<rect x="${PAD}" y="${fy}" width="${W - 2 * PAD}" height="${bh}" fill="${INK}"/>`;
-      svg += textLines(lines, PAD + 40, fy + 72, 44, 56, `font-family="${SERIF}" fill="#ffffff"`);
-      svg += `<text x="${W - PAD - 40}" y="${fy + bh / 2}" text-anchor="end" dominant-baseline="central" font-family="${MONO}" font-size="48" fill="#ffffff">→</text>`;
+      const fy = y + bodyLines.length * 58 + 60;
+      svg += `<line x1="${PAD}" x2="${W - PAD}" y1="${fy}" y2="${fy}" stroke="${INK}" stroke-opacity="0.15" stroke-width="2"/>`;
+      svg += `<text x="${PAD}" y="${fy + 80}" font-family="${MONO}" font-size="30" letter-spacing="4" fill="${ACCENT}">FOLLOW</text>`;
+      svg += `<text x="${PAD}" y="${fy + 170}" font-family="${SERIF}" font-size="74" fill="${INK}">${esc(handle)}</text>`;
+      svg += `<text x="${PAD}" y="${fy + 232}" font-family="${SERIF}" font-style="italic" font-size="40" fill="${MUTED}">${esc(s.follow)}</text>`;
     }
   }
   svg += `<text x="${PAD}" y="${H - 70}" font-family="${MONO}" font-size="28" fill="${MUTED}">${esc(handle)}</text>`;
