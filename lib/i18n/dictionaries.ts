@@ -194,6 +194,7 @@ const sk = {
         paragraphs: [
           "Vintage hodinky sa dajú vylepšiť tak, aby vyzerali novšie. Ja to nerobím. Puzdro, ktoré prešlo leštičkou, stráca pôvodné fazety a hrany, ktoré do neho vybrúsil výrobca — a táto strata je nezvratná. Predávam iba kusy, ktorých puzdro je v pôvodnom, nepreleštenom stave, aj keď to znamená viditeľné škrabance alebo patinu.",
           "Nie je to estetická preferencia. Je to jediný spôsob, ako zachovať hodnotu a autenticitu kusu, ktorý má za sebou desaťročia.",
+          "Unpolished je pre mňa aj cesta, ako sa v hodinárstve zdokonaľovať. Fascinujú ma kalibre a to, ako fungujú, a tak každé predané hodinky podporujú moje učenie sa servisu a nákup náradia, ktoré na to potrebujem.",
         ],
       },
       {
@@ -455,6 +456,7 @@ const en: Dictionary = {
         paragraphs: [
           "Vintage watches can be made to look newer. I don't do that. A case that has been through a polishing wheel loses the original facets and edges the maker cut into it — and that loss is irreversible. I only sell pieces whose case is in its original, never-repolished state, even when that means visible scratches or patina.",
           "This isn't an aesthetic preference. It's the only way to preserve the value and authenticity of a piece with decades behind it.",
+          "Unpolished is also how I keep getting better at watchmaking. Calibres fascinate me, how they work and how they're put together, so every watch sold supports my servicing practice and the tools it takes.",
         ],
       },
       {
@@ -714,6 +716,7 @@ const cs: Dictionary = {
         paragraphs: [
           "Vintage hodinky se dají vylepšit tak, aby vypadaly novější. Já to nedělám. Pouzdro, které prošlo leštičkou, ztrácí původní fazety a hrany, které do něj vybrousil výrobce — a tahle ztráta je nevratná. Prodávám jen kusy, jejichž pouzdro je v původním, nepřeleštěném stavu, i když to znamená viditelné škrábance nebo patinu.",
           "Není to estetická preference. Je to jediný způsob, jak zachovat hodnotu a autenticitu kusu, který má za sebou desítky let.",
+          "Unpolished je pro mě i cesta, jak se v hodinařině zdokonalovat. Fascinují mě kalibry a to, jak fungují, a tak každé prodané hodinky podporují moje učení se servisu a nákup nářadí, které k tomu potřebuji.",
         ],
       },
       {
