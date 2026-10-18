@@ -68,13 +68,17 @@ for (const [i, s] of slides.entries()) {
   let photoH = 0;
   if (s.kind === "cover-full") {
     // Cover cez celú plochu: fotka, tmavý prechod dole a biely nadpis, aby bol čitateľný aj v malej mriežke profilu.
-    const t = wrap(s.title, 14);
-    const ty = H - 150 - (t.length - 1) * 104 - (s.sub ? 70 : 0);
+    // Dlhší nadpis menším písmom, aby zabral max. 3 riadky a nezakryl hodinky.
+    const long = s.title.length > 28;
+    const size = long ? 76 : 96;
+    const gap = long ? 84 : 104;
+    const t = wrap(s.title, long ? 20 : 14);
+    const ty = H - 150 - (t.length - 1) * gap - (s.sub ? 70 : 0);
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
       <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.75"/></linearGradient></defs>
       <rect width="${W}" height="${H}" fill="url(#g)"/>
-      ${textLines(t, PAD, ty, 96, 104, `font-family="${SERIF}" fill="#ffffff"`)}
-      ${s.sub ? `<text x="${PAD}" y="${ty + t.length * 104 - 20}" font-family="${SERIF}" font-style="italic" font-size="44" fill="#ffffff" fill-opacity="0.85">${esc(s.sub)}</text>` : ""}
+      ${textLines(t, PAD, ty, size, gap, `font-family="${SERIF}" fill="#ffffff"`)}
+      ${s.sub ? `<text x="${PAD}" y="${ty + t.length * gap - 10}" font-family="${SERIF}" font-style="italic" font-size="44" fill="#ffffff" fill-opacity="0.85">${esc(s.sub)}</text>` : ""}
       <text x="${W - PAD}" y="${H - 70}" text-anchor="end" font-family="${MONO}" font-size="28" fill="#ffffff">${n}</text>
     </svg>`;
     await sharp(await photoCrop(path.join(ROOT, "public/watches", s.photo), H, s.focusY ?? 0.5))
