@@ -2,6 +2,7 @@ import type { Watch } from "@/lib/schema";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locale";
 import { StatusFlag } from "@/components/StatusFlag";
+import { StatusFlagsAll } from "@/components/StatusFlagsAll";
 
 function IconServiced({ className = "" }: { className?: string }) {
   return (
@@ -84,7 +85,8 @@ export function WatchStatusFlags({ watch, locale }: { watch: Watch; locale: Loca
 
   const items = [
     { key: "serviced", Icon: IconServiced, enabled: watch.serviced, label: dict.watchDetail.statusFlags.serviced },
-    { key: "polished", Icon: IconPolished, enabled: watch.polished, label: dict.watchDetail.statusFlags.polished },
+    // Neleštené puzdro je pre unpolished hlavná informácia, preto ide ako pozitívny stav „Neleštené“.
+    { key: "unpolished", Icon: IconPolished, enabled: !watch.polished, label: dict.watchDetail.statusFlags.unpolished },
     { key: "keepsTime", Icon: IconKeepsTime, enabled: watch.keepsTime, label: dict.watchDetail.statusFlags.keepsTime },
     {
       key: "missingParts",
@@ -108,23 +110,37 @@ export function WatchStatusFlags({ watch, locale }: { watch: Watch; locale: Loca
     },
   ];
 
-  const { statusYes, statusNo } = dict.watchDetail;
+  const { statusYes, statusNo, statusAll } = dict.watchDetail;
+  // Viditeľné sú len aktívne stavy, všetky (aj neaktívne) sú v zozname za tlačidlom „+N“.
+  const active = items.filter((item) => item.enabled);
 
   return (
-    <section className="border border-line px-4 py-4 sm:px-5">
+    <section className="relative border border-line px-4 py-4 sm:px-5">
       <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink mb-4">
         {dict.watchDetail.statusFlagsTitle}
       </h2>
-      <div className="flex items-center justify-between gap-1">
-        {items.map(({ key, Icon, enabled, label }, i) => (
+      <div className="flex flex-wrap items-center gap-2">
+        {active.map(({ key, Icon, label }, i) => (
           <StatusFlag
             key={key}
             icon={<Icon className="h-5 w-5" />}
-            text={`${label}: ${enabled ? statusYes : statusNo}`}
-            enabled={enabled}
-            align={i === 0 ? "start" : i === items.length - 1 ? "end" : "center"}
+            text={label}
+            enabled
+            align={i === 0 ? "start" : "center"}
           />
         ))}
+        {active.length < items.length && (
+          <StatusFlagsAll
+            label={statusAll}
+            hiddenCount={items.length - active.length}
+            rows={items.map(({ key, Icon, enabled, label }) => ({
+              key,
+              icon: <Icon className="h-4 w-4" />,
+              text: `${label}: ${enabled ? statusYes : statusNo}`,
+              enabled,
+            }))}
+          />
+        )}
       </div>
     </section>
   );
