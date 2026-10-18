@@ -183,6 +183,7 @@ const sk = {
     metaDescription: "Napíšte mi e-mailom, cez WhatsApp alebo formulár nižšie.",
     emailLabel: "E-mail",
     whatsappLabel: "WhatsApp",
+    instagramLabel: "Instagram",
   },
   about: {
     title: "O mne",
@@ -443,6 +444,7 @@ const en: Dictionary = {
     metaDescription: "Write to me by email, WhatsApp, or the form below.",
     emailLabel: "Email",
     whatsappLabel: "WhatsApp",
+    instagramLabel: "Instagram",
   },
   about: {
     title: "About",
@@ -701,6 +703,7 @@ const cs: Dictionary = {
     metaDescription: "Napište mi e-mailem, přes WhatsApp nebo formulářem níže.",
     emailLabel: "E-mail",
     whatsappLabel: "WhatsApp",
+    instagramLabel: "Instagram",
   },
   about: {
     title: "O mně",

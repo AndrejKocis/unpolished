@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CONTACT_EMAIL, WHATSAPP_NUMBER } from "@/lib/constants";
+import { CONTACT_EMAIL, INSTAGRAM_HANDLE, INSTAGRAM_URL, WHATSAPP_NUMBER } from "@/lib/constants";
 import { ContactForm } from "@/components/ContactForm";
 import { SectionDivider } from "@/components/SectionDivider";
 import { getLocale } from "@/lib/i18n/server";
@@ -48,6 +48,12 @@ function ContactPageContent({ locale }: { locale: Locale }) {
               className="underline underline-offset-[3px]"
             >
               +{WHATSAPP_NUMBER}
+            </a>
+          </p>
+          <p>
+            {dict.contact.instagramLabel}:{" "}
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-[3px]">
+              {INSTAGRAM_HANDLE}
             </a>
           </p>
         </div>
