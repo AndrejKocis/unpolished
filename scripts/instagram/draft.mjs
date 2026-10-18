@@ -90,8 +90,8 @@ if (watch.status === "sold") {
         })
       : [];
     // clip.json: vlastný záber z terénu namiesto loopu a fotiek, napr.
-    //   { "file": "/Users/andrej/Downloads/IMG_0176.MOV", "start": 5, "end": 13.5, "speed": 0.55, "zoom": 1.3, "cx": 0.48, "cy": 0.55 }
-    // Úsek start–end sa spomalí (speed < 1, pri 60 fps ostane plynulý), priblíži okolo cx/cy (podiel šírky/výšky) a ide na celú plochu 9:16.
+    //   { "file": "/Users/andrej/Downloads/IMG_0176.MOV", "start": 3.5, "end": 14, "fps": 60, "zoom": 1.3, "cx": 0.48, "cy": 0.55 }
+    // Úsek start–end v reálnej rýchlosti (speed < 1 spomalí), priblížený okolo cx/cy (podiel šírky/výšky), na celú plochu 9:16, bez vodoznaku.
     const clipPath = path.join(out, "clip.json");
     const clip = fs.existsSync(clipPath) ? JSON.parse(fs.readFileSync(clipPath, "utf8")) : null;
     const loopSec = Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path.join(media, watch.video)]));
@@ -158,7 +158,7 @@ if (watch.status === "sold") {
       graph +=
         `[0:v]setpts=PTS/${clip.speed ?? 1},` +
         `crop=w=iw/${z}:h=ih/${z}:x=min(max(0\\,iw*${clip.cx ?? 0.5}-iw/${z}/2)\\,iw-iw/${z}):y=min(max(0\\,ih*${clip.cy ?? 0.5}-ih/${z}/2)\\,ih-ih/${z}),` +
-        `scale=${W}:${REEL_H},fps=30,setsar=1,format=yuv420p[v];`;
+        `scale=${W}:${REEL_H},fps=${clip.fps ?? 30},setsar=1,format=yuv420p[v];`;
     } else for (let i = 0; i < n; i++) {
       graph +=
         `[${i}:v]split[a${i}][b${i}];` +
@@ -167,9 +167,8 @@ if (watch.status === "sold") {
         `[bg${i}][fg${i}]overlay=0:${top},fps=30,setsar=1,format=yuv420p[s${i}];`;
     }
     if (!clip) graph += `${Array.from({ length: n }, (_, i) => `[s${i}]`).join("")}concat=n=${n}:v=1:a=0[v];`;
-    // Vodoznak: pri vlastnom zábere vľavo dole v bezpečnej zóne (y < 1440), inak v rohu záberu 4:5.
-    const logoPos = clip ? `${MARGIN + 20}:${1440 - logoH}` : `${W - LOGO_W - MARGIN}:${top + H - logoH - MARGIN}`;
-    graph += `[v][${n}:v]overlay=${logoPos}[t0];`;
+    // Vodoznak len pri reeli z loopu a fotiek; záber z terénu (clip.json) ide bez neho.
+    graph += clip ? `[v]null[t0];` : `[v][${n}:v]overlay=${W - LOGO_W - MARGIN}:${top + H - logoH - MARGIN}[t0];`;
     titles.forEach((t, i) => {
       graph +=
         `[${n + 1 + i}:v]format=rgba,fade=t=in:st=0:d=0.2:alpha=1,fade=t=out:st=${t.dur - 0.25}:d=0.25:alpha=1,setpts=PTS+${t.start}/TB[tt${i}];` +

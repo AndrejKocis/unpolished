@@ -26,8 +26,8 @@ Agent pripravuje koncepty, zverejňuje ich majiteľ ručne. Publikovanie cez Met
 
 ## Reel
 
-- `clip.json`: vlastný záber z terénu (iPhone 4K/60 fps) namiesto loopu a fotiek: úsek, spomalenie, priblíženie
-  okolo hodiniek (pozri komentár v scripts/instagram/draft.mjs). Zvuk sa vyhodí, hudbu pridá majiteľ.
+- `clip.json`: vlastný záber z terénu (iPhone 4K/60 fps) namiesto loopu a fotiek: úsek v reálnej rýchlosti pri 60 fps, priblíženie
+  okolo hodiniek, bez vodoznaku (pozri komentár v scripts/instagram/draft.mjs). Zvuk sa vyhodí, hudbu pridá majiteľ.
 - `cards.txt` (prednostne): scenár z ig-reel, riadky „začiatok trvanie text“ (karta max. 6 slov). Karty idú v bezpečnej
   zóne (y 300+, vľavo), video sa natiahne na ich dĺžku. Háčik vyber cez ig-reel/hookscore.py (cieľ 70+), časovanie cez beats.py.
 - `hook.txt` v priečinku konceptu (staršie, ak nie je cards.txt): krátky anglický háčik (napr. „POV: a 1969 watch that hums instead of ticks“),
