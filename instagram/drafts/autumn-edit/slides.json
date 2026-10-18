@@ -1,0 +1,52 @@
+{
+  "handle": "@unpolished.watches",
+  "slides": [
+    {
+      "kind": "cover",
+      "photo": "../../instagram/drafts/autumn-edit/cover-collage.jpg",
+      "title": "The autumn edit",
+      "sub": "Six unpolished pieces for shorter days."
+    },
+    {
+      "kind": "photo",
+      "photo": "ultra-chron/poster.jpg",
+      "title": "Longines Ultra-Chron Night Sky",
+      "sub": "1971 · 35 mm · Steel"
+    },
+    {
+      "kind": "photo",
+      "photo": "351/poster.jpg",
+      "title": "Longines Flagship Automatic",
+      "sub": "1965 · 35 mm · Steel"
+    },
+    {
+      "kind": "photo",
+      "photo": "electronic-f300hz/poster.jpg",
+      "title": "Omega Electronic f300Hz Genève Chronometer",
+      "sub": "1972 · 35 mm · Gold-plated steel"
+    },
+    {
+      "kind": "photo",
+      "photo": "thin-o-matic/poster.jpg",
+      "title": "Hamilton Thin-o-matic",
+      "sub": "1965 · 34 mm · 10k gold filled"
+    },
+    {
+      "kind": "photo",
+      "photo": "seiko-quartz-cushion/poster.jpg",
+      "title": "Seiko Quartz",
+      "sub": "1980 · 34 mm · Gold-plated steel"
+    },
+    {
+      "kind": "photo",
+      "photo": "26-Rubis/poster.jpg",
+      "title": "GUB Glashütte Spezimatic",
+      "sub": "1975 · 35 mm · Gold-plated steel"
+    },
+    {
+      "kind": "cta",
+      "title": "Which one is yours?",
+      "body": "Tell me in the comments. Details and prices: link in bio."
+    }
+  ]
+}

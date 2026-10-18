@@ -1,7 +1,8 @@
 // Textový carousel z instagram/drafts/<slug>/slides.json → 01.jpg… (1080×1350) v štýle webu.
 //   node scripts/instagram/slides.mjs <slug>
-// Slajd: { kind?: "cover" | "recap" | "cta", photo?: "<media>/<súbor>" z public/watches, focusY?: zvislý stred výrezu fotky
+// Slajd: { kind?: "cover" | "recap" | "cta" | "photo", photo?: "<media>/<súbor>" z public/watches, focusY?: zvislý stred výrezu fotky
 //   (0–1, predvolene 0,5), title, body?, sub?, items? }
+// kind "photo": fotka na celú plochu (poster karty z webu) so štítkom vľavo dole: title = názov, sub = rok a detail.
 // Každá slajda má číslo (3/10) a handle, obsah drží 120 px od okrajov (orez mriežky profilu).
 import fs from "node:fs";
 import path from "node:path";
@@ -57,6 +58,20 @@ for (const [i, s] of slides.entries()) {
   const n = `${i + 1}/${slides.length}`;
   const overlays = [];
   let photoH = 0;
+  if (s.kind === "photo") {
+    // Celoplošná fotka hodiniek a biely štítok s názvom vľavo dole (nad číslom a handle).
+    const label = `<rect x="${PAD - 24}" y="${H - 300}" width="${W - 2 * PAD + 48}" height="150" fill="#ffffff" fill-opacity="0.92"/>
+      <text x="${PAD}" y="${H - 236}" font-family="${SERIF}" font-size="${s.title.length > 32 ? 38 : 46}" fill="${INK}">${esc(s.title)}</text>
+      <text x="${PAD}" y="${H - 186}" font-family="${MONO}" font-size="28" fill="${MUTED}">${esc(s.sub ?? "")}</text>
+      <text x="${PAD}" y="${H - 70}" font-family="${MONO}" font-size="28" fill="#ffffff">${esc(handle)}</text>
+      <text x="${W - PAD}" y="${H - 70}" text-anchor="end" font-family="${MONO}" font-size="28" fill="#ffffff">${n}</text>`;
+    await sharp(await photoCrop(path.join(ROOT, "public/watches", s.photo), H, s.focusY ?? 0.5))
+      .composite([{ input: Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+        <rect y="${H - 130}" width="${W}" height="130" fill="#000" fill-opacity="0.35"/>${label}</svg>`) }])
+      .jpeg({ quality: 92 })
+      .toFile(path.join(dir, `${String(i + 1).padStart(2, "0")}.jpg`));
+    continue;
+  }
   if (s.photo) {
     photoH = s.kind === "cover" ? 760 : 560;
     overlays.push({
