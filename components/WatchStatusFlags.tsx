@@ -115,7 +115,7 @@ export function WatchStatusFlags({ watch, locale }: { watch: Watch; locale: Loca
   const active = items.filter((item) => item.enabled);
 
   return (
-    <section className="relative border border-line px-4 py-4 sm:px-5">
+    <section className="relative">
       <h2 className="font-mono text-11 uppercase tracking-[0.06em] text-ink mb-4">
         {dict.watchDetail.statusFlagsTitle}
       </h2>

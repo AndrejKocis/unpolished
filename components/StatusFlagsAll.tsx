@@ -45,7 +45,7 @@ export function StatusFlagsAll({
         +{hiddenCount}
       </button>
       {open && (
-        <div className="absolute inset-x-4 sm:inset-x-5 sm:right-auto sm:w-72 top-full -mt-2 z-20 border border-line bg-white p-3 shadow-lg">
+        <div className="absolute inset-x-0 sm:right-auto sm:w-72 top-full mt-2 z-20 border border-line bg-white p-3 shadow-lg">
           <p className="font-mono text-11 uppercase tracking-[0.06em] text-ink-muted mb-2">{label}</p>
           <ul className="flex flex-col gap-2">
             {rows.map(({ key, icon, text, enabled }) => (
