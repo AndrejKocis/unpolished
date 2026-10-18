@@ -44,6 +44,17 @@ export function getAvailableWatches(): Watch[] {
   return getAllWatches().filter((w) => w.status === "available");
 }
 
+// Výber na úvodnú stránku (sezónny, content/homepage.json): najprv vybrané kusy v danom poradí,
+// predané a chýbajúce sa preskočia, zvyšok doplnia ostatné kusy na predaj v bežnom poradí.
+export function getHomepageWatches(limit = 6): Watch[] {
+  const { featured } = JSON.parse(fs.readFileSync(path.join(process.cwd(), "content", "homepage.json"), "utf8")) as {
+    featured: string[];
+  };
+  const available = getAvailableWatches();
+  const picked = featured.flatMap((slug) => available.filter((w) => w.slug === slug));
+  return [...picked, ...available.filter((w) => !picked.includes(w))].slice(0, limit);
+}
+
 export function getSoldWatches(): Watch[] {
   return getAllWatches().filter((w) => w.status === "sold");
 }

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getAvailableWatches, getWatchBySlug } from "@/lib/watches";
+import { getHomepageWatches, getWatchBySlug } from "@/lib/watches";
 import { Button } from "@/components/ui/Button";
 import { SectionDivider } from "@/components/SectionDivider";
 import { WatchGrid } from "@/components/WatchGrid";
@@ -18,7 +18,7 @@ const HERO_VERSION = "v4";
 const heroSrc = (theme: "light" | "dark", ext: "webp" | "mp4" | "png" | "shadow.png") => `${HERO_MEDIA}-${theme}.${HERO_VERSION}.${ext}`;
 
 export default function Home() {
-  const available = getAvailableWatches().slice(0, 6);
+  const available = getHomepageWatches();
   const heroWatch = getWatchBySlug("longines-ultra-chron-night-sky-unpolished");
   const lugsMacro = heroWatch ? `/watches/${heroWatch.media}/hero-wide.jpg` : undefined;
 
