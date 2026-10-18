@@ -3,19 +3,20 @@
   "slides": [
     {
       "kind": "cover",
-      "photo": "ultra-chron/hero-wide.jpg",
+      "photo": "2531.80/01-dial.jpg",
       "title": "Why I sell them unpolished",
-      "sub": "And why the choice stays with you."
+      "sub": "And why the choice stays with you.",
+      "focusY": 0.42
     },
     {
       "title": "A heavy polish can't be undone.",
       "body": "The edges the maker cut are gone for good."
     },
     {
-      "photo": "ultra-chron/02-profile.jpg",
+      "photo": "2531.80/05-profile.jpg",
       "title": "What heavy polishing does",
       "body": "A wheel takes metal off. Sharp bevels go soft, lugs get thinner, brushed and polished surfaces blur together.",
-      "focusY": 0.6
+      "focusY": 0.45
     },
     {
       "title": "Why original matters",
