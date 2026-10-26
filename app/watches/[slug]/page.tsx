@@ -172,7 +172,13 @@ function WatchDetailContent({
             </p>
           </div>
 
-          <WatchCTA watch={watch} />
+          <div>
+            <WatchCTA watch={watch} />
+            {/* Pozvánka napísať (bez sľubu zľavy) len pri kusoch na predaj; na mobile sú tlačidlá v spodnej lište. */}
+            {watch.status === "available" && (
+              <p className="text-13 text-ink-muted lg:mt-3">{dict.watchDetail.inviteNote}</p>
+            )}
+          </div>
 
           <WatchStatusFlags watch={watch} locale={locale} />
 
