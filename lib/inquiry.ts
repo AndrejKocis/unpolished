@@ -1,4 +1,4 @@
-import { CONTACT_EMAIL, IS_STATIC_EXPORT } from "@/lib/constants";
+import { CONTACT_EMAIL, IS_STATIC_EXPORT, WEB3FORMS_ACCESS_KEY } from "@/lib/constants";
 
 export type InquiryBody = {
   type?: "inquiry" | "newsletter";
@@ -27,8 +27,8 @@ export function composeInquiryEmail(body: InquiryBody): InquiryEmail | { error: 
   };
 }
 
-// Odošle formulár z prehliadača. Statický export nemá server, preto otvorí e-mailového
-// klienta s predvyplnenou správou; inak ju pošle na /api/inquiry.
+// Odošle formulár z prehliadača. Statický export nemá server, preto správu doručí Web3Forms;
+// bez jeho kľúča otvorí e-mailového klienta s predvyplnenou správou. Inak ju pošle na /api/inquiry.
 export async function sendInquiry(body: InquiryBody): Promise<void> {
   if (!IS_STATIC_EXPORT) {
     const res = await fetch("/api/inquiry", {
@@ -44,6 +44,25 @@ export async function sendInquiry(body: InquiryBody): Promise<void> {
   if (body.company) return;
   const email = composeInquiryEmail(body);
   if ("error" in email) throw new Error(email.error);
+
+  if (WEB3FORMS_ACCESS_KEY) {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: email.subject,
+        from_name: body.name || "unpolished.cz",
+        email: body.email,
+        replyto: email.replyTo,
+        message: email.text,
+      }),
+    });
+    const json = (await res.json().catch(() => ({}))) as { success?: boolean };
+    if (!res.ok || !json.success) throw new Error("request failed");
+    return;
+  }
+
   const params = new URLSearchParams({ subject: email.subject, body: email.text });
   window.location.href = `mailto:${CONTACT_EMAIL}?${params.toString().replaceAll("+", "%20")}`;
 }

@@ -83,15 +83,28 @@ if (watch.status === "sold") {
     // cards.txt (scenár z ig-reel): riadky „začiatok trvanie text“, napr. „0 2.2 You've never heard a watch hum.“
     // Karty idú po sebe v bezpečnej zóne Instagramu (y 230–1440, vpravo 230 px voľných); video sa natiahne na ich dĺžku.
     const cardsPath = path.join(out, "cards.txt");
-    const cards = fs.existsSync(cardsPath)
-      ? fs.readFileSync(cardsPath, "utf8").trim().split("\n").map((l) => {
-          const [, start, dur, text] = l.match(/^([\d.]+)\s+([\d.]+)\s+(.+)$/);
-          return { start: Number(start), dur: Number(dur), text };
+    // Riadok „style light“ v cards.txt = svetlé karty (papier #f4f4f4, čierny text) ako carousely a web; inak tmavé.
+    const cardLines = fs.existsSync(cardsPath) ? fs.readFileSync(cardsPath, "utf8").trim().split("\n") : [];
+    // Riadok „style elegant“ = texty bez rámčeka, na stred nad hodinkami, serif + kurzíva (časť za „|“), jemný tieň a prelnutia.
+    // Riadok „ink dark“ = elegantné texty čiernym písmom so svetlým tieňom (na svetlé pozadie, napr. betón, papier).
+    const isStyle = (l) => /^(style (light|elegant)|ink dark)$/.test(l.trim());
+    const darkInk = cardLines.some((l) => l.trim() === "ink dark");
+    const lightCards = cardLines.some((l) => l.trim() === "style light");
+    const elegantCards = cardLines.some((l) => l.trim() === "style elegant");
+    const cards = cardLines.length
+      ? cardLines.filter((l) => !isStyle(l)).map((l) => {
+          // Voliteľne „@y“ pred textom posunie kartu na výšku y (napr. „@1050“ nižšie na vodu, keď hore zakrýva záber).
+          const [, start, dur, y, text] = l.match(/^([\d.]+)\s+([\d.]+)\s+(?:@(\d+)\s+)?(.+)$/);
+          // „!“ na začiatku textu = zvýraznená follow karta (štítok FOLLOW FOR MORE, pod ním text, napr. @unpolished.watches).
+          const accent = text.startsWith("!");
+          return { start: Number(start), dur: Number(dur), y: y ? Number(y) : undefined, text: accent ? text.slice(1).trim() : text, accent };
         })
       : [];
     // clip.json: vlastný záber z terénu namiesto loopu a fotiek, napr.
     //   { "file": "/Users/andrej/Downloads/IMG_0176.MOV", "start": 3.5, "end": 14, "fps": 60, "zoom": 1.3, "cx": 0.48, "cy": 0.55 }
     // Úsek start–end v reálnej rýchlosti (speed < 1 spomalí), priblížený okolo cx/cy (podiel šírky/výšky), na celú plochu 9:16, bez vodoznaku.
+    // "smooth": true = plynulé spomalenie (medzisnímky na 60 fps), pozri nižšie.
+    // "warm": true dá záberu teplejší jesenný tón (viac oranžovej v stredných tónoch, jemne nižšia modrá).
     const clipPath = path.join(out, "clip.json");
     const clip = fs.existsSync(clipPath) ? JSON.parse(fs.readFileSync(clipPath, "utf8")) : null;
     const loopSec = Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path.join(media, watch.video)]));
@@ -124,7 +137,39 @@ if (watch.status === "sold") {
     const hookLines = hook.length > 30 ? [words.slice(0, half).join(" "), words.slice(half).join(" ")] : [hook];
     // Karta scenára: biely serif na tmavom polopriehľadnom podklade, zarovnaná vľavo, max. 2 riadky.
     const CARD_Y = 300;
-    async function card(file, text) {
+    // Stred elegantných textov: mierne vľavo, aby text nezasahoval do pravého pásu s tlačidlami Instagramu (posledných 230 px).
+    const ELEGANT_CX = 470;
+    // Elegantné texty začínajú vyššie (bezpečná zóna je od y 230), aby mali vzduch nad hodinkami.
+    const ELEGANT_Y = 240;
+    async function elegantCard(file, text, accent) {
+      const [main, italic] = text.split("|").map((t) => t.trim());
+      const size = 56;
+      const shadow = `<defs><filter id="s" x="-20%" y="-50%" width="140%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="${darkInk ? "#fff" : "#000"}" flood-opacity="${darkInk ? 0.4 : 0.55}"/></filter></defs>`;
+      const t = (y, body, attrs) => `<text x="${ELEGANT_CX}" y="${y}" text-anchor="middle" filter="url(#s)" ${attrs}>${xml(body)}</text>`;
+      let g = "";
+      let y = 24;
+      if (accent) {
+        g += t((y += 40), "FOLLOW FOR MORE", `font-family="Menlo, monospace" font-weight="bold" font-size="40" letter-spacing="6" fill="${darkInk ? "#b3261e" : "#f0574a"}"`);
+        y += 34;
+      }
+      g += t((y += size), main, `font-family="Georgia, serif" font-size="${size}" fill="${darkInk ? "#111111" : "#ffffff"}"`);
+      if (italic) g += t((y += size * 1.2), italic, `font-family="Georgia, serif" font-style="italic" font-size="${size}" fill="${darkInk ? "#111111" : "#ffffff"}" fill-opacity="0.92"`);
+      await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${Math.round(y + 40)}">${shadow}${g}</svg>`)).png().toFile(file);
+    }
+    async function card(file, text, accent = false) {
+      if (elegantCards) return elegantCard(file, text, accent);
+      // Zvýraznená výzva ako follow slajd v carouseloch: papier, červený mono štítok FOLLOW FOR MORE, pod ním text (handle).
+      if (accent) {
+        const label = 64 * 0.62;
+        const w = Math.round(Math.max(text.length * 64 * 0.5, 15 * label * 0.68) + 72);
+        const h = Math.round(label + 64 * 1.18 + 76);
+        await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${h}">
+          <rect x="60" y="0" width="${w}" height="${h}" fill="#f4f4f4" fill-opacity="0.96"/>
+          <rect x="60" y="0" width="8" height="${h}" fill="#b3261e"/>
+          <text x="96" y="${24 + label}" font-family="Menlo, monospace" font-size="${label}" letter-spacing="5" fill="#b3261e">FOLLOW FOR MORE</text>
+          <text x="96" y="${36 + label + 64}" font-family="Georgia, serif" font-size="64" fill="#111111">${xml(text)}</text></svg>`)).png().toFile(file);
+        return;
+      }
       const lines = [];
       for (const word of text.split(" ")) {
         const last = lines.at(-1);
@@ -136,29 +181,55 @@ if (watch.status === "sold") {
       const h = Math.round(lines.length * gap + 56);
       const w = Math.round(Math.max(...lines.map((l) => l.length)) * size * 0.5 + 72);
       await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${h}">
-        <rect x="60" y="0" width="${w}" height="${h}" rx="6" fill="#000000" fill-opacity="0.45"/>${lines
-          .map((l, i) => `<text x="96" y="${28 + size * 0.85 + i * gap}" font-family="Georgia, serif" font-size="${size}" fill="#ffffff">${xml(l)}</text>`)
+        <rect x="60" y="0" width="${w}" height="${h}" rx="${lightCards ? 0 : 6}" fill="${lightCards ? "#f4f4f4" : "#000000"}" fill-opacity="${lightCards ? 0.94 : 0.45}"/>${lines
+          .map((l, i) => `<text x="96" y="${28 + size * 0.85 + i * gap}" font-family="Georgia, serif" font-size="${size}" fill="${lightCards ? "#111111" : "#ffffff"}">${xml(l)}</text>`)
           .join("")}</svg>`)).png().toFile(file);
     }
     const titles = [];
     if (cards.length) {
-      for (const [i, c] of cards.entries()) titles.push({ file: path.join(out, `.card${i}.png`), text: c.text, start: c.start, dur: c.dur, y: CARD_Y });
+      for (const [i, c] of cards.entries()) titles.push({ file: path.join(out, `.card${i}.png`), text: c.text, accent: c.accent, start: c.start, dur: c.dur, y: c.y ?? (elegantCards ? ELEGANT_Y : CARD_Y) });
     } else {
       if (hook) titles.push({ file: path.join(out, ".hook.png"), lines: hookLines, size: 66, start: 0, dur: 2.5, y: 0 });
       titles.push({ file: path.join(out, ".title.png"), lines: [name], size: 52, start: hook ? 2.5 : 0, dur: 3, y: 0 });
     }
     for (const t of titles) {
-      if (t.text) await card(t.file, t.text);
+      if (t.text) await card(t.file, t.text, t.accent);
       else await band(t.file, t.lines, t.size);
       inputs.push("-loop", "1", "-t", String(t.dur), "-framerate", "30", "-i", t.file);
     }
     let graph = "";
+    // iPhone točí HDR (HLG, BT.2020). Bez prevodu by reel v SDR vyzeral vyblednutý; LUT (scripts/instagram/hlg-lut.mjs)
+    // prevedie farby ako Apple, ale na rozdiel od avconvert ponechá 60 fps.
+    let hdrToSdr = "";
+    if (clip) {
+      const trc = execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=color_transfer", "-of", "default=nw=1:nk=1", clip.file]).toString().trim();
+      if (trc === "arib-std-b67") {
+        const cube = path.join(out, ".hlg.cube");
+        execFileSync("node", [path.join(ROOT, "scripts/instagram/hlg-lut.mjs"), cube, String(clip.exposure ?? 0.45)]);
+        hdrToSdr = `scale=in_color_matrix=bt2020:in_range=tv,format=gbrpf32le,lut3d=file=${cube},scale=out_color_matrix=bt709:out_range=tv,format=yuv420p,`;
+      }
+    }
     if (clip) {
       const z = clip.zoom ?? 1;
       graph +=
         `[0:v]setpts=PTS/${clip.speed ?? 1},` +
         `crop=w=iw/${z}:h=ih/${z}:x=min(max(0\\,iw*${clip.cx ?? 0.5}-iw/${z}/2)\\,iw-iw/${z}):y=min(max(0\\,ih*${clip.cy ?? 0.5}-ih/${z}/2)\\,ih-ih/${z}),` +
-        `scale=${W}:${REEL_H},fps=${clip.fps ?? 30},setsar=1,format=yuv420p[v];`;
+        // "smooth": true dopočíta medzisnímky na 60 fps (pri spomalení, ktoré nedelí 60 fps záber bezo zvyšku, napr. 0,7×,
+        // by inak fps= vyhadzovalo snímky nerovnomerne a pohyb by trhal).
+        `scale=${W}:${REEL_H},${hdrToSdr}` +
+        // "push": { "from": 4, "zoom": 1.08 } = od času from (s, vo výslednom videu) pomaly priblíži až na zoom do konca klipu,
+        // aby dlhý statický záber nestál.
+        (clip.push
+          ? (() => {
+              // zoompan na 2× zväčšenom obraze, aby priblíženie neposkakovalo po celých pixeloch.
+              const rate = (60 * (clip.speed ?? 1)).toFixed(3);
+              const k = (clip.push.zoom - 1) / ((clip.end - clip.start) / (clip.speed ?? 1) - clip.push.from);
+              return `fps=${rate},scale=${W * 2}:${REEL_H * 2},zoompan=z='1+${k}*max(0\\,it-${clip.push.from})':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s=${W}x${REEL_H}:fps=${rate},`;
+            })()
+          : "") +
+        `${clip.smooth ? "minterpolate=fps=60:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1" : `fps=${clip.fps ?? 30}`},setsar=1,` +
+        (clip.warm ? `colorbalance=rm=0.08:gm=0.02:bm=-0.08:rh=0.04:bh=-0.05,eq=saturation=1.08,` : "") +
+        `format=yuv420p[v];`;
     } else for (let i = 0; i < n; i++) {
       graph +=
         `[${i}:v]split[a${i}][b${i}];` +
@@ -172,13 +243,18 @@ if (watch.status === "sold") {
     titles.forEach((t, i) => {
       graph +=
         // Prvá karta (háčik) je viditeľná hneď od prvého snímku, ostatné sa jemne objavia.
-        `[${n + 1 + i}:v]format=rgba,${t.start > 0 ? "fade=t=in:st=0:d=0.2:alpha=1," : ""}fade=t=out:st=${t.dur - 0.25}:d=0.25:alpha=1,setpts=PTS+${t.start}/TB[tt${i}];` +
+        // Elegantné texty sa vždy prelínajú 0,3 s dnu aj von.
+        `[${n + 1 + i}:v]format=rgba,${elegantCards ? "fade=t=in:st=0:d=0.3:alpha=1," : t.start > 0 ? "fade=t=in:st=0:d=0.2:alpha=1," : ""}fade=t=out:st=${t.dur - (elegantCards ? 0.3 : 0.25)}:d=${elegantCards ? 0.3 : 0.25}:alpha=1,setpts=PTS+${t.start}/TB[tt${i}];` +
         `[t${i}][tt${i}]overlay=0:${t.y}:eof_action=pass[t${i + 1}];`;
     });
     graph += `[t${titles.length}]format=yuv420p[out]`;
     execFileSync("ffmpeg", ["-y", "-v", "error", ...inputs, "-filter_complex", graph, "-map", "[out]",
-      "-an", "-c:v", "libx264", "-crf", "20", "-preset", "slow", "-movflags", "+faststart", path.join(out, "reel.mp4")]);
+      "-an", "-c:v", "libx264", "-crf", "20", "-preset", "slow", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
+      // značky aj priamo do H.264 streamu, inak ich ffmpeg pri výstupe z filtrov niekedy nezapíše
+      "-bsf:v", "h264_metadata=colour_primaries=1:transfer_characteristics=1:matrix_coefficients=1",
+      "-movflags", "+faststart", path.join(out, "reel.mp4")]);
     fs.rmSync(logoFile);
+    fs.rmSync(path.join(out, ".hlg.cube"), { force: true });
     for (const t of titles) fs.rmSync(t.file);
   }
 }

@@ -27,9 +27,9 @@ Agent pripravuje koncepty, zverejňuje ich majiteľ ručne. Publikovanie cez Met
 ## Reel
 
 - `clip.json`: vlastný záber z terénu (iPhone 4K/60 fps) namiesto loopu a fotiek: úsek v reálnej rýchlosti pri 60 fps, priblíženie
-  okolo hodiniek, bez vodoznaku (pozri komentár v scripts/instagram/draft.mjs). Zvuk sa vyhodí, hudbu pridá majiteľ.
+  okolo hodiniek, bez vodoznaku (pozri komentár v scripts/instagram/draft.mjs). Zvuk sa vyhodí, hudbu pridá majiteľ. HDR záber z iPhonu (HLG) sa prevedie do SDR automaticky cez LUT (scripts/instagram/hlg-lut.mjs, „exposure“ v clip.json, predvolene 0,45 ako Apple), pri 60 fps. Spomalenie 0,5× ide plynulo samo, iné (napr. 0,7×) potrebuje "smooth": true. "push": { "from": 4, "zoom": 1.08 } pomaly priblíži dlhý statický záber od daného času do konca. Trasenie ruky: `LOCK_FROM=3 node scripts/instagram/stabilize.mjs <záber> <výstup>` (od 3 s drží obraz na mieste, výstup má 90 % výrezu, v clip.json potom zoom × 0,9) (medzisnímky na 60 fps, render trvá pár minút).
 - `cards.txt` (prednostne): scenár z ig-reel, riadky „začiatok trvanie text“ (karta max. 6 slov). Karty idú v bezpečnej
-  zóne (y 300+, vľavo), video sa natiahne na ich dĺžku. Háčik vyber cez ig-reel/hookscore.py (cieľ 70+), časovanie cez beats.py.
+  zóne (y 300+, vľavo), video sa natiahne na ich dĺžku. Riadok „ink dark“ k nemu dá čierne písmo (na svetlé pozadie). Riadok „style elegant“ dá texty bez rámčeka na stred (serif, časť za „|“ kurzívou, tieň, prelnutia 0,3 s); „style light“ dá svetlé karty (papier, čierny text) ako na webe a v carouseloch. „!“ pred textom urobí follow kartu (štítok FOLLOW FOR MORE ako v carouseloch, pod ním text, napr. „!@unpolished.watches“). „@1050“ pred textom posunie kartu nižšie (napr. na vodu, keď hore zakrýva dominantu záberu). Háčik vyber cez ig-reel/hookscore.py (cieľ 70+), časovanie cez beats.py.
 - `hook.txt` v priečinku konceptu (staršie, ak nie je cards.txt): krátky anglický háčik (napr. „POV: a 1969 watch that hums instead of ticks“),
   ukáže sa prvé 2,5 s, potom 3 s názov hodiniek. Bez `hook.txt` len názov.
 - Hudbu pridáva majiteľ ručne v Instagrame (populárna skladba = vyšší dosah). Cez API len carousel a fotky.

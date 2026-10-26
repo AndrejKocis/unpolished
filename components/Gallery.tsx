@@ -68,7 +68,8 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
   };
 
   // Rovnaké `sizes` v karuseli aj v mriežke → prehliadač stiahne prvú fotku len raz.
-  const sizes = "(min-width: 1024px) 60vw, 100vw";
+  // Desktop: dve rovnako veľké fotky vedľa seba v ľavom stĺpci (~60 % šírky) → každá ~30vw.
+  const sizes = "(min-width: 1024px) 30vw, 100vw";
 
   return (
     <>
@@ -127,13 +128,14 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
             className={[
               "relative w-full bg-paper block",
               img.aspect === "square" ? "aspect-square" : "aspect-[4/5]",
-              i === 0 ? "col-span-2" : "",
             ].join(" ")}
             aria-label={`${dict.gallery.zoomAlt}: ${img.alt}`}
           >
             <Image src={img.src} alt={img.alt} fill sizes={sizes} className="object-cover" priority={i === 0} />
           </button>
         ))}
+        {/* Pri nepárnom počte fotiek doplní prázdne pole papierom, aby nebolo vidno sivé pozadie mriežky. */}
+        {images.length % 2 === 1 && <div className="bg-paper" aria-hidden="true" />}
       </div>
 
       {index !== null && (
