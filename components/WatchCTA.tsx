@@ -9,7 +9,7 @@ import { useLocale } from "@/components/LocaleProvider";
 import type { Watch } from "@/lib/schema";
 
 export function WatchCTA({ watch, sticky = false }: { watch: Watch; sticky?: boolean }) {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
   const [modalOpen, setModalOpen] = useState(false);
 
   const wrapperClass = sticky
@@ -64,6 +64,7 @@ export function WatchCTA({ watch, sticky = false }: { watch: Watch; sticky?: boo
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         prefilledMessage={`${dict.watchDetail.inquiryPrefix} ${watchLabel(watch)}.`}
+        offerCurrency={locale === "cs" ? "Kč" : "€"}
       />
     </>
   );

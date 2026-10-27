@@ -12,9 +12,11 @@ type Props = {
   open: boolean;
   onClose: () => void;
   prefilledMessage?: string;
+  // Pole „Váš návrh ceny“ len pri hodinkách na predaj; currency = mena podľa jazyka (€ / Kč).
+  offerCurrency?: string;
 };
 
-export function InquiryModal({ open, onClose, prefilledMessage = "" }: Props) {
+export function InquiryModal({ open, onClose, prefilledMessage = "", offerCurrency }: Props) {
   const { dict } = useLocale();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -48,6 +50,7 @@ export function InquiryModal({ open, onClose, prefilledMessage = "" }: Props) {
       await sendInquiry({ ...data, type: "inquiry" });
       setStatus("sent");
       track("inquiry-sent");
+      if (data.offer?.trim()) track("offer-sent");
       form.reset();
     } catch {
       setStatus("error");
@@ -91,6 +94,18 @@ export function InquiryModal({ open, onClose, prefilledMessage = "" }: Props) {
               rows={4}
               defaultValue={prefilledMessage}
             />
+            {offerCurrency && (
+              <>
+                <Input
+                  label={`${dict.watchDetail.offerLabel} (${offerCurrency}, ${dict.watchDetail.offerOptional})`}
+                  name="offer"
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="off"
+                />
+                <input type="hidden" name="currency" value={offerCurrency} />
+              </>
+            )}
             <input
               type="text"
               name="company"

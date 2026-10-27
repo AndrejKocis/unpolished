@@ -5,6 +5,9 @@ export type InquiryBody = {
   name?: string;
   email?: string;
   message?: string;
+  // Nepovinný návrh ceny z formulára pri hodinkách (suma + mena podľa jazyka webu).
+  offer?: string;
+  currency?: string;
   company?: string; // honeypot — musí ostať prázdne
 };
 
@@ -20,9 +23,10 @@ export function composeInquiryEmail(body: InquiryBody): InquiryEmail | { error: 
   if (!body.name || !body.email || !body.message) {
     return { error: "Vyplňte prosím všetky polia." };
   }
+  const offer = body.offer?.trim();
   return {
-    subject: `Dopyt od ${body.name}`,
-    text: `${body.message}\n\nOd: ${body.name} <${body.email}>`,
+    subject: offer ? `Dopyt + návrh ceny od ${body.name}` : `Dopyt od ${body.name}`,
+    text: `${body.message}${offer ? `\n\nNávrh ceny: ${offer} ${body.currency ?? ""}`.trimEnd() : ""}\n\nOd: ${body.name} <${body.email}>`,
     replyTo: body.email,
   };
 }
