@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { InquiryModal } from "@/components/InquiryModal";
 import { watchWhatsappLink } from "@/lib/constants";
-import { watchLabel } from "@/lib/format";
+import { formatPriceAmount, watchLabel } from "@/lib/format";
 import { useLocale } from "@/components/LocaleProvider";
 import type { Watch } from "@/lib/schema";
 
@@ -65,6 +65,7 @@ export function WatchCTA({ watch, sticky = false }: { watch: Watch; sticky?: boo
         onClose={() => setModalOpen(false)}
         prefilledMessage={`${dict.watchDetail.inquiryPrefix} ${watchLabel(watch)}.`}
         offerCurrency={locale === "cs" ? "Kč" : "€"}
+        offerPlaceholder={formatPriceAmount(watch, locale)}
       />
     </>
   );

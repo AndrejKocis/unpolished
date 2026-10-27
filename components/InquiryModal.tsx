@@ -14,9 +14,11 @@ type Props = {
   prefilledMessage?: string;
   // Pole „Váš návrh ceny“ len pri hodinkách na predaj; currency = mena podľa jazyka (€ / Kč).
   offerCurrency?: string;
+  // Sivá nápoveda v poli návrhu ceny (cena z webu bez meny).
+  offerPlaceholder?: string;
 };
 
-export function InquiryModal({ open, onClose, prefilledMessage = "", offerCurrency }: Props) {
+export function InquiryModal({ open, onClose, prefilledMessage = "", offerCurrency, offerPlaceholder }: Props) {
   const { dict } = useLocale();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -97,11 +99,13 @@ export function InquiryModal({ open, onClose, prefilledMessage = "", offerCurren
             {offerCurrency && (
               <>
                 <Input
-                  label={`${dict.watchDetail.offerLabel} (${offerCurrency}, ${dict.watchDetail.offerOptional})`}
+                  label={`${dict.watchDetail.offerLabel} (${dict.watchDetail.offerOptional})`}
+                  suffix={offerCurrency}
                   name="offer"
                   type="text"
                   inputMode="numeric"
                   autoComplete="off"
+                  placeholder={offerPlaceholder}
                 />
                 <input type="hidden" name="currency" value={offerCurrency} />
               </>

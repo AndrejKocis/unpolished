@@ -5,6 +5,11 @@ import type { Watch } from "@/lib/schema";
 const INTL_LOCALE: Record<Locale, string> = { cs: "cs-CZ", sk: "sk-SK", en: "en-IE" };
 
 // Česká verzia ukazuje cenu v Kč (priceCzk), slovenská a anglická v eurách (price).
+// Suma bez meny (napr. „22 000“ / „900“), napr. ako nápoveda v poli návrhu ceny.
+export function formatPriceAmount(watch: Pick<Watch, "price" | "priceCzk">, locale: Locale): string {
+  return new Intl.NumberFormat(INTL_LOCALE[locale], { maximumFractionDigits: 0 }).format(locale === "cs" ? watch.priceCzk : watch.price);
+}
+
 export function formatWatchPrice(watch: Pick<Watch, "price" | "priceCzk" | "currency">, locale: Locale): string {
   const [amount, currency] = locale === "cs" ? [watch.priceCzk, "CZK"] : [watch.price, watch.currency];
   return new Intl.NumberFormat(INTL_LOCALE[locale], {
